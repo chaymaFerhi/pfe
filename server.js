@@ -1,6 +1,12 @@
 const express = require('express') ;
 require('./config/connect');
 const User = require('./models/user');
+const Compagnie= require('./models/compagnie');
+const Ville = require('./models/ville');
+const Voyage= require('./models/voyage');
+const Echange = require('./models/echange');
+const Station = require('./models/station');
+const Reservation = require('./models/reservation');
 
 const app= express();
 app.use(express.json()); 
