@@ -1,45 +1,32 @@
 const express = require('express') ;
 require('./config/connect');
-const User = require('./models/user');
-const Compagnie= require('./models/compagnie');
+const UserRoute = require('./routes/user');
+const CompagnieRoute = require('./routes/compagnie');
+const ReservationRoute = require('./routes/reservation');
+const VoyageRoute = require('./routes/voyage');
 const Ville = require('./models/ville');
-const Voyage= require('./models/voyage');
 const Echange = require('./models/echange');
 const Station = require('./models/station');
-const Reservation = require('./models/reservation');
 
 const app= express();
 app.use(express.json()); 
 
-app.post( '/add', (req,res)=>{
-    data=req.body;  //importation des donnés a partir du body
-   /* usr= new User(data); //instance de user
-    usr.save() //pour enregesitrer dans la base
-    .then (
-        (savedUser)=>{
-            res.send(savedUser)
-        }
-    )
-    .catch(
-        (err)=>{
-            res.send(err)
-        }
-    )*/
-    console.log(data);
-    
-    
-});
 
+app.use('/compagnie',CompagnieRoute);
+app.use('/reservation',ReservationRoute);
+app.use('/user',UserRoute);
+app.use('/voyage',VoyageRoute);
+/*
 app.post('/create', async (req,res)=>{
     try {
         data=req.body;
     usr= new User(data);
     savedUser= await usr.save()
-    res.send(savedUser)
+    res.status(200).send(savedUser)
         
     } catch (error) {
         (err)=>{
-            res.send(err)
+            res.status(400).send(err)
         }
         
     }
@@ -141,6 +128,8 @@ app.put( '/update/:id', async(req,res)=>{
     
     
 });
+
+*/
 
 app.listen( 3000, ()=>{
     console.log('server work');
