@@ -2,10 +2,10 @@ const mongoose= require('mongoose');
 
 const User = mongoose.model('User',{
 
-    nom: {
+    name: {
         type: String
     },
-    prenom: {
+    lastname: {
         type: String
     },
     age: {
@@ -14,8 +14,9 @@ const User = mongoose.model('User',{
     email:{
         type: String
     },
-    NumTel: {
-        type: Number
+    
+    password:{
+        type: String
     },
 }
 )
