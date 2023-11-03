@@ -1,0 +1,191 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Header -->
+    <div class="flex flex-col shadow bg-card">
+
+        <!-- Cover image -->
+        <div>
+            <img
+                class="h-40 lg:h-80 object-cover"
+                src="assets/images/pages/profile/cover.jpg"
+                alt="Cover image">
+        </div>
+
+        <!-- User info -->
+        <div class="flex flex-col flex-0 lg:flex-row items-center max-w-5xl w-full mx-auto px-8 lg:h-18 bg-card">
+
+            <!-- Avatar -->
+            <div class="-mt-26 lg:-mt-22 rounded-full">
+                <img
+                    class="w-32 h-32 rounded-full ring-4 ring-bg-card"
+                    src="assets/images/avatars/male-04.jpg"
+                    alt="User avatar">
+            </div>
+
+            <!-- Details -->
+            <div class="flex flex-col items-center lg:items-start mt-4 lg:mt-0 lg:ml-8">
+                <div class="text-lg font-bold leading-none">Amin Tounsi</div>
+                <div class="text-secondary">Tunis, Tunisia</div>
+            </div>
+
+            <!-- Separator -->
+            <div class="hidden lg:flex h-8 mx-8 border-l-2"></div>
+
+            <!-- Stats -->
+            <div class="flex items-center mt-6 lg:mt-0 space-x-6">
+                <div class="flex flex-col items-center">
+                    <!--                    <span class="font-bold">200k</span>-->
+                    <span class="text-sm font-medium text-secondary">English student</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <!--                    <span class="font-bold">1.2k</span>-->
+                    <!--                    <span class="text-sm font-medium text-secondary">FOLLOWING</span>-->
+                </div>
+            </div>
+
+            <!-- Menu -->
+            <div class="flex items-center mt-8 mb-4 lg:m-0 lg:ml-auto space-x-6">
+                <a
+                    class="font-medium"
+                    [routerLink]="['./']">
+                    Home
+                </a>
+                <a
+                    class="text-secondary"
+                    [routerLink]="['./']">
+                    About
+                </a>
+                <a
+                    class="text-secondary"
+                    [routerLink]="['./']">
+                    Courses
+                </a>
+                <!--                <a-->
+                <!--                    class="text-secondary"-->
+                <!--                    [routerLink]="['./']">-->
+                <!--                    Gallery-->
+                <!--                </a>-->
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Main -->
+    <div class="flex flex-auto justify-center w-full max-w-5xl mx-auto p-6 sm:p-8">
+
+        <!-- Column -->
+        <div class="hidden lg:flex flex-row items-start ">
+
+            <!-- About me -->
+            <fuse-card class="flex flex-col max-w-80 w-full p-8 mr-2">
+                <div class="text-2xl font-semibold leading-tight">About Me</div>
+                <div class="mt-4">Student in IHEC</div>
+                <hr class="w-full border-t my-6">
+                <div class="flex flex-col">
+                    <div class="flex items-center">
+                        <mat-icon
+                            class="icon-size-5 mr-3"
+                            [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                        <span class="leading-none">Tunis</span>
+                    </div>
+                    <div class="flex items-center mt-4">
+                        <mat-icon
+                            class="icon-size-5 mr-3"
+                            [svgIcon]="'heroicons_solid:briefcase'"></mat-icon>
+                        <span class="leading-none">ACME Corp. Lead UX Designer</span>
+                    </div>
+                    <div class="flex items-center mt-4">
+                        <mat-icon
+                            class="icon-size-5 mr-3"
+                            [svgIcon]="'heroicons_solid:cake'"></mat-icon>
+                        <span class="leading-none">April, 24</span>
+                    </div>
+                </div>
+                <button
+                    class="px-6 mt-8"
+                    mat-flat-button
+                    [color]="'primary'"
+                    [routerLink]="['./']">
+                    See complete bio
+                </button>
+            </fuse-card>
+
+
+            <!-- Groups -->
+            <fuse-card class="flex flex-col max-w-80 w-full  px-8 pt-6 pb-4">
+                <div class="flex items-center justify-between">
+                    <div class="text-2xl font-semibold leading-tight">Courses</div>
+                    <div class="-mr-3">
+                        <button
+                            mat-icon-button
+                            [matMenuTriggerFor]="listCard02Menu">
+                            <mat-icon
+                                class="icon-size-5"
+                                [svgIcon]="'heroicons_solid:dots-vertical'"></mat-icon>
+                        </button>
+                        <mat-menu #listCard02Menu="matMenu">
+                            <button mat-menu-item>Search for groups</button>
+                        </mat-menu>
+                    </div>
+                </div>
+                <div class="flex flex-col mt-5">
+                    <div class="flex items-center">
+                        <img
+                            class="w-14 h-14 mr-4 rounded object-cover"
+                            src="assets/images/cards/coffee-shop-01-320x200.jpg"
+                            alt="Card cover image">
+                        <div class="flex flex-col min-w-0">
+                            <div class="font-medium leading-none">English Grammer</div>
+                            <div class="text-md truncate leading-none mt-1">Best grammer courses</div>
+                            <div class="text-md leading-none text-secondary mt-2">1.2k views</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center mt-6">
+                        <img
+                            class="w-14 h-14 mr-4 rounded object-cover"
+                            src="assets/images/cards/coffee-shop-02-512x512.jpg"
+                            alt="Card cover image">
+                        <div class="flex flex-col min-w-0">
+                            <div class="font-medium leading-none">English speaking</div>
+                            <div class="text-md truncate leading-none mt-1">UI/UX, brand and product design</div>
+                            <div class="text-md leading-none text-secondary mt-2">957 followers</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center mt-6">
+                        <img
+                            class="w-14 h-14 mr-4 rounded object-cover"
+                            src="assets/images/cards/coffee-shop-03-320x320.jpg"
+                            alt="Card cover image">
+                        <div class="flex flex-col min-w-0">
+                            <div class="font-medium leading-none">Crax Laser Tag</div>
+                            <div class="text-md truncate leading-none mt-1">30% off with group of 6 people</div>
+                            <div class="text-md leading-none text-secondary mt-2">342 followers</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center mt-6">
+                        <img
+                            class="w-14 h-14 mr-4 rounded object-cover"
+                            src="assets/images/cards/sneakers-01-320x200.jpg"
+                            alt="Card cover image">
+                        <div class="flex flex-col min-w-0">
+                            <div class="font-medium leading-none">Roadster Clothing Inc.</div>
+                            <div class="text-md truncate leading-none mt-1">$25 off on orders $500 and over</div>
+                            <div class="text-md leading-none text-secondary mt-2">4.7k followers</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center mt-6 -mx-3">
+                    <button
+                        class="px-3"
+                        mat-button
+                        [color]="'primary'"
+                        [routerLink]="['./']">
+                        See all groups
+                    </button>
+                </div>
+            </fuse-card>
+        </div>
+    </div>
+
+</div>

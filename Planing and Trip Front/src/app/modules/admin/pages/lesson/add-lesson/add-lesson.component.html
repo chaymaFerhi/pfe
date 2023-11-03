@@ -1,0 +1,50 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <div class="flex-auto p-6 sm:p-10">
+        <div class="max-w-3xl">
+            <mat-vertical-stepper class="current-step" [linear]="true" #verticalStepper="matVerticalStepper">
+                <mat-step
+                    [stepControl]="step1.lessonForm" errorMessage="Quiz in error">
+                    <ng-template matStepLabel>Lesson details</ng-template>
+
+                    <app-add-lesson-details #step1></app-add-lesson-details>
+                    <div class="flex justify-end">
+                        <button class="px-8 mr-2" mat-flat-button [color]="'accent'"
+                                type="button"
+                                matStepperNext>
+                            Next
+                        </button>
+
+                    </div>
+                </mat-step>
+
+                <mat-step [stepControl]="step2.form" errorMessage="Quiz in error">
+                    <div class="flex flex-col flex-auto mt-8 bg-card shadow rounded overflow-hidden">
+
+                        <ng-template matStepLabel>Lesson section details</ng-template>
+                        <app-add-lesson-sections #step2></app-add-lesson-sections>
+
+                    </div>
+                </mat-step>
+
+                <mat-step [stepControl]="step3.lessonForm" errorMessage="Quiz in error">
+                    <ng-template matStepLabel>Upload files</ng-template>
+
+                    <app-add-lesson-files-upload #step3></app-add-lesson-files-upload>
+                    <div class="flex justify-end my-6">
+                        <button class="px-8 mr-2" mat-flat-button [color]="'warn'"
+                                type="button"
+                                matStepperPrevious>
+                            Back
+                        </button>
+                        <button [disabled]="!step3.lessonForm.valid || step2.sections.length === 0 " class="px-8"
+                                mat-flat-button
+                                [color]="'primary'" type="button"
+                                (click)="createLesson(step1,step2,step3)">
+                            Confirm
+                        </button>
+                    </div>
+                </mat-step>
+            </mat-vertical-stepper>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="p-8 pb-4">
+    <div class="flex flex-col gt-xs:flex-row gt-xs:items-baseline">
+        <div>
+            <form [formGroup]="form">
+                <ng-container formArrayName="sections">
+
+                    <ng-container *ngFor="let sectionForm of sections.controls ; let i = index; "
+                                  [formGroup]="sectionForm">
+                        <div class="p-2 bg-gray-50 dark:bg-gray-700 flex justify-between align-middle">
+                            <p class="text-lg font-medium">Section {{i + 1}}</p>
+
+                            <mat-icon class="icon-size-5" matPrefix
+                                      [svgIcon]="'heroicons_solid:trash'" (click)="deleteSection(i)"></mat-icon>
+                        </div>
+                        <mat-divider></mat-divider>
+                        <div class="flex">
+                            <mat-form-field class="flex-1">
+                                <input matInput [formControlName]="'title'" [placeholder]="'Add title'" maxlength="255"
+                                       required>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex">
+                            <mat-form-field class="flex-auto">
+                                <input matInput [formControlName]="'subTitle'" [placeholder]="'Add subTitle'" maxlength="255"
+                                       required>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex">
+                            <mat-form-field class="flex-auto">
+                                <textarea
+                                    matInput
+                                    [rows]="3" [formControlName]="'description'" [placeholder]="'Add description'"
+                                    matTextareaAutosize required> </textarea>
+                            </mat-form-field>
+                        </div>
+
+                    </ng-container>
+                </ng-container>
+                <div class="flex justify-end my-6 font-medium" >
+
+
+                    <button class="px-8 mr-2" mat-flat-button [color]="'primary'" *ngIf="index<10"
+                            type="button" #mainPage
+                            (click)="addSection($event)">
+                        Add
+                    </button>
+                    <button [disabled]="sections.length === 0" class="px-8 mr-2" mat-flat-button [color]="'accent'"
+                            type="button"
+                            matStepperNext id="mainPage">
+                        Next
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

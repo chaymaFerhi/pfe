@@ -1,0 +1,166 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <div
+        class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!-- Breadcrumbs -->
+            <div class="flex flex-wrap items-center font-medium">
+                <div>
+                    <a class="whitespace-nowrap text-primary-500">Course management</a>
+                </div>
+                <div class="flex items-center ml-1 whitespace-nowrap">
+                    <mat-icon
+                        class="icon-size-5 text-secondary"
+                        [svgIcon]="'heroicons_solid:chevron-right'"></mat-icon>
+                    <a class="ml-1 text-primary-500">Add</a>
+                </div>
+            </div>
+            <!-- Title -->
+            <!--            <div class="mt-2">-->
+            <!--                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">-->
+            <!--                    Layouts-->
+            <!--                </h2>-->
+            <!--            </div>-->
+        </div>
+    </div>
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10">
+        <div class="max-w-3xl">
+            <!-- Sectioned form with separate cards #3 -->
+            <form [formGroup]="courseForm">
+                <div class="flex flex-col  bg-card shadow rounded overflow-hidden">
+                    <div class="p-8 bg-gray-50 dark:bg-gray-700">
+                        <p class="text-lg font-medium">Course details</p>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <div class="p-8 pb-4">
+                        <div class="flex flex-col gt-xs:flex-row gt-xs:items-baseline">
+                            <span class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4
+                            gt-xs:mb-0">Title</span>
+                            <mat-form-field class="fuse-mat-dense flex-auto">
+                                <input matInput [formControlName]="'title'" placeholder="Add course title" maxlength="255">
+                                <mat-error *ngIf="courseForm.controls.title.hasError('required')">
+                                    Title required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col gt-xs:flex-row gt-xs:items-baseline">
+                            <span class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4
+                            gt-xs:mb-0">Description</span>
+                            <mat-form-field class="fuse-mat-dense flex-auto">
+                                <textarea matInput [formControlName]="'description'" rows="2"
+                                          placeholder="Ajouter la description de cours"></textarea>
+                                <mat-error *ngIf="courseForm.controls.description.hasError('required')">
+                                    Description est obligatoire
+                                </mat-error>
+
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col gt-xs:flex-row gt-xs:items-baseline">
+                            <span class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4 gt-xs:mb-0">Trainer</span>
+                            <mat-form-field class="fuse-mat-dense flex-auto">
+                                <mat-select [value]="'Choose the trainer'" [formControlName]="'trainer'">
+                                    <mat-option [value]="'Choose the trainer'">Choose the trainer</mat-option>
+                                    <ng-container *ngIf="(trainers$ | async) as trainers">
+                                        <ng-container *ngIf="trainers.length > 0; else noTrainers">
+                                            <ng-container *ngFor="let trainer of trainers; trackBy: trackByFn">
+                                                <mat-option [value]="trainer">{{trainer.users?.username}}</mat-option>
+                                            </ng-container>
+                                        </ng-container>
+                                    </ng-container>
+                                </mat-select>
+                                <ng-template #noTrainers>
+                                    <div
+                                        class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">
+                                        There are no trainers! <span>Add a<a [routerLink]="['/pages/add-trainer']">trainer</a></span>
+                                    </div>
+                                </ng-template>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col gt-xs:flex-row gt-xs:items-baseline">
+                            <span class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4 gt-xs:mb-0">Category</span>
+                            <mat-form-field class="fuse-mat-dense flex-auto">
+                                <mat-select [value]="'Choose the category'" [formControlName]="'category'">
+                                    <mat-option [value]="'grammar'">Grammar</mat-option>
+                                    <mat-option [value]="'vocabulary'">Vocabulary</mat-option>
+                                    <mat-option [value]="'skills'">Skills</mat-option>
+                                    <mat-option [value]="'general-english'">General English</mat-option>
+                                </mat-select>
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col flex-auto mt-8 bg-card shadow rounded overflow-hidden">
+                    <div class="p-8 bg-gray-50 dark:bg-gray-700">
+                        <p class="text-lg font-medium">Fichier</p>
+                        <p class="text-secondary">Veuillez ajouter la photo de couverture</p>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <div class="p-8 pb-4">
+                        <div class="flex flex-col gt-xs:flex-row gt-xs:items-baseline">
+                            <span class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4 gt-xs:mb-0">Cover upload</span>
+                            <div>
+                                <input
+                                    id="image-file-input"
+                                    class="absolute h-0 w-0 opacity-0 invisible pointer-events-none"
+                                    type="file"
+                                    [accept]="'image/jpeg, image/png'"
+                                    (change)="uploadImage(imageFileInput.files)"
+                                    #imageFileInput>
+                                <label
+                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-gray-400 hover:bg-opacity-20 dark:hover:bg-black dark:hover:bg-opacity-5"
+                                    for="image-file-input"
+                                    matRipple>
+                                    <mat-icon [svgIcon]="'heroicons_outline:photograph'"></mat-icon>
+                                </label>
+                                <mat-error *ngIf="courseForm.controls.coverFile.hasError('required')">
+                                    Picture required
+                                </mat-error>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-8 pb-4">
+                        <div class="flex flex-col gt-xs:flex-row gt-xs:items-baseline">
+                            <span class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4 gt-xs:mb-0">Video upload</span>
+                            <div>
+                                <input
+                                    id="video-file-input"
+                                    class="absolute h-0 w-0 opacity-0  pointer-events-none"
+                                    type="file"
+                                    [accept]="'video/mp4'"
+
+                                    (change)="uploadVideo(videoFileInput.files)"
+                                    #videoFileInput>
+                                <label
+                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-gray-400 hover:bg-opacity-20 dark:hover:bg-black dark:hover:bg-opacity-5"
+                                    for="video-file-input"
+                                    matRipple>
+                                    <mat-icon [svgIcon]="'heroicons_outline:photograph'"></mat-icon>
+                                </label>
+                                <mat-error *ngIf="courseForm.controls.videoFile.hasError('required')">
+                                    Video required
+                                </mat-error>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-end mt-10">
+                    <button mat-button>
+                        Cancel
+                    </button>
+                    <button (click)="createCourse()"
+                            class="px-6 ml-3"
+                            mat-flat-button
+                            [disabled]="!courseForm.valid"
+                            [color]="'primary'">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
