@@ -127,8 +127,8 @@ export const appRoutes: Route[] = [
     // Admin routes
     {
         path: '',
-        canActivate: [AuthGuard],
-        canActivateChild: [AuthGuard],
+        // canActivate: [AuthGuard],
+        // canActivateChild: [AuthGuard],
         component: LayoutComponent,
         resolve: {
             initialData: InitialDataResolver,
@@ -162,8 +162,8 @@ export const appRoutes: Route[] = [
             // Pages
             {
                 path: 'pages',
-                canActivate: [AuthGuard],
-                canActivateChild: [AuthGuard],
+                // canActivate: [AuthGuard],
+                // canActivateChild: [AuthGuard],
                 children: [
 
                     // Activities
@@ -172,19 +172,19 @@ export const appRoutes: Route[] = [
                         loadChildren: () => import('app/modules/admin/pages/activities/activities.module').then(m => m.ActivitiesModule)
                     },
                     {
-                        path: 'add-course',
+                        path: 'add-station',
                         canActivate: [AuthGuard],
                         data: {
                             role: roleAdmin
                         },
-                        loadChildren: () => import('app/modules/admin/pages/course/add-course/add-course.module').then(m => m.AddCourseModule)
+                        loadChildren: () => import('app/modules/admin/pages/station/add-station/add-station.module').then(m => m.AddStationModule)
                     },
                     {
-                        path: 'show-courses',
+                        path: 'show-stations',
                         data: {
                             role: roleAdmin
                         },
-                        loadChildren: () => import('app/modules/admin/pages/course/show-courses/show-courses.module').then(m => m.ShowCoursesModule)
+                        loadChildren: () => import('app/modules/admin/pages/station/show-stations/show-stations.module').then(m => m.ShowStationsModule)
                     },
                     {
                         path: 'add-quiz/:idLesson',
@@ -301,10 +301,10 @@ export const appRoutes: Route[] = [
                     },
 
                     // Fuse Components
-                    {
-                        path: 'fuse-components',
-                        loadChildren: () => import('app/modules/admin/ui/fuse-components/fuse-components.module').then(m => m.FuseComponentsModule)
-                    },
+                    // {
+                    //     path: 'fuse-components',
+                    //     loadChildren: () => import('app/modules/admin/ui/fuse-components/fuse-components.module').then(m => m.FuseComponentsModule)
+                    // },
 
                     // Other Components
                     {

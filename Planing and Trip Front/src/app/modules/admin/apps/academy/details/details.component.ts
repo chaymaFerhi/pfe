@@ -15,8 +15,8 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {FuseMediaWatcherService} from '@fuse/services/media-watcher';
 import {AcademyService} from 'app/modules/admin/apps/academy/academy.service';
-import {CoursesService} from '../../../../../shared/service/courses.service';
-import {Courses} from '../../../../../shared/model/courses.types';
+import {StationsService} from '../../../../../shared/service/stations.service';
+import {Station} from '../../../../../shared/model/stations.types';
 import {Category} from '../../../../../shared/model/category.types';
 import {LessonsService} from '../../../../../shared/service/lessons.service';
 import {Lessons} from '../../../../../shared/model/lessons.types';
@@ -33,7 +33,7 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
     @ViewChild('courseSteps', {static: true}) courseSteps: MatTabGroup;
     name = 'Angular';
     categories: Category[];
-    course: Courses;
+    course: Station;
     lessons: Lessons[];
     sections: any = [];
     currentStep: number = 0;
@@ -49,7 +49,7 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
     constructor(
         @Inject(DOCUMENT) private _document: Document,
         private _academyService: AcademyService,
-        private _coursesService: CoursesService,
+        private _coursesService: StationsService,
         private _lessonsService: LessonsService,
         private _changeDetectorRef: ChangeDetectorRef,
         private _elementRef: ElementRef,
@@ -80,7 +80,7 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
         // Get the course
         this._coursesService.course$
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((course: Courses) => {
+            .subscribe((course: Station) => {
                 // Get the course
                 this.course = course;
                 // Go to step

@@ -13,7 +13,7 @@ export const environment = {
     lessons: 'lessons',
     trainers: 'trainers',
     skills: 'skills',
-    courses: 'courses',
+    stations: 'stations',
     quizs: 'quizs',
     steps: 'steps',
     activeUser: 'activeUser'

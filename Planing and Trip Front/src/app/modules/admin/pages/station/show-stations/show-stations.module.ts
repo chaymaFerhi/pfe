@@ -1,22 +1,22 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
-import {ShowCoursesRoutingModule} from './show-courses-routing.module';
-import {ShowCoursesComponent} from './show-courses.component';
+import {ShowStationsRoutingModule} from './show-stations-routing.module';
+import {ShowStationsComponent} from './show-stations.component';
 import {MaterialModule} from '../../../../../shared/material/material.module';
 import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
     declarations: [
-        ShowCoursesComponent
+        ShowStationsComponent
     ],
     imports: [
         CommonModule,
-        ShowCoursesRoutingModule,
+        ShowStationsRoutingModule,
         MaterialModule,
         ReactiveFormsModule
     ]
 })
-export class ShowCoursesModule {
+export class ShowStationsModule {
 }

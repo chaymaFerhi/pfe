@@ -13,7 +13,7 @@ export class ApiService {
     public static apiPicture = environment.apiImg;
     public static apiUser = environment.users;
     public static apiSKills = environment.skills;
-    public static apiCourses = environment.courses;
+    public static apiStations = environment.stations;
     public static apiLessons = environment.lessons;
     public static apiTrainer = environment.trainers;
     public static apiQuiz = environment.quizs;

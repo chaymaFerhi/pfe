@@ -1,12 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AddCourseComponent} from './add-course.component';
+import {AddStationComponent} from './add-station.component';
 
 import {TrainersResolvers} from '../../../../../shared/resolver/trainers.resolvers';
 
 const routes: Routes = [{
     path: '',
-    component: AddCourseComponent,
+    component: AddStationComponent,
     resolve: {
         trainers: TrainersResolvers,
     }
@@ -16,5 +16,5 @@ const routes: Routes = [{
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class AddCourseRoutingModule {
+export class AddStationRoutingModule {
 }

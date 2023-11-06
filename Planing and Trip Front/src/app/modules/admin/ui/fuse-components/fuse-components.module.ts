@@ -58,6 +58,9 @@ import { fuseComponentsRoutes } from 'app/modules/admin/ui/fuse-components/fuse-
         FindByKeyComponent,
         MustMatchComponent
     ],
+    exports: [
+        DateRangeComponent
+    ],
     imports: [
         RouterModule.forChild(fuseComponentsRoutes),
         MatButtonModule,

@@ -1,27 +1,27 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
-import {CoursesService} from '../../../../../shared/service/courses.service';
+import {StationsService} from '../../../../../shared/service/stations.service';
 import {Observable, Subject} from 'rxjs';
 import {Trainers} from '../../../../../shared/model/trainers.types';
 import {TrainerService} from '../../../../../shared/service/trainer.service';
 import {Router} from '@angular/router';
-import {Courses} from '../../../../../shared/model/courses.types';
+import {Station} from '../../../../../shared/model/stations.types';
 
 @Component({
-    selector: 'app-add-course',
-    templateUrl: './add-course.component.html',
-    styleUrls: ['./add-course.component.scss']
+    selector: 'app-add-station',
+    templateUrl: './add-station.component.html',
+    styleUrls: ['./add-station.component.scss']
 })
-export class AddCourseComponent implements OnInit, OnDestroy {
+export class AddStationComponent implements OnInit, OnDestroy {
     courseForm: FormGroup;
-    course: Courses;
+    course: Station;
     trainers$: Observable<Trainers[]>;
     notCorrectType = false;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     constructor(private _formBuilder: FormBuilder,
                 private _changeDetectorRef: ChangeDetectorRef,
-                private _courseService: CoursesService,
+                private _courseService: StationsService,
                 private _router: Router,
                 private _trainerService: TrainerService,
     ) {
@@ -59,10 +59,10 @@ export class AddCourseComponent implements OnInit, OnDestroy {
         fd.append('videoFile', this.courseForm.value.videoFile);
         fd.append('coverFile', this.courseForm.value.coverFile);
         // Create the product
-        this._courseService.addCourse(fd).subscribe((newCourse) => {
+        this._courseService.addStation(fd).subscribe((newCourse) => {
             // Mark for check
             this._changeDetectorRef.markForCheck();
-            this._router.navigate(['pages/show-courses']);
+            this._router.navigate(['pages/show-stations']);
 
         });
     }

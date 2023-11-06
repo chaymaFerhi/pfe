@@ -22,14 +22,14 @@
                     matInput
                     [formControl]="searchInputControl"
                     [autocomplete]="'off'"
-                    [placeholder]="'Search courses'">
+                    [placeholder]="'Search stations'">
             </mat-form-field>
             <!-- Add product button -->
             <button
                 class="ml-4"
                 mat-flat-button
                 [color]="'primary'"
-                [routerLink]="['/pages/add-course']">
+                [routerLink]="['/pages/add-station']">
                 <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
                 <span class="ml-2 mr-1">Add</span>
             </button>
@@ -40,8 +40,8 @@
     <div class="flex flex-auto overflow-hidden">
         <!-- Trainers list -->
         <div class="flex flex-col flex-auto sm:mb-18 overflow-hidden sm:overflow-y-auto">
-            <ng-container *ngIf="(courses$ | async) as courses">
-                <ng-container *ngIf="courses.length > 0; else noCourses">
+            <ng-container *ngIf="(stations$ | async) as stations">
+                <ng-container *ngIf="stations.length > 0; else noCourses">
                     <div class="grid">
                         <!-- Header -->
                         <div
@@ -67,8 +67,8 @@
                             <div class="hidden sm:block">Actions</div>
                         </div>
                         <!-- Rows -->
-                        <ng-container *ngIf="(courses$ | async) as courses">
-                            <ng-container *ngFor="let course of courses; trackBy: trackByFn">
+                        <ng-container *ngIf="(stations$ | async) as stations">
+                            <ng-container *ngFor="let station of stations; trackBy: trackByFn">
                                 <div class="inventory-grid grid items-center gap-4 py-3 px-6 md:px-8 border-b">
 
                                     <!-- Image -->
@@ -77,12 +77,12 @@
                                             class="relative flex flex-0 items-center justify-center w-12 h-12 mr-6 rounded overflow-hidden border">
                                             <img
                                                 class="w-8"
-                                                *ngIf="course.coverName"
+                                                *ngIf="station.coverName"
                                                 [alt]="'Product thumbnail image'"
-                                                [src]="apiImg+''+course.coverName">
+                                                [src]="apiImg+''+station.coverName">
                                             <div
                                                 class="flex items-center justify-center w-full h-full text-xs font-semibold leading-none text-center uppercase"
-                                                *ngIf="!course.coverName">
+                                                *ngIf="!station.coverName">
                                                 NO THUMB
                                             </div>
                                         </div>
@@ -90,18 +90,18 @@
 
                                     <!-- SKU -->
                                     <div class="hidden md:block truncate">
-                                        {{course.title}}
+                                        {{station.title}}
                                     </div>
                                     <div class="hidden md:block truncate">
-                                        {{course.description}}
+                                        {{station.description}}
                                     </div>
 
                                     <!-- Name -->
                                     <div class="truncate">
-                                        {{course?.trainer?.users?.username}}
+                                        {{station?.trainer?.users?.username}}
                                     </div>
                                     <div class="truncate">
-                                        {{course?.type}}
+                                        {{station?.type}}
                                     </div>
 
                                     <!-- Price -->
@@ -113,7 +113,7 @@
                                         <button
                                             class="min-w-10 min-h-7 h-7 px-2 leading-6"
                                             mat-stroked-button
-                                            (click)="deleteSelectedCourse(course)">
+                                            (click)="deleteSelectedCourse(station)">
                                             <mat-icon
                                                 class="icon-size-5"
                                                 [svgIcon]="'heroicons_solid:x'"></mat-icon>
@@ -140,7 +140,7 @@
 
             <ng-template #noCourses>
                 <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">There are no
-                    course!
+                    station!
                 </div>
             </ng-template>
 

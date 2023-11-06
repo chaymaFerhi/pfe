@@ -15,7 +15,7 @@ const AppError = require('./src/utils/appError');
 const globalErrorHandler = require('./src/controllers/errorController');
 // const tourRouter = require('./src/routes/tourRoutes');
 const userRouter = require('./src/routes/userRoutes');
-// const reviewRouter = require('./src/routes/reviewRoutes');
+const stationsRouter = require('./src/routes/stationsRoutes');
 // const bookingRouter = require('./src/routes/bookingRoutes');
 // const bookingController = require('./src/controllers/bookingController');
 // const viewRouter = require('./src/routes/viewRoutes');
@@ -83,7 +83,7 @@ app.use((req, res, next) => {
 // app.use('/', viewRouter);
 // app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
-// app.use('/api/v1/reviews', reviewRouter);
+app.use('/api/v1/stations', stationsRouter);
 // app.use('/api/v1/bookings', bookingRouter);
 // app.use('/api/v1/posts', postRouter);
 

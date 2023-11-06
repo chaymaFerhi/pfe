@@ -5,7 +5,7 @@ import {Steps} from '../model/steps.types';
 import {map, switchMap, take, tap} from 'rxjs/operators';
 import {InventoryPagination} from '../../modules/admin/apps/ecommerce/inventory/inventory.types';
 import {HttpClient} from '@angular/common/http';
-import {CoursesService} from "./courses.service";
+import {StationsService} from "./stations.service";
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +16,7 @@ export class StepService {
     private _step: BehaviorSubject<Steps | null> = new BehaviorSubject(null);
     step:any;
     constructor(private _apiService: ApiService,
-                private _courseService: CoursesService,
+                private _courseService: StationsService,
                 private _httpClient: HttpClient) {
     }
 

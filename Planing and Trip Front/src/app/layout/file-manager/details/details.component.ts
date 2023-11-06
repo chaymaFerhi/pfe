@@ -11,8 +11,8 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {FileManagerListComponent} from 'app/layout/file-manager/list/list.component';
 import {FileManagerService} from 'app/layout/file-manager/file-manager.service';
-import {Courses} from '../../../shared/model/courses.types';
-import {CoursesService} from '../../../shared/service/courses.service';
+import {Station} from '../../../shared/model/stations.types';
+import {StationsService} from '../../../shared/service/stations.service';
 
 @Component({
     selector: 'file-manager-details',
@@ -21,7 +21,7 @@ import {CoursesService} from '../../../shared/service/courses.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FileManagerDetailsComponent implements OnInit, OnDestroy {
-    item: Courses;
+    item: Station;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -31,7 +31,7 @@ export class FileManagerDetailsComponent implements OnInit, OnDestroy {
         private _changeDetectorRef: ChangeDetectorRef,
         private _fileManagerListComponent: FileManagerListComponent,
         private _fileManagerService: FileManagerService,
-        private _courseService: CoursesService
+        private _courseService: StationsService
     ) {
     }
 
@@ -49,7 +49,7 @@ export class FileManagerDetailsComponent implements OnInit, OnDestroy {
         // Get the item
         this._courseService.course$
             .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((course: Courses) => {
+            .subscribe((course: Station) => {
                 // Open the drawer in case it is closed
                 this._fileManagerListComponent.matDrawer.open();
                 // Get the item

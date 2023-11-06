@@ -14,8 +14,8 @@ import {takeUntil} from 'rxjs/operators';
 import {FuseMediaWatcherService} from '@fuse/services/media-watcher';
 import {FileManagerService} from 'app/layout/file-manager/file-manager.service';
 import {Item, Items} from 'app/layout/file-manager/file-manager.types';
-import {Courses} from '../../../shared/model/courses.types';
-import {CoursesService} from '../../../shared/service/courses.service';
+import {Station} from '../../../shared/model/stations.types';
+import {StationsService} from '../../../shared/service/stations.service';
 import {MatSelectChange} from "@angular/material/select";
 
 @Component({
@@ -29,7 +29,7 @@ export class FileManagerListComponent implements OnInit, OnDestroy {
     drawerMode: 'side' | 'over';
     selectedItem: Item;
     items: Items;
-    courses$: Observable<Courses[]>;
+    courses$: Observable<Station[]>;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -41,7 +41,7 @@ export class FileManagerListComponent implements OnInit, OnDestroy {
         private _router: Router,
         private _fileManagerService: FileManagerService,
         private _fuseMediaWatcherService: FuseMediaWatcherService,
-        private _courseService: CoursesService
+        private _courseService: StationsService
     ) {
     }
 

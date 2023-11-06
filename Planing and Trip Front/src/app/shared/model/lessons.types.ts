@@ -1,7 +1,7 @@
 import {Steps} from './steps.types';
 import {Section} from './sections.types';
 import {Quizs} from './quizs.types';
-import {Courses} from "./courses.types";
+import {Station} from "./stations.types";
 
 export interface Lessons {
     id?: string;
@@ -13,5 +13,5 @@ export interface Lessons {
     step?: Steps;
     quiz?: Quizs[];
     sections?: Section[];
-    course?: Courses;
+    course?: Station;
 }

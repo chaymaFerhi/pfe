@@ -26,9 +26,11 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^5.5.2",
     "morgan": "^1.10.0",
+    "node-fetch": "2.6.7",
     "nodemailer": "^6.9.7",
     "nodemon": "^2.0.7",
     "pug": "^3.0.2",
-    "twilio": "^4.19.0"
+    "twilio": "^4.19.0",
+    "validator": "^10.11.0"
   }
 }

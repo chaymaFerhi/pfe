@@ -7,7 +7,7 @@ import {ProjectService} from 'app/modules/admin/dashboards/project/project.servi
 import {Trainers} from '../../../../shared/model/trainers.types';
 import {Users} from '../../../../shared/model/users.types';
 import {UsersService} from '../../../../shared/service/users.service';
-import {CoursesService} from '../../../../shared/service/courses.service';
+import {StationsService} from '../../../../shared/service/stations.service';
 import {QuizService} from '../../../../shared/service/quiz.service';
 import {TrainerService} from '../../../../shared/service/trainer.service';
 
@@ -41,7 +41,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
         private _projectService: ProjectService,
         private _router: Router,
         private _usersService: UsersService,
-        private _coursesService: CoursesService,
+        private _coursesService: StationsService,
         private _quizService: QuizService,
         private _trainerService: TrainerService
     ) {

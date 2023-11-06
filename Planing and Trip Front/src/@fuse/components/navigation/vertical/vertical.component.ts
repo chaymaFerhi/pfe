@@ -48,11 +48,9 @@ import {AuthService} from '../../../../app/core/auth/auth.service';
 })
 export class FuseVerticalNavigationComponent implements OnChanges, OnInit, AfterViewInit, OnDestroy {
     /* eslint-disable @typescript-eslint/naming-convention */
-    static ngAcceptInputType_inner: BooleanInput;
-    static ngAcceptInputType_opened: BooleanInput;
-    static ngAcceptInputType_transparentOverlay: BooleanInput;
+
     /* eslint-enable @typescript-eslint/naming-convention */
-    userRole = this._authService.getUser.role;
+    // userRole = this._authService.getUser.role;
 
     @Input() appearance: FuseVerticalNavigationAppearance = 'default';
     @Input() autoCollapse: boolean = true;
@@ -68,7 +66,10 @@ export class FuseVerticalNavigationComponent implements OnChanges, OnInit, After
     @Output() readonly openedChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() readonly positionChanged: EventEmitter<FuseVerticalNavigationPosition> = new EventEmitter<FuseVerticalNavigationPosition>();
     @ViewChild('navigationContent') private _navigationContentEl: ElementRef;
-
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    static ngAcceptInputType_inner: BooleanInput;
+    static ngAcceptInputType_opened: BooleanInput;
+    static ngAcceptInputType_transparentOverlay: BooleanInput;
     activeAsideItemId: string | null = null;
     onCollapsableItemCollapsed: ReplaySubject<FuseNavigationItem> = new ReplaySubject<FuseNavigationItem>(1);
     onCollapsableItemExpanded: ReplaySubject<FuseNavigationItem> = new ReplaySubject<FuseNavigationItem>(1);

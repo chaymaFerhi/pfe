@@ -79,7 +79,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 title: 'Add course',
                 type: 'basic',
                 icon: 'heroicons_outline:pencil-alt',
-                link: '/pages/add-course',
+                link: '/pages/add-station',
                 meta: 'ROLE_ADMIN',
             },
             {
@@ -87,7 +87,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 title: 'Show courses',
                 type: 'basic',
                 icon: 'heroicons_outline:chart-pie',
-                link: '/pages/show-courses',
+                link: '/pages/show-stations',
                 meta: 'ROLE_ADMIN',
             },
         ]

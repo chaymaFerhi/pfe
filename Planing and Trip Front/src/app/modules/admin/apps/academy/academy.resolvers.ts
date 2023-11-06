@@ -3,8 +3,8 @@ import {ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot} from '@ang
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {AcademyService} from 'app/modules/admin/apps/academy/academy.service';
-import {CoursesService} from '../../../../shared/service/courses.service';
-import {Courses} from '../../../../shared/model/courses.types';
+import {StationsService} from '../../../../shared/service/stations.service';
+import {Station} from '../../../../shared/model/stations.types';
 import {Category} from '../../../../shared/model/category.types';
 
 @Injectable({
@@ -39,7 +39,7 @@ export class AcademyCoursesResolver implements Resolve<any> {
     /**
      * Constructor
      */
-    constructor(private _courseService: CoursesService) {
+    constructor(private _courseService: StationsService) {
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -52,7 +52,7 @@ export class AcademyCoursesResolver implements Resolve<any> {
      * @param route
      * @param state
      */
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Courses[]> {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Station[]> {
         return this._courseService.getCourses();
     }
 }

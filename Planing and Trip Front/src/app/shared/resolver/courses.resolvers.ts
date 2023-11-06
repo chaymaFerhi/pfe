@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot} from '@angular/router';
 import {Observable, throwError} from 'rxjs';
-import {CoursesService} from '../service/courses.service';
-import {Courses} from '../model/courses.types';
+import {StationsService} from '../service/stations.service';
+import {Station} from '../model/stations.types';
 import {InventoryPagination} from '../../modules/admin/apps/ecommerce/inventory/inventory.types';
 import {catchError} from 'rxjs/operators';
 
@@ -13,7 +13,7 @@ export class CoursesResolvers implements Resolve<any> {
     /**
      * Constructor
      */
-    constructor(private _coursesService: CoursesService) {
+    constructor(private _coursesService: StationsService) {
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -26,7 +26,7 @@ export class CoursesResolvers implements Resolve<any> {
      * @param route
      * @param state
      */
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<{ pageable: InventoryPagination; content: Courses[] }> {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<{ pageable: InventoryPagination; content: Station[] }> {
         return this._coursesService.getAllCourses();
     }
 }
@@ -41,7 +41,7 @@ export class FileManagerFolderResolver implements Resolve<any> {
      */
     constructor(
         private _router: Router,
-        private _coursesService: CoursesService
+        private _coursesService: StationsService
     ) {
     }
 
@@ -55,7 +55,7 @@ export class FileManagerFolderResolver implements Resolve<any> {
      * @param route
      * @param state
      */
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Courses> {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Station> {
         console.log(route.paramMap.get('folderId'))
         return this._coursesService.getCourseById(route.paramMap.get('folderId'))
             .pipe(
@@ -87,7 +87,7 @@ export class CourseManagerItemResolver implements Resolve<any> {
      */
     constructor(
         private _router: Router,
-        private _coursesService: CoursesService
+        private _coursesService: StationsService
     ) {
     }
 
@@ -101,7 +101,7 @@ export class CourseManagerItemResolver implements Resolve<any> {
      * @param route
      * @param state
      */
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Courses> {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Station> {
         return this._coursesService.getCourseById(route.paramMap.get('id'))
             .pipe(
                 // Error here means the requested task is not available
@@ -131,7 +131,7 @@ export class CourseByIdResolver implements Resolve<any> {
      */
     constructor(
         private _router: Router,
-        private _courseService: CoursesService
+        private _courseService: StationsService
     ) {
     }
 
@@ -145,7 +145,7 @@ export class CourseByIdResolver implements Resolve<any> {
      * @param route
      * @param state
      */
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Courses> {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Station> {
         return this._courseService.getCourseById(route.paramMap.get('id'))
             .pipe(
                 // Error here means the requested task is not available

@@ -60,17 +60,17 @@ exports.login = catchAsync(async (req, res, next) => {
 
     // 1) Check if email and password exist
     if (!email || !password) {
-        return next(new AppError('لازمك تحط ايمايل ولا مودباس!', 400));
+        return next(new AppError('Vous devez ajouter votre email ou mot de passe', 400));
     }
     // 2) Check if user exists && password is correct
     const user = await User.findOne({ email }).select('+password');
     // console.log(user);
     if (!user || !(await user.correctPassword(password, user.password))) {
-        return next(new AppError('ايمايل ولا مودباس غالط', 400));
+        return next(new AppError('Email ou  mot de passe invalide', 400));
     }
 
     if (!user.active) {
-        return next(new AppError('لازمك تكنفرمي الكونت!!', 402));
+        return next(new AppError('Vous devez activer votre compte', 402));
     }
 
     // 3) If everything ok, send token to client

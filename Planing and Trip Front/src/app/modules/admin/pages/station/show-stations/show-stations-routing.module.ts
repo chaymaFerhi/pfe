@@ -5,12 +5,12 @@ import {
     InventoryCategoriesResolver, InventoryVendorsResolver
 } from '../../../apps/ecommerce/inventory/inventory.resolvers';
 import {SkillsResolvers} from '../../../../../shared/resolver/skills.resolvers';
-import {ShowCoursesComponent} from './show-courses.component';
+import {ShowStationsComponent} from './show-stations.component';
 import {CoursesResolvers} from '../../../../../shared/resolver/courses.resolvers';
 
 const routes: Routes = [{
     path: '',
-    component: ShowCoursesComponent,
+    component: ShowStationsComponent,
     resolve: {
         brands: InventoryBrandsResolver,
         categories: InventoryCategoriesResolver,
@@ -24,4 +24,4 @@ const routes: Routes = [{
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ShowCoursesRoutingModule { }
+export class ShowStationsRoutingModule { }

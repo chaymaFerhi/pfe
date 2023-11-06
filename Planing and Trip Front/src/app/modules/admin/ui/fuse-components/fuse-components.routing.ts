@@ -28,15 +28,15 @@ export const fuseComponentsRoutes: Route[] = [
                 pathMatch : 'full',
                 redirectTo: 'libraries/mock-api'
             },
-            {
-                path    : 'libraries',
-                children: [
-                    {
-                        path     : 'mock-api',
-                        component: MockApiComponent
-                    }
-                ]
-            },
+            // {
+            //     path    : 'libraries',
+            //     children: [
+            //         {
+            //             path     : 'mock-api',
+            //             component: MockApiComponent
+            //         }
+            //     ]
+            // },
             {
                 path    : 'components',
                 children: [

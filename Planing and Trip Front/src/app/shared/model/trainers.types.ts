@@ -1,4 +1,4 @@
-import {Courses} from './courses.types';
+import {Station} from './stations.types';
 import {Users} from './users.types';
 import {Skills} from './skills.types';
 
@@ -9,7 +9,7 @@ export interface Trainers {
     about?: string;
     cover?: string;
     url?: string;
-    course?: Courses;
+    course?: Station;
     skillsNames?: Skills[];
     users?: Users;
 }

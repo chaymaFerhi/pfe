@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot} from '@angular/router';
 import {Observable, throwError} from 'rxjs';
-import {CoursesService} from '../service/courses.service';
-import {Courses} from '../model/courses.types';
+import {StationsService} from '../service/stations.service';
+import {Station} from '../model/stations.types';
 import {InventoryPagination} from '../../modules/admin/apps/ecommerce/inventory/inventory.types';
 import {catchError} from 'rxjs/operators';
 import {QuizService} from "../service/quiz.service";

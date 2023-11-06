@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import {Courses} from '../../../../shared/model/courses.types';
+import {Station} from '../../../../shared/model/stations.types';
 import {Category} from '../../../../shared/model/category.types';
 
 @Injectable({
@@ -12,8 +12,8 @@ export class AcademyService
 {
     // Private
     private _categories: BehaviorSubject<Category[] | null> = new BehaviorSubject(null);
-    private _course: BehaviorSubject<Courses | null> = new BehaviorSubject(null);
-    private _courses: BehaviorSubject<Courses[] | null> = new BehaviorSubject(null);
+    private _course: BehaviorSubject<Station | null> = new BehaviorSubject(null);
+    private _courses: BehaviorSubject<Station[] | null> = new BehaviorSubject(null);
 
     /**
      * Constructor
@@ -37,7 +37,7 @@ export class AcademyService
     /**
      * Getter for courses
      */
-    get courses$(): Observable<Courses[]>
+    get courses$(): Observable<Station[]>
     {
         return this._courses.asObservable();
     }

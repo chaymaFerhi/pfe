@@ -11,7 +11,7 @@ import {fuseAnimations} from '@fuse/animations';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {merge, Observable, Subject} from 'rxjs';
-import {Courses} from '../../../../../shared/model/courses.types';
+import {Station} from '../../../../../shared/model/stations.types';
 import {
     InventoryBrand,
     InventoryCategory,
@@ -21,14 +21,14 @@ import {Skills} from '../../../../../shared/model/skills.types';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {FuseConfirmationService} from '@fuse/services/confirmation';
 import {InventoryService} from '../../../apps/ecommerce/inventory/inventory.service';
-import {CoursesService} from '../../../../../shared/service/courses.service';
+import {StationsService} from '../../../../../shared/service/stations.service';
 import {SkillsService} from '../../../../../shared/service/skills.service';
 import {debounceTime, map, switchMap, takeUntil} from 'rxjs/operators';
 import {ApiService} from '../../../../../shared/service/api.service';
 
 @Component({
-    selector: 'app-show-courses',
-    templateUrl: './show-courses.component.html',
+    selector: 'app-show-stations',
+    templateUrl: './show-stations.component.html',
     styles: [
         /* language=SCSS */
         `
@@ -53,12 +53,12 @@ import {ApiService} from '../../../../../shared/service/api.service';
     changeDetection: ChangeDetectionStrategy.OnPush,
     animations: fuseAnimations
 })
-export class ShowCoursesComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ShowStationsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @ViewChild(MatPaginator) private _paginator: MatPaginator;
     @ViewChild(MatSort) private _sort: MatSort;
 
-    courses$: Observable<Courses[]>;
+    stations$: Observable<Station[]>;
     apiImg = ApiService.apiPicture;
     brands: InventoryBrand[];
     categories: InventoryCategory[];
@@ -67,7 +67,7 @@ export class ShowCoursesComponent implements OnInit, AfterViewInit, OnDestroy {
     isLoading: boolean = false;
     pagination: InventoryPagination;
     searchInputControl: FormControl = new FormControl();
-    selectedCourse: Courses | null = null;
+    selectedCourse: Station | null = null;
     selectedProductForm: FormGroup;
     skills: Skills[];
     tagsEditMode: boolean = false;
@@ -82,7 +82,7 @@ export class ShowCoursesComponent implements OnInit, AfterViewInit, OnDestroy {
         private _fuseConfirmationService: FuseConfirmationService,
         private _formBuilder: FormBuilder,
         private _inventoryService: InventoryService,
-        private _courseService: CoursesService,
+        private _stationService: StationsService,
         private _skillsService: SkillsService,
     ) {
     }
@@ -140,7 +140,7 @@ export class ShowCoursesComponent implements OnInit, AfterViewInit, OnDestroy {
             });
 
         // Get the pagination
-        this._courseService.pagination$
+        this._stationService.pagination$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((pagination: InventoryPagination) => {
                 // Update the pagination
@@ -149,7 +149,7 @@ export class ShowCoursesComponent implements OnInit, AfterViewInit, OnDestroy {
                 this._changeDetectorRef.markForCheck();
             });
         // Get the products
-        this.courses$ = this._courseService.courses$;
+        this.stations$ = this._stationService.stations$;
 
         // Get the tags
         this._skillsService.skills$
@@ -185,7 +185,7 @@ export class ShowCoursesComponent implements OnInit, AfterViewInit, OnDestroy {
                     console.log('loading');
                     this.closeDetails();
                     this.isLoading = true;
-                    return this._courseService.getAllCourses(0, 10, 'name', 'asc', query);
+                    return this._stationService.getAllCourses(0, 10, 'name', 'asc', query);
                 }),
                 map(() => {
                     this.isLoading = false;
@@ -225,7 +225,7 @@ export class ShowCoursesComponent implements OnInit, AfterViewInit, OnDestroy {
                 switchMap(() => {
                     this.closeDetails();
                     this.isLoading = true;
-                    return this._courseService.getAllCourses(this._paginator.pageIndex, this._paginator.pageSize, this._sort.active, this._sort.direction);
+                    return this._stationService.getAllCourses(this._paginator.pageIndex, this._paginator.pageSize, this._sort.active, this._sort.direction);
                 }),
                 map(() => {
                     this.isLoading = false;
@@ -272,11 +272,11 @@ export class ShowCoursesComponent implements OnInit, AfterViewInit, OnDestroy {
     /**
      * Delete the selected product using the form data
      */
-    deleteSelectedCourse(course: Courses): void {
+    deleteSelectedCourse(station: Station): void {
         // Open the confirmation dialog
         const confirmation = this._fuseConfirmationService.open({
             title: 'Delete Course',
-            message: 'Are you sure you want to remove this course? This action cannot be undone!',
+            message: 'Are you sure you want to remove this station? This action cannot be undone!',
             actions: {
                 confirm: {
                     label: 'Delete'
@@ -293,7 +293,7 @@ export class ShowCoursesComponent implements OnInit, AfterViewInit, OnDestroy {
                 // Get the product object
 
                 // Delete the product on the server
-                this._courseService.deleteCourse(course).subscribe(() => {
+                this._stationService.deleteCourse(station).subscribe(() => {
 
                     // Close the details
                     this.closeDetails();
