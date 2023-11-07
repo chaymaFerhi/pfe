@@ -53,7 +53,7 @@ export class AcademyCoursesResolver implements Resolve<any> {
      * @param state
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Station[]> {
-        return this._courseService.getCourses();
+        return this._courseService.getStations();
     }
 }
 

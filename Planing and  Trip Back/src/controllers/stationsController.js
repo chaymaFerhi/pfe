@@ -3,38 +3,49 @@ const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const factory = require('./handlerFactory');
 const fetch = require("node-fetch");
+const APIFeatures = require("../utils/apiFeatures");
+const Station = require('../models/station');
 
 
 function getSplitAreaInToList(area) {
     return area.split(/\s*\,\s*/);
 }
 
-exports.getAllStations = catchAsync(async (req, res, next) => {
-    getAllStations()
-        .then(data => {
-            // console.log('data', data)
-            let doc = data.results.map(({name, area}) => {
-                console.log(name)
-                console.log(area)
-                const areaList = getSplitAreaInToList(area)
-                return {name, areaList}
-            })
-            console.log(doc)
-            res.status(200).json({
-                status: 'success',
-                doc
-            });
+// exports.getAllStations = catchAsync(async (req, res, next) => {
+//     console.log(getAllStations())
+//     getAllStations()
+//         .then(data => {
+//             console.log('data', data)
+//             let doc = data.results.map(({name, area}) => {
+//                 console.log(name)
+//                 console.log(area)
+//                 const areaList = getSplitAreaInToList(area)
+//                 return {name, areaList}
+//             })
+//             console.log(doc)
+//             res.status(200).json({
+//                 status: 'success',
+//                 doc
+//             });
+//
+//         })
+// });
 
-        })
-});
 
-
-exports.getUser = factory.getOne(User);
-exports.getAllUsers = factory.getAll(User);
+exports.getStation = factory.getOne(Station);
+exports.getAllStations = factory.getAll(Station);
 
 // Do NOT update passwords with this!
-exports.updateUser = factory.updateOne(User);
-exports.deleteUser = factory.deleteOne(User);
+exports.addStation = catchAsync(async (req, res, next) => {
+    console.log(req.body)
+    for (let item of req.body.doc) {
+        await Station.create(item);
+    }
+    res.status(201).json({
+        status: 'success',
+    });
+})
+exports.deleteStation = factory.deleteOne(Station);
 let getAllStations = async function () {
     let url = `https://api.maptiler.com/coordinates/search/germany.json?key=03IaMno9taHYAyaYMqcy`;
 
@@ -46,6 +57,6 @@ let getAllStations = async function () {
     };
 
     const res = await fetch(url, options);
-    // console.log(res)
+    console.log('res', res)
     return await res.json();
 }

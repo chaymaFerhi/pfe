@@ -18,23 +18,23 @@ const userSchema = new mongoose.Schema({
         phonenumber: {
             type: Number,
             unique: true,
-            required: [true, 'لازمك تدخل نمروك؟'],
+            required: [true, 'Tu dois entrer votre numéro'],
             minlength: 10,
             validate: {
                 validator: function (el) {
                     console.log(el.toString().length);
                     return el.toString().length > 10;
                 },
-                message: 'لازمك تدخل عالاقل 10 نوامر',
+                message: 'Tu dois entrer 10 chiffre',
             },
         },
         email: {
             type: String,
-            required: [true, 'Please provide your email'],
+            required: [true, 'Tu dois entrer votre email'],
             unique: true,
             lowercase: true,
             trim: true,
-            validate: [validator.isEmail, 'Please provide a valid email'],
+            validate: [validator.isEmail, 'Tu dois entrer votre email'],
         },
         photo: {
             type: String,
@@ -46,19 +46,11 @@ const userSchema = new mongoose.Schema({
         datedenaissance: {
             type: Date,
         },
-        sexe: {
-            type: String,
-        },
-        weight: {
-            type: String,
-        },
-        height: {
-            type: String,
-        },
+
 
         role: {
             type: String,
-            enum: ['user', 'coach', 'admin'],
+            enum: ['user', 'admin'],
             default: 'user',
         },
         password: {

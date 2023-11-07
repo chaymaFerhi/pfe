@@ -23,10 +23,10 @@ const stationsRouter = require('./src/routes/stationsRoutes');
 // Start express app
 const app = express();
 
-// app.enable('trust proxy');
+app.enable('trust proxy');
 
-// app.set('view engine', 'pug');
-// app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
 
 // 1) GLOBAL MIDDLEWARES
 // Implement CORS
@@ -36,10 +36,10 @@ app.options('*', cors());
 // app.options('/api/v1/tours/:id', cors());
 
 // Serving static files
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Set security HTTP headers
-// app.use(helmet());
+app.use(helmet());
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
@@ -62,8 +62,8 @@ if (process.env.NODE_ENV === 'development') {
 // );
 
 // Body parser, reading data from body into req.body
-// app.use(express.json({ limit: '10kb' }));
-// app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+app.use(express.json({ limit: '10kb' }));
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 // app.use(cookieParser());
 
 // Data sanitization against NoSQL query injection
@@ -72,7 +72,7 @@ app.use(compression());
 // Test middleware
 app.use((req, res, next) => {
     req.requestTime = new Date().toISOString();
-    console.log('app', req.rawBody);
+    console.log('app', req.body);
 
     next();
 });

@@ -4,7 +4,6 @@ import {forkJoin, Observable, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {ApexOptions} from 'ng-apexcharts';
 import {ProjectService} from 'app/modules/admin/dashboards/project/project.service';
-import {Trainers} from '../../../../shared/model/trainers.types';
 import {Users} from '../../../../shared/model/users.types';
 import {UsersService} from '../../../../shared/service/users.service';
 import {StationsService} from '../../../../shared/service/stations.service';
@@ -31,7 +30,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
     users: any = [];
     quizs: any = [];
     trainers: any = [];
-    courses: any = [];
+    stations: any = [];
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -41,7 +40,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
         private _projectService: ProjectService,
         private _router: Router,
         private _usersService: UsersService,
-        private _coursesService: StationsService,
+        private _stationsService: StationsService,
         private _quizService: QuizService,
         private _trainerService: TrainerService
     ) {
@@ -60,7 +59,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
             this._usersService.getAllUsers(),
             this._quizService.getAllQuizs(),
             this._trainerService.getAllTrainers(),
-            this._coursesService.getAllCourses(),
+            this._stationsService.getAllStations(),
 
         ]).subscribe((responses: any) => {
             console.log(responses);
@@ -68,7 +67,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
             console.log(this.users);
             this.quizs = responses[1].content;
             this.trainers = responses[2].content;
-            this.courses = responses[3].content;
+            this.stations = responses[3].content;
         });
         this.user$ = this._usersService.user$;
 

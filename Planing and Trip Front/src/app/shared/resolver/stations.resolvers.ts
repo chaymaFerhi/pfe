@@ -9,11 +9,11 @@ import {catchError} from 'rxjs/operators';
 @Injectable({
     providedIn: 'root'
 })
-export class CoursesResolvers implements Resolve<any> {
+export class StationsResolvers implements Resolve<any> {
     /**
      * Constructor
      */
-    constructor(private _coursesService: StationsService) {
+    constructor(private _stationsService: StationsService) {
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -27,7 +27,7 @@ export class CoursesResolvers implements Resolve<any> {
      * @param state
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<{ pageable: InventoryPagination; content: Station[] }> {
-        return this._coursesService.getAllCourses();
+        return this._stationsService.getAllStations();
     }
 }
 
@@ -41,7 +41,7 @@ export class FileManagerFolderResolver implements Resolve<any> {
      */
     constructor(
         private _router: Router,
-        private _coursesService: StationsService
+        private _stationsService: StationsService
     ) {
     }
 
@@ -56,8 +56,8 @@ export class FileManagerFolderResolver implements Resolve<any> {
      * @param state
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Station> {
-        console.log(route.paramMap.get('folderId'))
-        return this._coursesService.getCourseById(route.paramMap.get('folderId'))
+        console.log(route.paramMap.get('folderId'));
+        return this._stationsService.getStationById(route.paramMap.get('folderId'))
             .pipe(
                 // Error here means the requested task is not available
                 catchError((error) => {
@@ -81,13 +81,13 @@ export class FileManagerFolderResolver implements Resolve<any> {
 @Injectable({
     providedIn: 'root'
 })
-export class CourseManagerItemResolver implements Resolve<any> {
+export class StationManagerItemResolver implements Resolve<any> {
     /**
      * Constructor
      */
     constructor(
         private _router: Router,
-        private _coursesService: StationsService
+        private _stationsService: StationsService
     ) {
     }
 
@@ -102,7 +102,7 @@ export class CourseManagerItemResolver implements Resolve<any> {
      * @param state
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Station> {
-        return this._coursesService.getCourseById(route.paramMap.get('id'))
+        return this._stationsService.getStationById(route.paramMap.get('id'))
             .pipe(
                 // Error here means the requested task is not available
                 catchError((error) => {
@@ -125,13 +125,13 @@ export class CourseManagerItemResolver implements Resolve<any> {
 @Injectable({
     providedIn: 'root'
 })
-export class CourseByIdResolver implements Resolve<any> {
+export class StationByIdResolver implements Resolve<any> {
     /**
      * Constructor
      */
     constructor(
         private _router: Router,
-        private _courseService: StationsService
+        private _stationService: StationsService
     ) {
     }
 
@@ -146,7 +146,7 @@ export class CourseByIdResolver implements Resolve<any> {
      * @param state
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Station> {
-        return this._courseService.getCourseById(route.paramMap.get('id'))
+        return this._stationService.getStationById(route.paramMap.get('id'))
             .pipe(
                 // Error here means the requested task is not available
                 catchError((error) => {

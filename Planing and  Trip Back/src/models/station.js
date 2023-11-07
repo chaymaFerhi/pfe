@@ -1,15 +1,27 @@
-const mongoose= require('mongoose');
+const mongoose = require('mongoose');
+const stationSchema = new mongoose.Schema({
 
-const Station = mongoose.model('Station',{
+        name: {
+            type: String,
+            required: [true, 'Please tell us your name!'],
+        },
+        areaList: [
+            {
+                type: String
+            }
+        ],
+        localisation: {
+            type: String
+        },
+    longitude: {
+            type: String
+        },
+    latitude: {
+            type: String
+        },
 
-    nom_station: {
-        type: String
-    },
-    localisation: {
-        type: String
-    },
-    
-}
+    }
 )
+const Station = mongoose.model('Station', stationSchema);
 
-module.exports=Station;
+module.exports = Station;

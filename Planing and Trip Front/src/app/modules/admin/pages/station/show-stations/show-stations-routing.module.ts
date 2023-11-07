@@ -6,7 +6,7 @@ import {
 } from '../../../apps/ecommerce/inventory/inventory.resolvers';
 import {SkillsResolvers} from '../../../../../shared/resolver/skills.resolvers';
 import {ShowStationsComponent} from './show-stations.component';
-import {CoursesResolvers} from '../../../../../shared/resolver/courses.resolvers';
+import {StationsResolvers} from '../../../../../shared/resolver/stations.resolvers';
 
 const routes: Routes = [{
     path: '',
@@ -14,7 +14,7 @@ const routes: Routes = [{
     resolve: {
         brands: InventoryBrandsResolver,
         categories: InventoryCategoriesResolver,
-        courses: CoursesResolvers,
+        courses: StationsResolvers,
         skills: SkillsResolvers,
         vendors: InventoryVendorsResolver
     }

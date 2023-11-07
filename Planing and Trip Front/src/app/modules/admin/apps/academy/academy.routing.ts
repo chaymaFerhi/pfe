@@ -1,38 +1,28 @@
-import { Route } from '@angular/router';
-import { AcademyComponent } from 'app/modules/admin/apps/academy/academy.component';
-import { AcademyListComponent } from 'app/modules/admin/apps/academy/list/list.component';
-import { AcademyDetailsComponent } from 'app/modules/admin/apps/academy/details/details.component';
-import { AcademyCategoriesResolver } from 'app/modules/admin/apps/academy/academy.resolvers';
-import {CourseByIdResolver, CoursesResolvers} from '../../../../shared/resolver/courses.resolvers';
-import {LessonCourseResolver} from '../../../../shared/resolver/lessons.resolvers';
+import {Route} from '@angular/router';
+import {AcademyComponent} from 'app/modules/admin/apps/academy/academy.component';
+import {AcademyListComponent} from 'app/modules/admin/apps/academy/list/list.component';
+import {AcademyCategoriesResolver} from 'app/modules/admin/apps/academy/academy.resolvers';
+import {StationsResolvers} from '../../../../shared/resolver/stations.resolvers';
 
 export const academyRoutes: Route[] = [
     {
-        path     : '',
+        path: '',
         component: AcademyComponent,
-        data:{
-            layout:'modern'
+        data: {
+            layout: 'modern'
         },
-        resolve  : {
+        resolve: {
             categories: AcademyCategoriesResolver
         },
-        children : [
+        children: [
             {
-                path     : '',
+                path: '',
                 pathMatch: 'full',
                 component: AcademyListComponent,
-                resolve  : {
-                    // courses: CoursesResolvers
+                resolve: {
+                    stations: StationsResolvers
                 }
             },
-            {
-                path     : ':id',
-                component: AcademyDetailsComponent,
-                resolve  : {
-                    course: CourseByIdResolver,
-                    lessonsCourse: LessonCourseResolver
-                }
-            }
         ]
     }
 ];

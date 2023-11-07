@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
-import {MatFormField, MatFormFieldModule} from '@angular/material/form-field';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
@@ -13,7 +13,6 @@ import {FuseFindByKeyPipeModule} from '@fuse/pipes/find-by-key';
 import {SharedModule} from 'app/shared/shared.module';
 import {academyRoutes} from 'app/modules/admin/apps/academy/academy.routing';
 import {AcademyComponent} from 'app/modules/admin/apps/academy/academy.component';
-import {AcademyDetailsComponent} from 'app/modules/admin/apps/academy/details/details.component';
 import {AcademyListComponent} from 'app/modules/admin/apps/academy/list/list.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -22,7 +21,6 @@ import {FuseDateRangeModule} from '../../../../../@fuse/components/date-range';
 @NgModule({
     declarations: [
         AcademyComponent,
-        AcademyDetailsComponent,
         AcademyListComponent
     ],
     imports: [

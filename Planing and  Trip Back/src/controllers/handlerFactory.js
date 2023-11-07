@@ -37,7 +37,7 @@ exports.updateOne = Model =>
 
 exports.createOne = Model =>
     catchAsync(async (req, res, next) => {
-        // console.log(req.body);
+        console.log('model', Model, 'body', req.body);
         const doc = await Model.create(req.body);
 
         res.status(201).json({
@@ -70,7 +70,7 @@ exports.getAll = Model =>
     catchAsync(async (req, res, next) => {
         // To allow for nested GET reviews on tour (hack)
         let filter = {};
-        if (req.params.tourId) filter = { tour: req.params.tourId };
+        if (req.params.tourId) filter = {tour: req.params.tourId};
 
         const features = new APIFeatures(Model.find(filter), req.query)
             .filter()
@@ -85,8 +85,6 @@ exports.getAll = Model =>
         res.status(200).json({
             status: 'success',
             results: doc.length,
-            data: {
-                data: doc
-            }
+            content:  doc
         });
     });

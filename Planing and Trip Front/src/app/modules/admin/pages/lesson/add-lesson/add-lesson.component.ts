@@ -1,8 +1,8 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LessonsService} from '../../../../../shared/service/lessons.service';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
-import {FuseConfirmationConfig, FuseConfirmationService} from '@fuse/services/confirmation';
+import { FuseConfirmationService} from '@fuse/services/confirmation';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {FuseConfirmationDialogComponent} from '@fuse/services/confirmation/dialog/dialog.component';
 import {merge} from 'lodash-es';

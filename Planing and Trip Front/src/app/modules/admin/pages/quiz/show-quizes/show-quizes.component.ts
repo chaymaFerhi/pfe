@@ -183,7 +183,7 @@ export class ShowQuizesComponent implements OnInit, AfterViewInit, OnDestroy {
                     console.log('loading');
                     this.closeDetails();
                     this.isLoading = true;
-                    return this._stationService.getAllCourses(0, 10, 'name', 'asc', query);
+                    return this._stationService.getAllStations(0, 10, 'name', 'asc', query);
                 }),
                 map(() => {
                     this.isLoading = false;
@@ -223,7 +223,7 @@ export class ShowQuizesComponent implements OnInit, AfterViewInit, OnDestroy {
                 switchMap(() => {
                     this.closeDetails();
                     this.isLoading = true;
-                    return this._stationService.getAllCourses(this._paginator.pageIndex, this._paginator.pageSize, this._sort.active, this._sort.direction);
+                    return this._stationService.getAllStations(this._paginator.pageIndex, this._paginator.pageSize, this._sort.active, this._sort.direction);
                 }),
                 map(() => {
                     this.isLoading = false;
@@ -277,7 +277,7 @@ export class ShowQuizesComponent implements OnInit, AfterViewInit, OnDestroy {
                 // Get the product object
 
                 // Delete the product on the server
-                this._stationService.deleteCourse(station).subscribe(() => {
+                this._stationService.deleteStation(station).subscribe(() => {
 
                     // Close the details
                     this.closeDetails();

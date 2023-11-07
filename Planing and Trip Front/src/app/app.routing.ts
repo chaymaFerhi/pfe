@@ -72,10 +72,6 @@ export const appRoutes: Route[] = [
                         loadChildren: () => import('app/modules/admin/apps/ecommerce/ecommerce.module').then(m => m.ECommerceModule)
                     },
                     {
-                        path: 'file-manager',
-                        loadChildren: () => import('app/layout/file-manager/file-manager.module').then(m => m.FileManagerModule)
-                    },
-                    {
                         path: 'show-exams',
                         loadChildren: () => import('app/modules/admin/pages/exam/show-exams/show-exams.module').then(m => m.ShowExamsModule)
                     },
@@ -301,10 +297,10 @@ export const appRoutes: Route[] = [
                     },
 
                     // Fuse Components
-                    // {
-                    //     path: 'fuse-components',
-                    //     loadChildren: () => import('app/modules/admin/ui/fuse-components/fuse-components.module').then(m => m.FuseComponentsModule)
-                    // },
+                     {
+                         path: 'fuse-components',
+                         loadChildren: () => import('app/modules/admin/ui/fuse-components/fuse-components.module').then(m => m.FuseComponentsModule)
+                     },
 
                     // Other Components
                     {

@@ -47,26 +47,26 @@ export class StationsService {
         return this.stations$.pipe(
             take(1),
             switchMap(stations => this._httpClient.post<Station>(`${ApiService.apiVersion}${ApiService.apiStations}/add-station`, station).pipe(
-                map((newCourse) => {
+                map((newStation) => {
 
                     // Update the stations with the new product
-                    this._stations.next([newCourse]);
+                    this._stations.next([newStation]);
 
                     // Return the new product
-                    return newCourse;
+                    return newStation;
                 })
             ))
         );
     }
 
-    editCourse(body, id): Observable<Station> {
+    editStation(body, id): Observable<Station> {
         return this._apiService.patch(`${ApiService.apiVersion}${ApiService.apiStations}/${id}`, body).pipe(map(res => res));
     }
 
     /**
      * Get station by id
      */
-    getCourseById(id: string): Observable<Station> {
+    getStationById(id: string): Observable<Station> {
         return this._httpClient.get<Station>(`${ApiService.apiVersion}${ApiService.apiStations}/find-station/${id}`).pipe(
             map((station) => {
                 // Update the station
@@ -87,7 +87,6 @@ export class StationsService {
     }
 
 
-
     /**
      * Get stations
      *
@@ -98,19 +97,25 @@ export class StationsService {
      * @param order
      * @param search
      */
-    getAllCourses(page: number = 0, size: number = 5, sort: string = 'title', order: 'asc' | 'desc' | '' = 'asc', search: string = ''):
+    getAllStations(page: number = 0, size: number = 5, sort: string = 'title',
+                   order: 'asc' | 'desc' | '' = 'asc',
+                   search: string = ''):
         Observable<{ pageable: InventoryPagination; content: Station[] }> {
         return this._httpClient.get<{ pageable: InventoryPagination; content: Station[] }>
-        (`${ApiService.apiVersion}${ApiService.apiStations}/get-all-stations`, {
-            params: {
-                page: '' + page,
-                size: '' + size,
-                sort,
-                order,
-                search
-            }
-        }).pipe(
+        (`${ApiService.apiVersion}${ApiService.apiStations}/get-all-stations`
+            //,
+            //{
+            //params: {
+            //    page: '' + page,
+            //    size: '' + size,
+            //    sort,
+            //    order,
+            //    search
+            //}
+        //}
+        ).pipe(
             tap((response) => {
+                console.log(response);
                 this._pagination.next(response.pageable);
                 this._stations.next(response.content);
             })
@@ -122,7 +127,7 @@ export class StationsService {
      *
      * @param station
      */
-    deleteCourse(station: Station): Observable<boolean> {
+    deleteStation(station: Station): Observable<boolean> {
         return this.stations$.pipe(
             take(1),
             switchMap(stations =>
@@ -141,7 +146,7 @@ export class StationsService {
         );
     }
 
-    getCourses(): Observable<Station[]> {
+    getStations(): Observable<Station[]> {
         return this._httpClient.get<Station[]>(`${ApiService.apiVersion}${ApiService.apiStations}`).pipe(
             tap((response: any) => {
                 this._stations.next(response);
