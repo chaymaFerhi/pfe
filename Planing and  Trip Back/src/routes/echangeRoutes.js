@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const Compagnie= require('../models/compagnie');
+const EchangeRoutes = require('../models/echangeModel');
 
 router.post('/create', async (req,res)=>{
     try {
         data=req.body;
-    compagnie= new Compagnie(data);
-    savedcompagnie= await compagnie.save()
-    res.status(200).send(savedcompagnie)
+        echange= new EchangeRoutes(data);
+    savedechange= await echange.save()
+    res.status(200).send(savedechange)
         
     } catch (error) {
         (err)=>{
@@ -20,10 +20,10 @@ router.post('/create', async (req,res)=>{
 });
 
 router.get( '/getall', (req,res)=>{
-    Compagnie.find()
+    EchangeRoutes.find()
     .then(
-        (compagnies)=>{
-            res.send(compagnies);
+        (echange)=>{
+            res.send(echange);
         })
     .catch(
         (err)=>{
@@ -35,8 +35,8 @@ router.get( '/getall', (req,res)=>{
 router.get('/get', async(req,res)=>{
     
     try {
-        compagnies=await Compagnie.find({name:'chayma' })
-        res.send(compagnies)
+        echange=await EchangeRoutes.find({name:'chayma' })
+        res.send(echange)
     } catch (error) {
         res.send(err)
         
@@ -45,10 +45,10 @@ router.get('/get', async(req,res)=>{
 
  router.get('/getbyId/:id', (req,res)=>{
     myid=req.params.id;
-    Compagnie.findOne({_id:myid})
+    EchangeRoutes.findOne({_id:myid})
     .then(
-        (compagnie)=>{
-        res.send(compagnie)
+        (echange)=>{
+        res.send(echange)
         }
     )
 

@@ -42,18 +42,18 @@ export class AuthInterceptor implements HttpInterceptor {
             catchError((error: any) => {
                 console.log(error);
                 // Catch "401 Unauthorized" responses
-                if (error?.status === '401') {
+                if (error?.status === '401'||error?.status === '404') {
 
                     this._authService.signOut();
                 }
 
-                if (error instanceof HttpErrorResponse) {
-                    // Sign out
-                    this._authService.signOut();
-
-                    // Reload the app
-                    // location.reload();
-                }
+                //if (error instanceof HttpErrorResponse) {
+                //    // Sign out
+                //    this._authService.signOut();
+                //
+                //    // Reload the app
+                //    // location.reload();
+                //}
 
                 return throwError(error);
             })

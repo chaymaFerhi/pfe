@@ -1,13 +1,15 @@
 const express = require('express');
+
 const router = express.Router();
-const Station = require('../models/station');
+
+const ReservationRoutes = require('../models/reservationModel');
 
 router.post('/create', async (req,res)=>{
     try {
         data=req.body;
-        station= new Station(data);
-    savedstation= await station.save()
-    res.status(200).send(savedstation)
+        reservation= new ReservationRoutes (data);
+    savedreservation= await reservation.save()
+    res.status(200).send(savedreservation)
         
     } catch (error) {
         (err)=>{
@@ -20,10 +22,10 @@ router.post('/create', async (req,res)=>{
 });
 
 router.get( '/getall', (req,res)=>{
-    Station.find()
+    ReservationRoutes.find()
     .then(
-        (station)=>{
-            res.send(station);
+        (reservations)=>{
+            res.send(reservations);
         })
     .catch(
         (err)=>{
@@ -35,8 +37,8 @@ router.get( '/getall', (req,res)=>{
 router.get('/get', async(req,res)=>{
     
     try {
-        station=await Station.find({name:'chayma' })
-        res.send(station)
+        reservations=await ReservationRoutes.find({name:'chayma' })
+        res.send(reservations)
     } catch (error) {
         res.send(err)
         
@@ -45,10 +47,10 @@ router.get('/get', async(req,res)=>{
 
  router.get('/getbyId/:id', (req,res)=>{
     myid=req.params.id;
-    Station.findOne({_id:myid})
+    ReservationRoutes.findOne({_id:myid})
     .then(
-        (station)=>{
-        res.send(station)
+        (reservation)=>{
+        res.send(reservation)
         }
     )
 
@@ -60,7 +62,6 @@ router.get('/get', async(req,res)=>{
 
 
  });
-
 
 
 module.exports=router;

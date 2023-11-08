@@ -1,6 +1,6 @@
 const mongoose= require('mongoose');
 
-const Reservation = mongoose.model('Reservation',{
+const ReservationModel = mongoose.model('Reservation',{
 
     date_reservation: {
        
@@ -10,4 +10,4 @@ const Reservation = mongoose.model('Reservation',{
 }
 )
 
-module.exports=Reservation;
+module.exports=ReservationModel;

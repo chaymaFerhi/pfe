@@ -90,15 +90,17 @@ export class UsersService {
     getAllUsers(page: number = 0, size: number = 10, sort: string = 'username', order: 'asc' | 'desc' | '' = 'asc', search: string = ''):
         Observable<{ pageable: InventoryPagination; content: Users[] }> {
         return this._httpClient.get<{ pageable: InventoryPagination; content: Users[] }>
-        (`${ApiService.apiVersion}${ApiService.apiUser}/get-all-users`, {
-            params: {
-                page: '' + page,
-                size: '' + size,
-                sort,
-                order,
-                search
-            }
-        }).pipe(
+        (`${ApiService.apiVersion}${ApiService.apiUser}`
+            //, {
+            //params: {
+            //    page: '' + page,
+            //    size: '' + size,
+            //    sort,
+            //    order,
+            //    search
+            //}
+        //}
+        ).pipe(
             tap((response) => {
                 this._pagination.next(response.pageable);
                 this._users.next(response.content);

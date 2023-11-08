@@ -79,7 +79,7 @@ export class AuthSignInComponent implements OnInit {
                     this._userService.get().subscribe((user: any) => {
 
                         console.log(user);
-                        if (user.role === 'ROLE_ADMIN') {
+                        if (user?.data?.role === 'admin') {
                             this._router.navigateByUrl('dashboards/project');
 
                         } else {

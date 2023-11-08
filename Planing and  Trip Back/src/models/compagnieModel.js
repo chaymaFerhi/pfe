@@ -1,6 +1,6 @@
 const mongoose= require('mongoose');
 
-const Compagnie = mongoose.model('Compagnie',{
+const CompagnieModel = mongoose.model('Compagnie',{
 
     nom_compagnie: {
         type: String
@@ -10,4 +10,4 @@ const Compagnie = mongoose.model('Compagnie',{
 }
 )
 
-module.exports=Compagnie;
+module.exports=CompagnieModel;

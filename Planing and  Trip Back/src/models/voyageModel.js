@@ -1,6 +1,6 @@
 const mongoose= require('mongoose');
 
-const Voyage = mongoose.model('Voyage',{
+const VoyageModel = mongoose.model('Voyage',{
 
     date_depart: {
        
@@ -12,4 +12,4 @@ const Voyage = mongoose.model('Voyage',{
 }
 )
 
-module.exports=Voyage;
+module.exports=VoyageModel;

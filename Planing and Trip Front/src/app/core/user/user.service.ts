@@ -46,19 +46,21 @@ export class UserService {
      * Get the current logged in user data
      */
     get(): Observable<Users> | null {
-        const username = localStorage.getItem('username');
+        const username = localStorage.getItem(environment.activeUser);
         if (!username) {
-        console.log(!username);
+            console.log(!username);
             return throwError(new Error('Username not found in local storage')); // You can customize the error message
 
         }
-        return this._httpClient.get<Users>(`${usersURL}/Me/${username}`).pipe(
+        return this._httpClient.get<Users>(`${usersURL}/me`).pipe(
             tap((response: any) => {
+                console.log(response.data);
+                localStorage.setItem(environment.activeUser, JSON.stringify(response.data));
                 // Store the access token in the local storage
                 this._user.next(response);
             }),
             catchError((error: any) =>
-                 throwError(error) // You can handle the error as needed
+                throwError(error) // You can handle the error as needed
             ));
     }
 

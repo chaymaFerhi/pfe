@@ -1,6 +1,6 @@
 const mongoose= require('mongoose');
 
-const Echange = mongoose.model('Echange',{
+const EchangeModel = mongoose.model('Echange',{
 
     heure_depart: {
         type: Number
@@ -12,4 +12,4 @@ const Echange = mongoose.model('Echange',{
 }
 )
 
-module.exports=Echange;
+module.exports=EchangeModel;

@@ -13,9 +13,10 @@ const handleDuplicateFieldsDB = err => {
 };
 
 const handleValidationErrorDB = err => {
+    console.log('err1', err.errors);
     const errors = Object.values(err.errors).map(el => el.message);
     const message = `Invalid input data. ${errors.join('. ')}`;
-    return new AppError(message, 400);
+    return new AppError(message, 409);
 };
 
 const handleJWTError = () =>
@@ -85,14 +86,14 @@ const sendErrorProd = (err, req, res) => {
 
 module.exports = (err, req, res, next) => {
     // console.log(err.stack);
-    // console.log(err.name);
+    console.log(err.name);
 
     err.statusCode = err.statusCode || 500;
     err.status = err.status || 'error';
 
     if (process.env.NODE_ENV === 'development') {
-        console.log('err',err);
-        let error = { ...err };
+        console.log('err', err.name === 'ValidationError');
+        let error = err;
         error.message = err.message;
 
         if (error.name === 'CastError') error = handleCastErrorDB(error);
@@ -100,10 +101,11 @@ module.exports = (err, req, res, next) => {
         if (error.name === 'ValidationError')      error = handleValidationErrorDB(error);
         if (error.name === 'JsonWebTokenError') error = handleJWTError();
         if (error.name === 'TokenExpiredError') error = handleJWTExpiredError();
-
-        sendErrorDev(error, req, res);
+        if (error != null) {
+            sendErrorDev(error, req, res);
+        }
     } else if (process.env.NODE_ENV === 'production') {
-        let error = { ...err };
+        let error = {...err};
         error.message = err.message;
 
         if (error.name === 'CastError') error = handleCastErrorDB(error);

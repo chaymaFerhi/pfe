@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
-const User = require('../models/user');
+const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const Email = require('../utils/email');
@@ -79,8 +79,7 @@ exports.login = catchAsync(async (req, res, next) => {
 //send code with SMS phone
 const SendSMS = catchAsync(async (user, req, res, next) => {
     // console.log('phonenumber', user);
-    const phonenumber = user;
-    if (!phonenumber) {
+    if (!user) {
         return next(new AppError('Numéro de téléphone invalide!', 400));
     }
     // const SMS = await client.verify
@@ -140,9 +139,10 @@ exports.protect = catchAsync(async (req, res, next) => {
     ) {
         token = req.headers.authorization.split(' ')[1];
         // console.log(token);
-    } else if (req.cookies.jwt) {
-        token = req.cookies.jwt;
     }
+    // else if (req.cookies.jwt) {
+    //     token = req.cookies.jwt;
+    // }
 
     if (!token) {
         return next(
@@ -225,7 +225,7 @@ exports.renvoi = catchAsync(async (req, res, next) => {
     // 1) Get user based on POSTed email
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
-        return next(new AppError('There is no user with email address.', 404));
+        return next(new AppError('There is no user with email address.', 402));
     }
 
     // 2) Generate the random reset token

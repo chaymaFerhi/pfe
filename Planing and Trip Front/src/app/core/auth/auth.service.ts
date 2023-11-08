@@ -36,21 +36,23 @@ export class AuthService {
      * Setter & getter for access token
      */
     set accessToken(token: string) {
+        console.log(token)
         localStorage.setItem(environment.accessToken, token);
     }
 
     get accessToken(): string {
+        console.log(localStorage.getItem(environment.accessToken))
         return localStorage.getItem(environment.accessToken) ?? '';
     }
 
     set setUser(user) {
-        localStorage.setItem(environment.users, user);
+        localStorage.setItem(environment.activeUser, user);
 
         // this._userService.get();
     }
 
     get getUser(): Users {
-        return JSON.parse(localStorage.getItem(environment.users)) ?? null;
+        return JSON.parse(localStorage.getItem(environment.activeUser)) ?? null;
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -85,12 +87,14 @@ export class AuthService {
         if (this._authenticated) {
             return throwError('User is already logged in.');
         }
-        return this._httpClient.post(`${environment.apiUrl}login`, credentials).pipe(
+        return this._httpClient.post(`${environment.apiUrl}users/login`, credentials).pipe(
             switchMap((response: any) => {
+                console.log(response.token);
                 // Store the access token in the local storage
-                this.accessToken = response.access_token;
+                this.accessToken = response.token;
                 this.decodedToken = helper.decodeToken(this.accessToken);
-                localStorage.setItem('username', this.decodedToken.sub);
+                localStorage.setItem(environment.accessToken, response.token);
+                localStorage.setItem(environment.activeUser, response.token);
                 const user = this._userService.get();
                 user.subscribe((res) => {
                     this.setUser = JSON.stringify(res);
@@ -138,7 +142,7 @@ export class AuthService {
         // Remove the access token from the local storage
         localStorage.removeItem(environment.accessToken);
         localStorage.removeItem(environment.users);
-        localStorage.removeItem(environment.username);
+        localStorage.removeItem(environment.activeUser);
 
         // Set the authenticated flag to false
         this._authenticated = false;
@@ -153,7 +157,8 @@ export class AuthService {
      * @param user
      */
     signUp(user): Observable<any> {
-        return this._httpClient.post(`${ApiService.apiVersion}${ApiService.apiUser}/sign-up`, user);
+        console.log(user);
+        return this._httpClient.post('http://127.0.0.1:4112/api/v1/users/signup', user);
     }
 
     /**

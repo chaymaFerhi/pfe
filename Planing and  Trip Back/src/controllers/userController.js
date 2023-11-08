@@ -1,4 +1,4 @@
-const User = require('./../models/user');
+const User = require('../models/userModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const factory = require('./handlerFactory');
@@ -16,6 +16,7 @@ const filterObj = (obj, ...allowedFields) => {
 };
 
 exports.getMe = (req, res, next) => {
+    console.log(req.user)
     req.params.id = req.user.id;
     next();
 };

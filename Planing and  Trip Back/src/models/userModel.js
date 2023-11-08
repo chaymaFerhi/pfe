@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
 
@@ -25,7 +26,7 @@ const userSchema = new mongoose.Schema({
                     console.log(el.toString().length);
                     return el.toString().length > 10;
                 },
-                message: 'Tu dois entrer 10 chiffre',
+                message: 'Tu dois entrer 10 chiffre pour le numéro de téléphone',
             },
         },
         email: {
@@ -50,7 +51,7 @@ const userSchema = new mongoose.Schema({
 
         role: {
             type: String,
-            enum: ['user', 'admin'],
+            enum: ['ROLE_CLIENT', 'ROLE_ADMIN'],
             default: 'user',
         },
         password: {
@@ -75,7 +76,7 @@ const userSchema = new mongoose.Schema({
         passwordResetExpires: Date,
         active: {
             type: Boolean,
-            default: false,
+            default: true,
         },
         createdAt: {
             type: Date,
@@ -160,6 +161,6 @@ userSchema.methods.createTokenInscription = function() {
     return resetToken;
 };
 
-const User = mongoose.model('User', userSchema);
+const UserModel = mongoose.model('User', userSchema);
 
-module.exports = User;
+module.exports = UserModel;

@@ -1,6 +1,6 @@
 const mongoose= require('mongoose');
 
-const Ville = mongoose.model('Ville',{
+const VilleModel = mongoose.model('Ville',{
 
     nom_ville: {
         type: String
@@ -13,4 +13,4 @@ const Ville = mongoose.model('Ville',{
 }
 )
 
-module.exports=Ville;
+module.exports=VilleModel;

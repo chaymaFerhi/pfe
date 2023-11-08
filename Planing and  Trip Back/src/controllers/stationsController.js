@@ -1,10 +1,10 @@
-const User = require('./../models/user');
+const User = require('../models/userModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const factory = require('./handlerFactory');
 const fetch = require("node-fetch");
 const APIFeatures = require("../utils/apiFeatures");
-const Station = require('../models/station');
+const Station = require('../models/stationModel');
 
 
 function getSplitAreaInToList(area) {
@@ -33,6 +33,7 @@ function getSplitAreaInToList(area) {
 
 
 exports.getStation = factory.getOne(Station);
+exports.updateStation = factory.updateOne(Station);
 exports.getAllStations = factory.getAll(Station);
 
 // Do NOT update passwords with this!

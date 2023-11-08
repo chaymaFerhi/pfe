@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const Admin = require('../models/admin');
+const CompagnieRoutes= require('../models/compagnieModel');
 
 router.post('/create', async (req,res)=>{
     try {
         data=req.body;
-    admin= new Admin(data);
-    savedadmin= await admin.save()
-    res.status(200).send(savedadmin)
+    compagnie= new CompagnieRoutes(data);
+    savedcompagnie= await compagnie.save()
+    res.status(200).send(savedcompagnie)
         
     } catch (error) {
         (err)=>{
@@ -20,10 +20,10 @@ router.post('/create', async (req,res)=>{
 });
 
 router.get( '/getall', (req,res)=>{
-    Admin.find()
+    CompagnieRoutes.find()
     .then(
-        (admin)=>{
-            res.send(admin);
+        (compagnies)=>{
+            res.send(compagnies);
         })
     .catch(
         (err)=>{
@@ -35,8 +35,8 @@ router.get( '/getall', (req,res)=>{
 router.get('/get', async(req,res)=>{
     
     try {
-        admin=await Admin.find({name:'chayma' })
-        res.send(admin)
+        compagnies=await CompagnieRoutes.find({name:'chayma' })
+        res.send(compagnies)
     } catch (error) {
         res.send(err)
         
@@ -45,10 +45,10 @@ router.get('/get', async(req,res)=>{
 
  router.get('/getbyId/:id', (req,res)=>{
     myid=req.params.id;
-    Admin.findOne({_id:myid})
+    CompagnieRoutes.findOne({_id:myid})
     .then(
-        (admin)=>{
-        res.send(admin)
+        (compagnie)=>{
+        res.send(compagnie)
         }
     )
 

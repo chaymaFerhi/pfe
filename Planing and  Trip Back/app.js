@@ -88,7 +88,7 @@ app.use('/api/v1/stations', stationsRouter);
 // app.use('/api/v1/posts', postRouter);
 
 app.all('*', (req, res, next) => {
-    next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+    next(new AppError(`Can't find ${req.originalUrl} on this server!`, 402));
 });
 
 app.use(globalErrorHandler);

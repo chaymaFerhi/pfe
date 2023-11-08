@@ -16,7 +16,7 @@ import {AuthService} from '../../../../../../app/core/auth/auth.service';
 export class FuseVerticalNavigationBasicItemComponent implements OnInit, OnDestroy {
     @Input() item: FuseNavigationItem;
     @Input() name: string;
-    // userRole = this._authService.getUser.role;
+     userRole = this._authService.getUser.role;
 
     isActiveMatchOptions: IsActiveMatchOptions;
     private _fuseVerticalNavigationComponent: FuseVerticalNavigationComponent;
