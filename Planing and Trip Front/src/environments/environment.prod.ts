@@ -8,7 +8,7 @@ export const environment = {
     accessToken: 'accessToken',
     lessons: 'lessons',
     trainers: 'trainers',
-    skills: 'skills',
+    geometrys: 'skills',
     stations: 'courses',
     quizs: 'quizs',
     steps: 'steps',

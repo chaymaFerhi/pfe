@@ -12,9 +12,10 @@ export class ApiService {
     public static apiVersion = environment.apiUrl;
     public static apiPicture = environment.apiImg;
     public static apiUser = environment.users;
-    public static apiSKills = environment.skills;
+    public static apiGeometrys = environment.geometrys;
     public static apiStations = environment.stations;
     public static apiLessons = environment.lessons;
+    public static apiTraces = environment.traces;
     public static apiTrainer = environment.trainers;
     public static apiQuiz = environment.quizs;
     public static apiStep = environment.steps;

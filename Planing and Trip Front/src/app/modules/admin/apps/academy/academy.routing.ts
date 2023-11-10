@@ -3,6 +3,8 @@ import {AcademyComponent} from 'app/modules/admin/apps/academy/academy.component
 import {AcademyListComponent} from 'app/modules/admin/apps/academy/list/list.component';
 import {AcademyCategoriesResolver} from 'app/modules/admin/apps/academy/academy.resolvers';
 import {StationsResolvers} from '../../../../shared/resolver/stations.resolvers';
+import {ActivitiesResolver} from '../../pages/activities/activities.resolvers';
+import {TracesResolvers} from '../../../../shared/resolver/traces-resolvers.service';
 
 export const academyRoutes: Route[] = [
     {
@@ -12,6 +14,8 @@ export const academyRoutes: Route[] = [
             layout: 'modern'
         },
         resolve: {
+            activities: ActivitiesResolver,
+
             categories: AcademyCategoriesResolver
         },
         children: [
@@ -20,6 +24,8 @@ export const academyRoutes: Route[] = [
                 pathMatch: 'full',
                 component: AcademyListComponent,
                 resolve: {
+                    traces: TracesResolvers,
+
                     stations: StationsResolvers
                 }
             },

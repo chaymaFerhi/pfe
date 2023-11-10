@@ -12,10 +12,8 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {merge, Observable, Subject} from 'rxjs';
 import {Users} from '../../../../../shared/model/users.types';
-import {Skills} from '../../../../../shared/model/skills.types';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {FuseConfirmationService} from '../../../../../../@fuse/services/confirmation';
-import {SkillsService} from '../../../../../shared/service/skills.service';
 import {debounceTime, map, switchMap, takeUntil} from 'rxjs/operators';
 import {UsersService} from '../../../../../shared/service/users.service';
 import {ApiService} from '../../../../../shared/service/api.service';
@@ -62,14 +60,12 @@ export class ShowUsersComponent implements OnInit, AfterViewInit, OnDestroy {
     users$: Observable<Users[]>;
     brands: InventoryBrand[];
     categories: InventoryCategory[];
-    filteredSkills: Skills[];
     flashMessage: 'success' | 'error' | null = null;
     isLoading: boolean = false;
     pagination: InventoryPagination;
     searchInputControl: FormControl = new FormControl();
     selectedUser: Users | null = null;
     selectedProductForm: FormGroup;
-    skills: Skills[];
     tagsEditMode: boolean = false;
     vendors: InventoryVendor[];
     private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -83,7 +79,6 @@ export class ShowUsersComponent implements OnInit, AfterViewInit, OnDestroy {
         private _formBuilder: FormBuilder,
         private _inventoryService: InventoryService,
         private _userService: UsersService,
-        private _skillsService: SkillsService,
     ) {
     }
 
@@ -101,7 +96,6 @@ export class ShowUsersComponent implements OnInit, AfterViewInit, OnDestroy {
             category: [''],
             name: ['', [Validators.required]],
             description: [''],
-            skills: [[]],
             sku: [''],
             barcode: [''],
             brand: [''],
@@ -152,17 +146,6 @@ export class ShowUsersComponent implements OnInit, AfterViewInit, OnDestroy {
         this.users$ = this._userService.users$;
 
         // Get the tags
-        this._skillsService.skills$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((skills: Skills[]) => {
-
-                // Update the skills
-                this.skills = skills;
-                this.filteredSkills = skills;
-
-                // Mark for check
-                this._changeDetectorRef.markForCheck();
-            });
 
         // Get the vendors
         this._inventoryService.vendors$
@@ -253,20 +236,6 @@ export class ShowUsersComponent implements OnInit, AfterViewInit, OnDestroy {
      */
     closeDetails(): void {
         this.selectedUser = null;
-    }
-
-
-    /**
-     * Filter tags
-     *
-     * @param event
-     */
-    filterSkills(event): void {
-        // Get the value
-        const value = event.target.value.toLowerCase();
-
-        // Filter the tags
-        this.filteredSkills = this.skills.filter(tag => tag.title.toLowerCase().includes(value));
     }
 
     /**

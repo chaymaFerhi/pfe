@@ -7,7 +7,7 @@ import {
     InventoryVendorsResolver
 } from '../../../apps/ecommerce/inventory/inventory.resolvers';
 import {UsersResolvers} from '../../../../../shared/resolver/users.resolvers';
-import {SkillsResolvers} from '../../../../../shared/resolver/skills.resolvers';
+import {GeometrysResolvers} from '../../../../../shared/resolver/geometrys.resolvers';
 
 const routes: Routes = [{
     path: '',
@@ -16,7 +16,7 @@ const routes: Routes = [{
         brands: InventoryBrandsResolver,
         categories: InventoryCategoriesResolver,
         trainers: UsersResolvers,
-        skills: SkillsResolvers,
+        skills: GeometrysResolvers,
         vendors: InventoryVendorsResolver
     }
 }];

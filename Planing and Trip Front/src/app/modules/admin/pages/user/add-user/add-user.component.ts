@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {environment} from '../../../../../../environments/environment';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Skills} from '../../../../../shared/model/skills.types';
 import {Router} from '@angular/router';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {UsersService} from '../../../../../shared/service/users.service';
@@ -14,7 +13,6 @@ import {UsersService} from '../../../../../shared/service/users.service';
 export class AddUserComponent implements OnInit {
     apiURL = environment.apiImg;
     userForm: FormGroup;
-    skills: Skills[] = [{title: 'Grammar'}, {title: 'Writing'}, {title: 'Reading'}];
     selectedFiles: FileList;
 
 
@@ -84,29 +82,6 @@ export class AddUserComponent implements OnInit {
             });
         }
     }
-
-    addSkills(event: MatChipInputEvent):
-        void {
-        const value = (event.value || '').trim();
-        if (value) {
-            this.skills.push({title: value});
-            this.userForm.patchValue({
-                skills: [...this.skills]
-            });
-        }
-        // Clear the input value
-        event.chipInput?.clear();
-    }
-
-    removeSkills(skil: any): any[] {
-        const index = this.skills.indexOf(skil);
-        if (index >= 0) {
-            this.userForm.controls.skills.value.splice(index, 1);
-        }
-        this.skills = this.userForm.controls.skills.value;
-        return this.skills;
-    }
-
 
     cancelUserForm(): void {
         this.userForm.reset();

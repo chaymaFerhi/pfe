@@ -1,6 +1,10 @@
-
 export interface Station {
-    id?: string;
-    name?: string;
-    areaList?: [];
+    id: string;
+    _id: string;
+    name: string;
+    areaList: [];
+    localisation: string;
+    longitude: string;
+    latitude: string;
+
 }

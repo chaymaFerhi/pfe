@@ -1,15 +1,14 @@
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
-    Component, ElementRef, Input,
+    Component, ElementRef,
     OnDestroy,
     OnInit, Renderer2, ViewContainerRef,
     ViewEncapsulation
 } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatSelectChange} from '@angular/material/select';
-import {MatSlideToggleChange} from '@angular/material/slide-toggle';
-import {BehaviorSubject, Subject} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {AcademyService} from 'app/modules/admin/apps/academy/academy.service';
 import {StationsService} from '../../../../../shared/service/stations.service';
 import {Station} from '../../../../../shared/model/stations.types';
@@ -18,6 +17,9 @@ import {combineLatest} from 'rxjs';
 import {Category} from '../../../../../shared/model/category.types';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Overlay} from '@angular/cdk/overlay';
+import {TracesService} from '../../../../../shared/service/traces.service';
+import * as moment from 'moment/moment';
+import {Trace} from '../../../../../shared/model/traces.types';
 
 
 @Component({
@@ -29,6 +31,8 @@ import {Overlay} from '@angular/cdk/overlay';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AcademyListComponent implements OnInit, OnDestroy {
+    traces$: Observable<Trace[]>;
+
     searchForm: FormGroup;
     categories: Category[];
     stations: Station[];
@@ -52,6 +56,7 @@ export class AcademyListComponent implements OnInit, OnDestroy {
      * Constructor
      */
     constructor(
+        public _tracesService: TracesService,
         private _activatedRoute: ActivatedRoute,
         private _changeDetectorRef: ChangeDetectorRef,
         private _router: Router,
@@ -72,6 +77,8 @@ export class AcademyListComponent implements OnInit, OnDestroy {
      * On init
      */
     ngOnInit(): void {
+       this.traces$ = this._tracesService.traces$;
+
         // Get the categories
         this._academyService.categories$
             .pipe(takeUntil(this._unsubscribeAll))
@@ -90,7 +97,6 @@ export class AcademyListComponent implements OnInit, OnDestroy {
         this._stationsService.stations$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((stations: Station[]) => {
-                console.log(stations);
                 this.stations = this.filteredStations = stations;
 
                 // Mark for check
@@ -106,13 +112,13 @@ export class AcademyListComponent implements OnInit, OnDestroy {
 
                 // Filter by category
                 if (categorySlug !== 'all') {
-                    this.filteredStations = this.filteredStations.filter(course => course.name === categorySlug);
+                    this.filteredStations = this.filteredStations.filter(trace => trace.name === categorySlug);
                 }
 
                 // Filter by search query
                 if (query !== '') {
-                    this.filteredStations = this.filteredStations.filter(course => course.name.toLowerCase().includes(query.toLowerCase())
-                        || course.id.toLowerCase().includes(query.toLowerCase()));
+                    this.filteredStations = this.filteredStations.filter(trace =>
+                        trace.name.toLowerCase().includes(query.toLowerCase()));
                 }
 
                 // Filter by completed
@@ -160,7 +166,44 @@ export class AcademyListComponent implements OnInit, OnDestroy {
         return item.id || index;
     }
 
-    search($event: any): void {
+    search(): void {
+        console.log(this.searchForm.value);
+        this._tracesService.searchTraces(this.searchForm.value).subscribe((res) => {
+            this.traces$.subscribe((ress) => {
+                console.log(ress);
+            });
+        });
     }
 
+    /**
+     * Returns whether the given dates are different days
+     *
+     * @param current
+     * @param compare
+     */
+    isSameDay(current: string, compare: string): boolean {
+        return moment(current, moment.ISO_8601).isSame(moment(compare, moment.ISO_8601), 'day');
+    }
+
+    /**
+     * Get the relative format of the given date
+     *
+     * @param date
+     */
+    getRelativeFormat(date: string): string {
+        const today = moment().startOf('day');
+        const yesterday = moment().subtract(1, 'day').startOf('day');
+
+        // Is today?
+        if (moment(date, moment.ISO_8601).isSame(today, 'day')) {
+            return 'Today';
+        }
+
+        // Is yesterday?
+        if (moment(date, moment.ISO_8601).isSame(yesterday, 'day')) {
+            return 'Yesterday';
+        }
+
+        return moment(date, moment.ISO_8601).fromNow();
+    }
 }

@@ -4,7 +4,7 @@ import {
     InventoryBrandsResolver,
     InventoryCategoriesResolver, InventoryVendorsResolver
 } from '../../../apps/ecommerce/inventory/inventory.resolvers';
-import {SkillsResolvers} from '../../../../../shared/resolver/skills.resolvers';
+import {GeometrysResolvers} from '../../../../../shared/resolver/geometrys.resolvers';
 import {ShowLessonsComponent} from './show-lessons.component';
 import {LessonsResolvers} from '../../../../../shared/resolver/lessons.resolvers';
 
@@ -15,7 +15,7 @@ const routes: Routes = [{
         brands: InventoryBrandsResolver,
         categories: InventoryCategoriesResolver,
         lessons: LessonsResolvers,
-        skills: SkillsResolvers,
+        skills: GeometrysResolvers,
         vendors: InventoryVendorsResolver,
         paginations: LessonsResolvers
     }

@@ -10,19 +10,17 @@ import {
 import {fuseAnimations} from '@fuse/animations';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import {merge, Observable, Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {Station} from '../../../../../shared/model/stations.types';
 import {
     InventoryBrand,
     InventoryCategory,
     InventoryPagination, InventoryVendor
 } from '../../../apps/ecommerce/inventory/inventory.types';
-import {Skills} from '../../../../../shared/model/skills.types';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {FuseConfirmationService} from '@fuse/services/confirmation';
 import {InventoryService} from '../../../apps/ecommerce/inventory/inventory.service';
 import {StationsService} from '../../../../../shared/service/stations.service';
-import {SkillsService} from '../../../../../shared/service/skills.service';
 import {debounceTime, map, switchMap, takeUntil} from 'rxjs/operators';
 import {ApiService} from '../../../../../shared/service/api.service';
 
@@ -33,18 +31,18 @@ import {ApiService} from '../../../../../shared/service/api.service';
         /* language=SCSS */
         `
             .inventory-grid {
-                grid-template-columns: 48px auto 40px;
+                grid-template-columns: 148px 112px 140px;
 
                 @screen sm {
-                    grid-template-columns: 48px auto 112px 72px;
+                    grid-template-columns: 148px 112px 112px ;
                 }
 
                 @screen md {
-                    grid-template-columns: 48px 112px auto 112px 72px;
+                    grid-template-columns: 148px 112px 112px;
                 }
 
                 @screen lg {
-                    grid-template-columns: 48px 112px auto 112px 96px 96px 72px;
+                    grid-template-columns: 248px auto 112px ;
                 }
             }
         `
@@ -57,19 +55,18 @@ export class ShowStationsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @ViewChild(MatPaginator) private _paginator: MatPaginator;
     @ViewChild(MatSort) private _sort: MatSort;
+    selectedStation: Station | null = null;
 
     stations$: Observable<Station[]>;
     apiImg = ApiService.apiPicture;
     brands: InventoryBrand[];
     categories: InventoryCategory[];
-    filteredSkills: Skills[];
+    filteredStations: Station[];
     flashMessage: 'success' | 'error' | null = null;
     isLoading: boolean = false;
     pagination: InventoryPagination;
     searchInputControl: FormControl = new FormControl();
-    selectedCourse: Station | null = null;
     selectedProductForm: FormGroup;
-    skills: Skills[];
     tagsEditMode: boolean = false;
     vendors: InventoryVendor[];
     private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -82,8 +79,7 @@ export class ShowStationsComponent implements OnInit, AfterViewInit, OnDestroy {
         private _fuseConfirmationService: FuseConfirmationService,
         private _formBuilder: FormBuilder,
         private _inventoryService: InventoryService,
-        private _stationService: StationsService,
-        private _skillsService: SkillsService,
+        private _stationService: StationsService
     ) {
     }
 
@@ -119,30 +115,11 @@ export class ShowStationsComponent implements OnInit, AfterViewInit, OnDestroy {
             active: [false]
         });
 
-        // Get the brands
-        this._inventoryService.brands$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((brands: InventoryBrand[]) => {
-                // Update the brands
-                this.brands = brands;
-                // Mark for check
-                this._changeDetectorRef.markForCheck();
-            });
-
-        // Get the categories
-        this._inventoryService.categories$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((categories: InventoryCategory[]) => {
-                // Update the categories
-                this.categories = categories;
-                // Mark for check
-                this._changeDetectorRef.markForCheck();
-            });
-
         // Get the pagination
         this._stationService.pagination$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((pagination: InventoryPagination) => {
+                console.log(pagination);
                 // Update the pagination
                 this.pagination = pagination;
                 // Mark for check
@@ -150,20 +127,6 @@ export class ShowStationsComponent implements OnInit, AfterViewInit, OnDestroy {
             });
         // Get the products
         this.stations$ = this._stationService.stations$;
-
-        // Get the tags
-        this._skillsService.skills$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((skills: Skills[]) => {
-
-                // Update the skills
-                this.skills = skills;
-                this.filteredSkills = skills;
-
-                // Mark for check
-                this._changeDetectorRef.markForCheck();
-            });
-
         // Get the vendors
         this._inventoryService.vendors$
             .pipe(takeUntil(this._unsubscribeAll))
@@ -198,40 +161,42 @@ export class ShowStationsComponent implements OnInit, AfterViewInit, OnDestroy {
      * After view init
      */
     ngAfterViewInit(): void {
-        if (this._sort && this._paginator) {
-            // Set the initial sort
-            this._sort.sort({
-                id: 'name',
-                start: 'asc',
-                disableClear: true
-            });
-
-            // Mark for check
-            this._changeDetectorRef.markForCheck();
-
-            // If the user changes the sort order...
-            this._sort.sortChange
-                .pipe(takeUntil(this._unsubscribeAll))
-                .subscribe(() => {
-                    // Reset back to the first page
-                    this._paginator.pageIndex = 0;
-
-                    // Close the details
-                    this.closeDetails();
-                });
-
-            // Get products if sort or page changes
-            merge(this._sort.sortChange, this._paginator.page).pipe(
-                switchMap(() => {
-                    this.closeDetails();
-                    this.isLoading = true;
-                    return this._stationService.getAllStations(this._paginator.pageIndex, this._paginator.pageSize, this._sort.active, this._sort.direction);
-                }),
-                map(() => {
-                    this.isLoading = false;
-                })
-            ).subscribe();
-        }
+        console.log(this._sort)
+        console.log(this._paginator)
+        //if (this._sort && this._paginator) {
+        //    // Set the initial sort
+        //    this._sort.sort({
+        //        id: 'name',
+        //        start: 'asc',
+        //        disableClear: true
+        //    });
+        //
+        //    // Mark for check
+        //    //this._changeDetectorRef.markForCheck();
+        //
+        //    // If the user changes the sort order...
+        //    this._sort.sortChange
+        //        .pipe(takeUntil(this._unsubscribeAll))
+        //        .subscribe(() => {
+        //            // Reset back to the first page
+        //            this._paginator.pageIndex = 0;
+        //
+        //            // Close the details
+        //            this.closeDetails();
+        //        });
+        //
+        //    // Get products if sort or page changes
+        //    merge(this._sort.sortChange, this._paginator.page).pipe(
+        //        switchMap(() => {
+        //            this.closeDetails();
+        //            this.isLoading = true;
+        //            return this._stationService.getAllStations(this._paginator.pageIndex, this._paginator.pageSize, this._sort.active, this._sort.direction);
+        //        }),
+        //        map(() => {
+        //            this.isLoading = false;
+        //        })
+        //    ).subscribe();
+        //}
     }
 
     /**
@@ -252,30 +217,16 @@ export class ShowStationsComponent implements OnInit, AfterViewInit, OnDestroy {
      * Close the details
      */
     closeDetails(): void {
-        this.selectedCourse = null;
-    }
-
-
-    /**
-     * Filter tags
-     *
-     * @param event
-     */
-    filterSkills(event): void {
-        // Get the value
-        const value = event.target.value.toLowerCase();
-
-        // Filter the tags
-        this.filteredSkills = this.skills.filter(tag => tag.title.toLowerCase().includes(value));
+        this.selectedStation = null;
     }
 
     /**
      * Delete the selected product using the form data
      */
-    deleteSelectedCourse(station: Station): void {
+    deleteSelectedStation(station: Station): void {
         // Open the confirmation dialog
         const confirmation = this._fuseConfirmationService.open({
-            title: 'Delete Course',
+            title: 'Delete Station',
             message: 'Are you sure you want to remove this station? This action cannot be undone!',
             actions: {
                 confirm: {

@@ -1,15 +1,20 @@
-const mongoose= require('mongoose');
+const mongoose = require('mongoose');
+const voyageSchema = new mongoose.Schema({
 
-const VoyageModel = mongoose.model('Voyage',{
-
-    date_depart: {
-       
+        coordinates: [
+            [
+                {
+                    type: Number
+                }
+            ]
+        ],
+        typeShape: String
     },
-    date_arrivee: {
-        
-    },
-    
-}
+    {
+        toJSON: { virtuals: true },
+        toObject: { virtuals: true }
+    }
 )
+const VoyageModel = mongoose.model('Voyage', voyageSchema)
 
-module.exports=VoyageModel;
+module.exports = VoyageModel;

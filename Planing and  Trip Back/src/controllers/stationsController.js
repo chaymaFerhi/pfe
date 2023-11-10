@@ -35,9 +35,10 @@ function getSplitAreaInToList(area) {
 exports.getStation = factory.getOne(Station);
 exports.updateStation = factory.updateOne(Station);
 exports.getAllStations = factory.getAll(Station);
+exports.addStation = factory.createOne(Station);
 
 // Do NOT update passwords with this!
-exports.addStation = catchAsync(async (req, res, next) => {
+exports.addMultiStation = catchAsync(async (req, res, next) => {
     console.log(req.body)
     for (let item of req.body.doc) {
         await Station.create(item);

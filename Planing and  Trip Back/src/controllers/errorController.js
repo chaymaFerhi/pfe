@@ -92,7 +92,7 @@ module.exports = (err, req, res, next) => {
     err.status = err.status || 'error';
 
     if (process.env.NODE_ENV === 'development') {
-        console.log('err', err.name === 'ValidationError');
+        console.log('err', err);
         let error = err;
         error.message = err.message;
 

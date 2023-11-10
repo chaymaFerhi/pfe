@@ -9,7 +9,10 @@ import { activitiesRoutes } from 'app/modules/admin/pages/activities/activities.
     declarations: [
         ActivitiesComponent
     ],
-    imports     : [
+    exports: [
+        ActivitiesComponent,
+    ],
+    imports: [
         RouterModule.forChild(activitiesRoutes),
         MatIconModule,
         SharedModule

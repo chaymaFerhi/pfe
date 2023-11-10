@@ -1,9 +1,7 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {StationsService} from '../../../../../shared/service/stations.service';
 import {Observable, Subject} from 'rxjs';
-import {Trainers} from '../../../../../shared/model/trainers.types';
-import {TrainerService} from '../../../../../shared/service/trainer.service';
 import {Router} from '@angular/router';
 import {Station} from '../../../../../shared/model/stations.types';
 
@@ -13,31 +11,26 @@ import {Station} from '../../../../../shared/model/stations.types';
     styleUrls: ['./add-station.component.scss']
 })
 export class AddStationComponent implements OnInit, OnDestroy {
-    courseForm: FormGroup;
-    course: Station;
-    trainers$: Observable<Trainers[]>;
+    stationForm: FormGroup;
+    station: Station;
+    stations$: Observable<Station[]>;
     notCorrectType = false;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     constructor(private _formBuilder: FormBuilder,
                 private _changeDetectorRef: ChangeDetectorRef,
-                private _courseService: StationsService,
+                private _stationService: StationsService,
                 private _router: Router,
-                private _trainerService: TrainerService,
     ) {
     }
 
     ngOnInit(): void {
         // Horizontal stepper form
-        this.courseForm = this._formBuilder.group({
-            title: ['', [Validators.required]],
-            description: ['', Validators.required],
-            videoFile: ['', Validators.required],
-            coverFile: ['', Validators.required],
-            trainer: ['', Validators.required],
-            category: ['', Validators.required],
+        this.stationForm = this._formBuilder.group({
+            name: ['', [Validators.required]],
+            areaList: ['', Validators.required],
         });
-        this.trainers$ = this._trainerService.trainers$;
+        this.stations$ = this._stationService.stations$;
 
     }
 
@@ -50,16 +43,8 @@ export class AddStationComponent implements OnInit, OnDestroy {
     /**
      * Create product
      */
-    createCourse(): void {
-        const fd = new FormData();
-        fd.append('title', this.courseForm.value.title);
-        fd.append('trainer.id', this.courseForm.value.trainer.id);
-        fd.append('category', this.courseForm.value.category);
-        fd.append('description', this.courseForm.value.description);
-        fd.append('videoFile', this.courseForm.value.videoFile);
-        fd.append('coverFile', this.courseForm.value.coverFile);
-        // Create the product
-        this._courseService.addStation(fd).subscribe((newCourse) => {
+    createStation(): void {
+        this._stationService.addStation(this.stationForm.value).subscribe((newStation) => {
             // Mark for check
             this._changeDetectorRef.markForCheck();
             this._router.navigate(['pages/show-stations']);
@@ -67,54 +52,7 @@ export class AddStationComponent implements OnInit, OnDestroy {
         });
     }
 
-    uploadImage(fileList): void {
-        // Return if canceled
-        if (fileList.length === 0) {
-            return;
-        }
-        const allowedTypes = ['image/jpeg', 'image/png'];
-        const file = fileList[0];
-        // Return if the file is not allowed
-        if (!allowedTypes.includes(file.type)) {
-            return;
-        }
-        if (file.filename !== 0) {
-            this.courseForm.patchValue({
-                coverFile: file
-            });
-            console.log(this.courseForm.value);
-        } else {
-            this.courseForm.patchValue({
-                coverFile: ''
-            });
-        }
-    }
 
-    uploadVideo(fileList): void {
-        console.log(fileList);
-        // Return if canceled
-        if (fileList.length === 0) {
-            return;
-        }
-        const allowedTypes = ['video/mp4'];
-        const file = fileList[0];
-        // Return if the file is not allowed
-        if (!allowedTypes.includes(file.type)) {
-            this.notCorrectType = true;
-            return;
-        }
-        if (file.filename !== 0) {
-            this.notCorrectType = false;
-            this.courseForm.patchValue({
-                videoFile: file
-            });
-            console.log(this.courseForm.value);
-        } else {
-            this.courseForm.patchValue({
-                videoFile: ''
-            });
-        }
-    }
 
     trackByFn(index: number, item: any): any {
         return item.id || index;

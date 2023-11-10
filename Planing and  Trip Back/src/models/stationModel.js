@@ -13,13 +13,20 @@ const stationSchema = new mongoose.Schema({
         localisation: {
             type: String
         },
-    longitude: {
+        longitude: {
             type: String
         },
-    latitude: {
+        latitude: {
             type: String
         },
-
+        createdAt: {
+            type: Date,
+            default: Date.now
+        },
+    },
+    {
+        toJSON: { virtuals: true },
+        toObject: { virtuals: true }
     }
 )
 const StationModel = mongoose.model('Station', stationSchema);

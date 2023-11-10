@@ -183,25 +183,32 @@ export const appRoutes: Route[] = [
                         loadChildren: () => import('app/modules/admin/pages/station/show-stations/show-stations.module').then(m => m.ShowStationsModule)
                     },
                     {
-                        path: 'add-quiz/:idLesson',
+                        path: 'add-geometry/:idGeometry',
                         data: {
                             role: roleAdmin
                         },
-                        loadChildren: () => import('app/modules/admin/pages/quiz/add-quiz/add-quiz.module').then(m => m.AddQuizModule)
+                        loadChildren: () => import('app/modules/admin/pages/geometry/add-geometry/add-geometry.module').then(m => m.AddGeometryModule)
                     },
                     {
-                        path: 'show-quizes',
+                        path: 'show-geometryes',
                         data: {
                             role: roleAdmin
                         },
-                        loadChildren: () => import('app/modules/admin/pages/quiz/show-quizes/show-quizes.module').then(m => m.ShowQuizesModule)
+                        loadChildren: () => import('app/modules/admin/pages/geometry/show-geometrys/show-geometrys.module').then(m => m.ShowGeometrysModule)
                     },
                     {
-                        path: 'add-trainer',
+                        path: 'show-traces',
                         data: {
                             role: roleAdmin
                         },
-                        loadChildren: () => import('app/modules/admin/pages/trainers/add-trainer/add-trainer.module').then(m => m.AddTrainerModule)
+                        loadChildren: () => import('app/modules/admin/pages/traces/show-traces/show-traces.module').then(m => m.ShowTracesModule)
+                    },
+                    {
+                        path: 'add-trace',
+                        data: {
+                            role: roleAdmin
+                        },
+                        loadChildren: () => import('app/modules/admin/pages/traces/add-trace/add-trace.module').then(m => m.AddTraceModule)
                     },
                     {
                         path: 'show-lessons',
@@ -217,13 +224,7 @@ export const appRoutes: Route[] = [
                         },
                         loadChildren: () => import('app/modules/admin/pages/lesson/add-lesson/add-lesson.module').then(m => m.AddLessonModule)
                     },
-                    {
-                        path: 'show-trainers',
-                        data: {
-                            role: roleAdmin
-                        },
-                        loadChildren: () => import('app/modules/admin/pages/trainers/show-trainers/show-trainers.module').then(m => m.ShowTrainersModule)
-                    },
+
                     {
                         path: 'add-user',
                         data: {
@@ -297,10 +298,10 @@ export const appRoutes: Route[] = [
                     },
 
                     // Fuse Components
-                     {
-                         path: 'fuse-components',
-                         loadChildren: () => import('app/modules/admin/ui/fuse-components/fuse-components.module').then(m => m.FuseComponentsModule)
-                     },
+                    {
+                        path: 'fuse-components',
+                        loadChildren: () => import('app/modules/admin/ui/fuse-components/fuse-components.module').then(m => m.FuseComponentsModule)
+                    },
 
                     // Other Components
                     {

@@ -12,28 +12,28 @@ export const defaultNavigation: FuseNavigationItem[] = [
         link: '/dashboards/project',
     },
     {
-        id: 'trainers',
-        title: 'Trainer',
+        id: 'traces',
+        title: 'Trace',
         subtitle: '',
         type: 'group',
         icon: 'heroicons_outline:home',
         meta: 'ROLE_ADMIN',
         children: [
             {
-                id: 'trainers.add',
-                title: 'Add trainer',
+                id: 'traces.add',
+                title: 'Add trace',
                 type: 'basic',
                 icon: 'heroicons_outline:pencil-alt',
-                link: '/pages/add-trainer',
+                link: '/pages/add-trace',
                 meta: 'ROLE_ADMIN',
 
             },
             {
-                id: 'trainers.show',
-                title: 'Show trainers',
+                id: 'traces.show',
+                title: 'Show traces',
                 type: 'basic',
                 icon: 'heroicons_outline:chart-pie',
-                link: '/pages/show-trainers',
+                link: '/pages/show-traces',
                 meta: 'ROLE_ADMIN',
 
             },
@@ -67,24 +67,24 @@ export const defaultNavigation: FuseNavigationItem[] = [
         ]
     },
     {
-        id: 'courses',
-        title: 'Courses',
+        id: 'stations',
+        title: 'Stations',
         subtitle: '',
         type: 'group',
         icon: 'heroicons_outline:home',
         meta: 'ROLE_ADMIN',
         children: [
             {
-                id: 'courses.add',
-                title: 'Add course',
+                id: 'stations.add',
+                title: 'Add station',
                 type: 'basic',
                 icon: 'heroicons_outline:pencil-alt',
                 link: '/pages/add-station',
                 meta: 'ROLE_ADMIN',
             },
             {
-                id: 'courses.show',
-                title: 'Show courses',
+                id: 'stations.show',
+                title: 'Show stations',
                 type: 'basic',
                 icon: 'heroicons_outline:chart-pie',
                 link: '/pages/show-stations',

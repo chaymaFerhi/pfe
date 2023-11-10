@@ -46,7 +46,7 @@ export class StationsService {
     addStation(station): Observable<Station> {
         return this.stations$.pipe(
             take(1),
-            switchMap(stations => this._httpClient.post<Station>(`${ApiService.apiVersion}${ApiService.apiStations}/add-station`, station).pipe(
+            switchMap(stations => this._httpClient.post<Station>(`${ApiService.apiVersion}${ApiService.apiStations}/create`, station).pipe(
                 map((newStation) => {
 
                     // Update the stations with the new product
@@ -131,7 +131,7 @@ export class StationsService {
         return this.stations$.pipe(
             take(1),
             switchMap(stations =>
-                this._httpClient.delete(`${ApiService.apiVersion}${ApiService.apiStations}/delete-station/${station.id}`).pipe(
+                this._httpClient.delete(`${ApiService.apiVersion}${ApiService.apiStations}/${station.id}`).pipe(
                     map(() => {
                         // Find the index of the deleted product
                         const index = stations.findIndex(item => item.id === station.id);

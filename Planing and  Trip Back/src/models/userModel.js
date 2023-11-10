@@ -83,6 +83,10 @@ const userSchema = new mongoose.Schema({
             default: Date.now(),
             select: false,
         },
+    },
+    {
+        toJSON: { virtuals: true },
+        toObject: { virtuals: true }
     }
 )
 userSchema.pre('save', async function(next) {

@@ -36,12 +36,10 @@ export class AuthService {
      * Setter & getter for access token
      */
     set accessToken(token: string) {
-        console.log(token)
         localStorage.setItem(environment.accessToken, token);
     }
 
     get accessToken(): string {
-        console.log(localStorage.getItem(environment.accessToken))
         return localStorage.getItem(environment.accessToken) ?? '';
     }
 
@@ -158,8 +156,7 @@ export class AuthService {
      */
     signUp(user): Observable<any> {
         console.log(user);
-        return this._httpClient.post('http://127.0.0.1:4112/api/v1/users/signup', user);
-    }
+      return   this._httpClient.post(`${ApiService.apiVersion}${ApiService.apiUser}/signup`, user);    }
 
     /**
      * Unlock session

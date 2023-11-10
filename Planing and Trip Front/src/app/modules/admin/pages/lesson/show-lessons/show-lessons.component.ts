@@ -17,14 +17,15 @@ import {
     InventoryCategory,
     InventoryPagination, InventoryVendor
 } from '../../../apps/ecommerce/inventory/inventory.types';
-import {Skills} from '../../../../../shared/model/skills.types';
+import {Station} from '../../../../../shared/model/stations.types';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {FuseConfirmationService} from '@fuse/services/confirmation';
-import {SkillsService} from '../../../../../shared/service/skills.service';
+import {GeometryService} from '../../../../../shared/service/geometry.service';
 import {debounceTime, map, switchMap, takeUntil} from 'rxjs/operators';
 import {LessonsService} from '../../../../../shared/service/lessons.service';
 import {Lessons} from '../../../../../shared/model/lessons.types';
 import {InventoryService} from '../../../apps/ecommerce/inventory/inventory.service';
+import {Geometry} from '../../../../../shared/model/geometry.types';
 
 @Component({
   selector: 'app-show-lessons',
@@ -62,13 +63,12 @@ export class ShowLessonsComponent implements OnInit, AfterViewInit, OnDestroy {
     apiImg = ApiService.apiPicture;
     brands: InventoryBrand[];
     categories: InventoryCategory[];
-    filteredSkills: Skills[];
+    filteredSkills: Station[];
     isLoading: boolean = false;
     pagination: InventoryPagination;
     searchInputControl: FormControl = new FormControl();
     selectedLesson: Lessons | null = null;
     selectedProductForm: FormGroup;
-    skills: Skills[];
     vendors: InventoryVendor[];
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -81,7 +81,7 @@ export class ShowLessonsComponent implements OnInit, AfterViewInit, OnDestroy {
         private _formBuilder: FormBuilder,
         private _inventoryService: InventoryService,
         private _lessonService: LessonsService,
-        private _skillsService: SkillsService,
+        private _geometrysService: GeometryService,
     ) {
     }
 
@@ -99,7 +99,7 @@ export class ShowLessonsComponent implements OnInit, AfterViewInit, OnDestroy {
             category: [''],
             name: ['', [Validators.required]],
             description: [''],
-            skills: [[]],
+            geometrys: [[]],
             sku: [''],
             barcode: [''],
             brand: [''],
@@ -148,20 +148,6 @@ export class ShowLessonsComponent implements OnInit, AfterViewInit, OnDestroy {
             });
         // Get the products
         this.lessons$ = this._lessonService.lessons$;
-
-        // Get the tags
-        this._skillsService.skills$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((skills: Skills[]) => {
-
-                // Update the skills
-                this.skills = skills;
-                this.filteredSkills = skills;
-
-                // Mark for check
-                this._changeDetectorRef.markForCheck();
-            });
-
         // Get the vendors
         this._inventoryService.vendors$
             .pipe(takeUntil(this._unsubscribeAll))

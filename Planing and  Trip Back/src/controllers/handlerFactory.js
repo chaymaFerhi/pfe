@@ -80,7 +80,16 @@ exports.getAll = Model =>
         // SEND RESPONSE
         res.status(200).json({
             status: 'success',
-            results: doc.length,
-            content:  doc
+            pageable: {
+                length: doc.length,
+                page: 0,
+                size: doc.length,
+                pageSize: 10,
+                pageNumber: 0,
+                lastPage: doc.length-1,
+                startIndex: 0,
+                endIndex: doc.length
+            },
+            content: doc
         });
     });

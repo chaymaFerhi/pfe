@@ -10,7 +10,11 @@ const VilleModel = mongoose.model('Ville',{
     },
     
     
-}
+},
+    {
+        toJSON: { virtuals: true },
+        toObject: { virtuals: true }
+    }
 )
 
 module.exports=VilleModel;

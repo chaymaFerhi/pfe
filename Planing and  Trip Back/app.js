@@ -13,12 +13,12 @@ const cors = require('cors');
 
 const AppError = require('./src/utils/appError');
 const globalErrorHandler = require('./src/controllers/errorController');
-// const tourRouter = require('./src/routes/tourRoutes');
+const geometryRouter = require('./src/routes/geometryRoutes');
 const userRouter = require('./src/routes/userRoutes');
 const stationsRouter = require('./src/routes/stationsRoutes');
-// const bookingRouter = require('./src/routes/bookingRoutes');
+const traceRouter = require('./src/routes/traceRoutes');
 // const bookingController = require('./src/controllers/bookingController');
-// const viewRouter = require('./src/routes/viewRoutes');
+const voyageRouter = require('./src/routes/voyageRoutes');
 // const postRouter = require('./src/routes/postRoutes');
 // Start express app
 const app = express();
@@ -80,11 +80,11 @@ app.use((req, res, next) => {
 
 
 // 3) ROUTES
-// app.use('/', viewRouter);
-// app.use('/api/v1/tours', tourRouter);
+app.use('/api/v1/voyages', voyageRouter);
+app.use('/api/v1/geometrys', geometryRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/stations', stationsRouter);
-// app.use('/api/v1/bookings', bookingRouter);
+app.use('/api/v1/traces', traceRouter);
 // app.use('/api/v1/posts', postRouter);
 
 app.all('*', (req, res, next) => {
