@@ -17,6 +17,7 @@ import {AcademyListComponent} from 'app/modules/admin/apps/academy/list/list.com
 import {MatTabsModule} from '@angular/material/tabs';
 import {ReactiveFormsModule} from '@angular/forms';
 import {FuseDateRangeModule} from '../../../../../@fuse/components/date-range';
+import {ActivitiesModule} from '../../pages/activities/activities.module';
 
 @NgModule({
     declarations: [
@@ -42,7 +43,7 @@ import {FuseDateRangeModule} from '../../../../../@fuse/components/date-range';
         MatButtonModule,
         MatFormFieldModule,
 
-        FuseDateRangeModule
+        FuseDateRangeModule,
     ]
 })
 export class AcademyModule {
