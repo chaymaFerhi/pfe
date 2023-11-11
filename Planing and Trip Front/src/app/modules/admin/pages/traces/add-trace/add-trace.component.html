@@ -23,7 +23,7 @@
         </div>
     </div>
     <!-- Main -->
-    <div class="flex-auto p-6 sm:p-10">
+    <div class="flex-auto p-6 sm:px-10">
         <div class="max-w-3xl">
             <!-- Sectioned form with separate cards #3 -->
             <form [formGroup]="traceForm">
@@ -37,122 +37,98 @@
                             <span
                                 class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4 gt-xs:mb-0">Name</span>
                             <mat-form-field class="fuse-mat-dense flex-auto">
-                                <input matInput [formControlName]="'username'"
+                                <input matInput [formControlName]="'name'"
                                        placeholder="Ajouter le nom de formateur">
-                                <mat-error *ngIf="traceForm.get('username').hasError('required')">
+                                <mat-error *ngIf="traceForm.get('name').hasError('required')">
                                     Username is required
                                 </mat-error>
                             </mat-form-field>
                         </div>
                         <div class="flex flex-col gt-xs:flex-row gt-xs:items-baseline">
-                            <span class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4 gt-xs:mb-0">Email address</span>
+                            <span class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4 gt-xs:mb-0">Depart</span>
                             <mat-form-field class="fuse-mat-dense flex-auto">
-                                <input matInput [formControlName]="'email'"
-                                       placeholder="Ajouter l'email">
-                                <mat-error *ngIf="traceForm.get('email').hasError('required')">
+                                <mat-select [value]="'Choose the depart station'" [formControlName]="'depart'">
+                                    <mat-option [value]="'Choose the depart station'">Choose the depart station</mat-option>
+                                    <ng-container *ngIf="(stations$ | async) as stations">
+                                        <ng-container *ngIf="stations.length > 0; else noTraces">
+                                            <ng-container *ngFor="let station of stations; trackBy: trackByFn">
+                                                <mat-option [value]="station">{{station?.name}}</mat-option>
+                                            </ng-container>
+                                        </ng-container>
+                                    </ng-container>
+                                </mat-select>
+                                <ng-template #noTraces>
+                                    <div
+                                        class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">
+                                        There are no stations! <span>Add a<a [routerLink]="['/pages/add-station']">station</a></span>
+                                    </div>
+                                </ng-template>
+
+                                <mat-error *ngIf="traceForm.get('depart').hasError('required')">
                                     Email is required
                                 </mat-error>
-                                <mat-error *ngIf="traceForm.get('email').hasError('email')">
-                                    Please enter a valid email address
+
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col gt-xs:flex-row gt-xs:items-baseline">
+                            <span class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4 gt-xs:mb-0">Destination</span>
+                            <mat-form-field class="fuse-mat-dense flex-auto">
+                                <mat-select [value]="'Choose the depart station'" [formControlName]="'destination'">
+                                    <mat-option [value]="'Choose the depart station'">Choose the depart station</mat-option>
+                                    <ng-container *ngIf="(stations$ | async) as stations">
+                                        <ng-container *ngIf="stations.length > 0; else noTraces">
+                                            <ng-container *ngFor="let station of stations; trackBy: trackByFn">
+                                                <mat-option [value]="station">{{station?.name}}</mat-option>
+                                            </ng-container>
+                                        </ng-container>
+                                    </ng-container>
+                                </mat-select>
+                                <ng-template #noTraces>
+                                    <div
+                                        class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">
+                                        There are no stations! <span>Add a<a [routerLink]="['/pages/add-station']">station</a></span>
+                                    </div>
+                                </ng-template>
+
+                                <mat-error *ngIf="traceForm.get('destination').hasError('required')">
+                                    Email is required
                                 </mat-error>
                             </mat-form-field>
                         </div>
                         <div class="flex flex-col gt-xs:flex-row gt-xs:items-baseline">
-                            <span class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4 gt-xs:mb-0">Password</span>
+                            <span class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4 gt-xs:mb-0">Trasnport</span>
                             <mat-form-field class="fuse-mat-dense flex-auto">
-                                <input id="password" matInput type="password" [formControlName]="'password'"
-                                       #passwordField>
-                                <button
-                                    mat-icon-button
-                                    type="button"
-                                    (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
-                                    matSuffix>
-                                    <mat-icon
-                                        class="icon-size-5"
-                                        *ngIf="passwordField.type === 'password'"
-                                        [svgIcon]="'heroicons_solid:eye'"></mat-icon>
-                                    <mat-icon
-                                        class="icon-size-5"
-                                        *ngIf="passwordField.type === 'text'"
-                                        [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
-                                </button>
-                                <mat-error *ngIf="traceForm.get('password').hasError('required')">
+                                <mat-select [value]="'Choose the transport type'" [formControlName]="'transport'">
+                                    <mat-option [value]="'Choose the transport type'">Choose the transport type</mat-option>
+                                    <mat-option [value]="'train'">Train</mat-option>
+                                    <mat-option [value]="'aeroport'">Aeroprt</mat-option>
+                                </mat-select>
+
+                                <mat-error *ngIf="traceForm.get('transport').hasError('required')">
                                     Password is required
                                 </mat-error>
                             </mat-form-field>
                         </div>
-
-                    </div>
-                </div>
-                <div class="flex flex-col mt-8 bg-card shadow rounded overflow-hidden">
-                    <div class="p-8 bg-gray-50 dark:bg-gray-700">
-                        <p class="text-lg font-medium">Technique</p>
-                    </div>
-                    <mat-divider></mat-divider>
-                    <div class="p-8 pb-4">
-
                         <div class="flex flex-col gt-xs:flex-row gt-xs:items-baseline">
                             <span
-                                class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4 gt-xs:mb-0">Poste</span>
+                                class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4 gt-xs:mb-0">Date sortie</span>
                             <mat-form-field class="fuse-mat-dense flex-auto">
-                                <input matInput [formControlName]="'post'"
-                                       placeholder="Ajouter l'post">
-                                <mat-error *ngIf="traceForm.get('post').hasError('required')">
+                                <input [formControlName]="'dateSortie'"
+                                       matInput
+                                       [matDatepicker]="picker1">
+                                <mat-datepicker-toggle
+                                    matSuffix
+                                    [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+
+                                <mat-error *ngIf="traceForm.get('dateSortie').hasError('required')">
                                     Poste is required
                                 </mat-error>
 
                             </mat-form-field>
                         </div>
-                        <div class="flex flex-col gt-xs:flex-row gt-xs:items-baseline">
-                            <span
-                                class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4 gt-xs:mb-0">About</span>
-                            <mat-form-field class="fuse-mat-dense flex-auto">
-
-                                <textarea
-                                    matInput [formControlName]="'about'"
-                                    [placeholder]="'About'"
-                                    [rows]="3"></textarea>
-                                <mat-error *ngIf="traceForm.get('about').hasError('required')">
-                                    About is required
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-
                     </div>
                 </div>
-
-                <div class="flex flex-col flex-auto mt-8 bg-card shadow rounded overflow-hidden">
-                    <div class="p-8 bg-gray-50 dark:bg-gray-700">
-                        <p class="text-lg font-medium">File</p>
-                        <p class="text-secondary">Can you add your cover picture </p>
-                    </div>
-                    <mat-divider></mat-divider>
-                    <div class="p-8 pb-4">
-                        <div class="flex flex-col gt-xs:flex-row gt-xs:items-baseline">
-                            <span class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4 gt-xs:mb-0">Trace picture</span>
-                            <div>
-                                <input
-                                    id="image-file-input"
-                                    class="absolute h-0 w-0 opacity-0 invisible pointer-events-none"
-                                    type="file"
-                                    [accept]="'image/jpeg, image/png'"
-                                    (change)="uploadImage(imageFileInput.files)"
-                                    #imageFileInput>
-                                <label
-                                    class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-gray-400 hover:bg-opacity-20 dark:hover:bg-black dark:hover:bg-opacity-5"
-                                    for="image-file-input"
-                                    matRipple>
-                                    <mat-icon [svgIcon]="'heroicons_outline:photograph'"></mat-icon>
-                                </label>
-<!--                                {{traceForm.get('picture').errors | json}}-->
-<!--                                <mat-error *ngIf="traceForm.get('picture').hasError('required')">-->
-<!--                                    Picture is required-->
-<!--                                </mat-error>-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
 
                 <div class="flex items-center justify-end mt-10">
                     <button mat-button (click)="cancelTraceForm()">

@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {fuseAnimations} from '@fuse/animations';
 import {FuseAlertType} from '@fuse/components/alert';
 import {AuthService} from 'app/core/auth/auth.service';
-import {UserService} from '../../../core/user/user.service';
+import {UsersService} from '../../../shared/service/users.service';
 
 @Component({
     selector: 'auth-sign-in',
@@ -30,7 +30,7 @@ export class AuthSignInComponent implements OnInit {
         private _authService: AuthService,
         private _formBuilder: FormBuilder,
         private _router: Router,
-        private _userService: UserService
+        private _userService: UsersService
     ) {
     }
 

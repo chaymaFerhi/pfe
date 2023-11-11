@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatChipInputEvent} from '@angular/material/chips';
 import {Router} from '@angular/router';
 import {Trace} from '../../../../../shared/model/traces.types';
 import {TracesService} from '../../../../../shared/service/traces.service';
+import {Observable} from 'rxjs';
+import {Station} from '../../../../../shared/model/stations.types';
+import {StationsService} from '../../../../../shared/service/stations.service';
 
 @Component({
     selector: 'app-add-trace',
@@ -14,36 +16,32 @@ export class AddTraceComponent implements OnInit {
     traceForm: FormGroup;
     traces: Trace[] ;
     selectedFiles: FileList;
+    stations$: Observable<Station[]>;
 
 
     constructor(private _formBuilder: FormBuilder,
                 private _router: Router,
-                private _traceService: TracesService) {
+                private _traceService: TracesService,
+                private _stationsService: StationsService) {
 
     }
 
     ngOnInit(): void {
         // Horizontal stepper form
         this.traceForm = this._formBuilder.group({
-            username: ['', Validators.required],
-            email: ['', [Validators.required, Validators.email]],
-            password: ['', Validators.required],
-            post: ['', Validators.required],
-            about: ['', Validators.required],
-            picture: ['', Validators.required]
+            name: ['', Validators.required],
+            destination: ['', Validators.required],
+            depart: ['', [Validators.required]],
+            transport: ['', Validators.required],
+            dateSortie: ['', Validators.required]
         });
+        this.stations$ = this._stationsService.stations$;
 
     }
 
     addTrace(): void {
-        const fd = new FormData();
-        fd.append('users.username', this.traceForm.value.username);
-        fd.append('users.email', this.traceForm.value.email);
-        fd.append('picture', this.traceForm.value.picture);
-        fd.append('users.password', this.traceForm.value.password);
-        fd.append('post', this.traceForm.value.post);
-        fd.append('about', this.traceForm.value.about);
-        this._traceService.addTrace(fd)
+
+        this._traceService.addTrace(this.traceForm.value)
             .subscribe((res) => {
                 console.log(res);
                 this.selectedFiles = undefined;
@@ -80,5 +78,9 @@ export class AddTraceComponent implements OnInit {
 
     cancelTraceForm(): void {
         this.traceForm.reset();
+    }
+
+    trackByFn(index: number, item: any): any {
+        return item.id || index;
     }
 }

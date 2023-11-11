@@ -11,12 +11,13 @@ import { FuseCardModule } from '@fuse/components/card';
 import { SharedModule } from 'app/shared/shared.module';
 import { ProfileComponent } from 'app/modules/admin/pages/profile/profile.component';
 import { profileRoutes } from 'app/modules/admin/pages/profile/profile.routing';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @NgModule({
     declarations: [
         ProfileComponent
     ],
-    imports     : [
+    imports: [
         RouterModule.forChild(profileRoutes),
         MatButtonModule,
         MatDividerModule,
@@ -26,7 +27,8 @@ import { profileRoutes } from 'app/modules/admin/pages/profile/profile.routing';
         MatMenuModule,
         MatTooltipModule,
         FuseCardModule,
-        SharedModule
+        SharedModule,
+        MatDatepickerModule
     ]
 })
 export class ProfileModule

@@ -4,6 +4,8 @@ const traceSchema = new mongoose.Schema({
 
 
         numeroLigne: String,
+        transport: String,
+        dateSortie: String,
         voyage: {
             type: mongoose.Schema.ObjectId,
             ref: 'Voyage',

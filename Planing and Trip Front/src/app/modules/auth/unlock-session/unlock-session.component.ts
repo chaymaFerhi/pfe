@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { AuthService } from 'app/core/auth/auth.service';
-import { UserService } from 'app/core/user/user.service';
 import { FuseAlertType } from '@fuse/components/alert';
+import {UsersService} from '../../../shared/service/users.service';
 
 @Component({
     selector     : 'auth-unlock-session',
@@ -33,7 +33,7 @@ export class AuthUnlockSessionComponent implements OnInit
         private _authService: AuthService,
         private _formBuilder: FormBuilder,
         private _router: Router,
-        private _userService: UserService
+        private _userService: UsersService
     )
     {
     }

@@ -7,4 +7,15 @@ export interface Users {
     picture?: string;
     roles?: any[];
     role?: string;
+
+    name: string;
+    avatar?: string;
+    status?: string;
+
+    age: number;
+    phonenumber: number;
+    photo: string;
+    adresse: string;
+    datedenaissance: Date;
+    createdAt: Date;
 }

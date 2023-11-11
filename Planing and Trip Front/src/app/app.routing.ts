@@ -2,7 +2,6 @@ import {Route} from '@angular/router';
 import {AuthGuard} from 'app/core/auth/guards/auth.guard';
 import {LayoutComponent} from 'app/layout/layout.component';
 import {InitialDataResolver} from 'app/app.resolvers';
-import {NoAuthGuard} from './core/auth/guards/noAuth.guard';
 
 const roleAdmin = 'ROLE_ADMIN';
 const roleUser = 'ROLE_USER';
@@ -211,21 +210,6 @@ export const appRoutes: Route[] = [
                         loadChildren: () => import('app/modules/admin/pages/traces/add-trace/add-trace.module').then(m => m.AddTraceModule)
                     },
                     {
-                        path: 'show-lessons',
-                        data: {
-                            role: roleAdmin
-                        },
-                        loadChildren: () => import('app/modules/admin/pages/lesson/show-lessons/show-lessons.module').then(m => m.ShowLessonsModule)
-                    },
-                    {
-                        path: 'add-lesson/:idCourse',
-                        data: {
-                            role: roleAdmin
-                        },
-                        loadChildren: () => import('app/modules/admin/pages/lesson/add-lesson/add-lesson.module').then(m => m.AddLessonModule)
-                    },
-
-                    {
                         path: 'add-user',
                         data: {
                             role: roleAdmin
@@ -276,6 +260,11 @@ export const appRoutes: Route[] = [
                     // Profile
                     {
                         path: 'profile',
+                        loadChildren: () => import('app/modules/admin/pages/profile/profile.module').then(m => m.ProfileModule)
+                    },
+                    // Profile
+                    {
+                        path: 'profile/:id',
                         loadChildren: () => import('app/modules/admin/pages/profile/profile.module').then(m => m.ProfileModule)
                     },
 

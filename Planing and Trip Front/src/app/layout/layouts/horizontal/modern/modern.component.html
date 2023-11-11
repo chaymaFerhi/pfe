@@ -23,7 +23,8 @@
 <div class="flex flex-col flex-auto w-full min-w-0">
 
     <!-- Header -->
-    <div class="relative flex flex-0 items-center w-full h-16 sm:h-20 px-4 md:px-6 z-49 shadow dark:shadow-none dark:border-b bg-card dark:bg-transparent print:hidden">
+    <div
+        class="relative flex flex-0 items-center w-full h-16 sm:h-20 px-4 md:px-6 z-49 shadow dark:shadow-none dark:border-b bg-card dark:bg-transparent print:hidden">
         <ng-container *ngIf="!isScreenSmall">
             <!-- Logo -->
             <div class="flex items-center mx-2 lg:mr-8">
@@ -55,9 +56,23 @@
         </ng-container>
         <!-- Components -->
         <div class="flex items-center pl-2 ml-auto space-x-1 sm:space-x-2">
-            <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
-<!--            <search [appearance]="'bar'"></search>-->
-            <user ></user>
+            <!--          <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
+                    <search [appearance]="'bar'"></search>-->
+            <mat-divider class="my-2"></mat-divider>
+            <button *ngIf="user"
+                    mat-menu-item
+                    (click)="signOut()">
+                <mat-icon [svgIcon]="'heroicons_outline:logout'"></mat-icon>
+                <!--<span>Sign out</span>-->
+            </button>
+            <button *ngIf="!user"
+                    mat-menu-item
+                    [routerLink]="['/sign-in']">
+                <mat-icon [svgIcon]="'heroicons_outline:login'"></mat-icon>
+                <!--<span>Sign In</span>-->
+            </button>
+            <user></user>
+
         </div>
     </div>
 

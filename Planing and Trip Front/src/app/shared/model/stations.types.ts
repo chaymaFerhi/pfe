@@ -2,7 +2,7 @@ export interface Station {
     id: string;
     _id: string;
     name: string;
-    areaList: [];
+    areaList: any;
     localisation: string;
     longitude: string;
     latitude: string;

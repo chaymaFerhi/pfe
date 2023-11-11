@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -6,6 +6,8 @@ import {FuseMediaWatcherService} from '@fuse/services/media-watcher';
 import {FuseNavigationService, FuseVerticalNavigationComponent} from '@fuse/components/navigation';
 import {Navigation} from 'app/core/navigation/navigation.types';
 import {NavigationService} from 'app/core/navigation/navigation.service';
+import {Users} from '../../../../shared/model/users.types';
+import {UsersService} from '../../../../shared/service/users.service';
 
 @Component({
     selector: 'modern-layout',
@@ -16,6 +18,8 @@ export class ModernLayoutComponent implements OnInit, OnDestroy {
     isUser = false;
     isScreenSmall: boolean;
     navigation: Navigation;
+    user: Users;
+
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -26,6 +30,8 @@ export class ModernLayoutComponent implements OnInit, OnDestroy {
         private _router: Router,
         private _navigationService: NavigationService,
         private _fuseMediaWatcherService: FuseMediaWatcherService,
+        private _userService: UsersService,
+        private _changeDetectorRef: ChangeDetectorRef,
         private _fuseNavigationService: FuseNavigationService
     ) {
     }
@@ -64,6 +70,16 @@ export class ModernLayoutComponent implements OnInit, OnDestroy {
                 // Check if the screen is small
                 this.isScreenSmall = !matchingAliases.includes('md');
             });
+        this._userService.user$
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe((user: Users) => {
+                console.log(user);
+                this.user = user;
+
+                // Mark for check
+                this._changeDetectorRef.markForCheck();
+            });
+
     }
 
     /**
@@ -92,5 +108,13 @@ export class ModernLayoutComponent implements OnInit, OnDestroy {
             // Toggle the opened status
             navigation.toggle();
         }
+    }
+
+    /**
+     * Sign out
+     */
+    signOut(): void
+    {
+        this._router.navigate(['/sign-out']);
     }
 }

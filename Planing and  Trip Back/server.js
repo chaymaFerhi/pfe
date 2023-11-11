@@ -24,7 +24,8 @@ const app = require('./app');
 
 mongoose
     .connect(DB,{
-        useNewUrlParser: true
+        useNewUrlParser: true,
+        useFindAndModify: false
     })
     .then(() => console.log('DB connection successful!'));
 

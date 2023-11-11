@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { UserComponent } from 'app/layout/common/user/user.component';
-import { SharedModule } from 'app/shared/shared.module';
-import {RouterModule} from "@angular/router";
+import {NgModule} from '@angular/core';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
+import {UserComponent} from 'app/layout/common/user/user.component';
+import {SharedModule} from 'app/shared/shared.module';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
     declarations: [
@@ -19,10 +19,9 @@ import {RouterModule} from "@angular/router";
         SharedModule,
         RouterModule
     ],
-    exports     : [
+    exports: [
         UserComponent
     ]
 })
-export class UserModule
-{
+export class UserModule {
 }

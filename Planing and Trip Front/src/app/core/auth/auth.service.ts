@@ -3,11 +3,11 @@ import {HttpClient} from '@angular/common/http';
 import {Observable, of, throwError} from 'rxjs';
 import {catchError, switchMap} from 'rxjs/operators';
 import {AuthUtils} from 'app/core/auth/auth.utils';
-import {UserService} from 'app/core/user/user.service';
 import {environment} from '../../../environments/environment';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {ApiService} from '../../shared/service/api.service';
 import {Users} from '../../shared/model/users.types';
+import {UsersService} from '../../shared/service/users.service';
 
 const helper = new JwtHelperService();
 
@@ -24,7 +24,7 @@ export class AuthService {
      */
     constructor(
         private _httpClient: HttpClient,
-        private _userService: UserService
+        private _userService: UsersService
     ) {
     }
 
@@ -125,8 +125,6 @@ export class AuthService {
                 // Set the authenticated flag to true
                 this._authenticated = true;
 
-                // Store the user on the user service
-                this._userService.user = this.decodedToken.sub;
 
                 // Return true
                 return of(true);

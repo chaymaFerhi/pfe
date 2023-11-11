@@ -10,5 +10,7 @@ export interface Trace {
     destination: Station;
     geometry: Geometry;
     record_timestamp: string;
+    transport: string;
+    dateSortie: string;
 }
 

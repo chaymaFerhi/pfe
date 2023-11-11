@@ -6,9 +6,9 @@ import {FuseMediaWatcherService} from '@fuse/services/media-watcher';
 import {FuseNavigationService, FuseVerticalNavigationComponent} from '@fuse/components/navigation';
 import {Navigation} from 'app/core/navigation/navigation.types';
 import {NavigationService} from 'app/core/navigation/navigation.service';
-import {User} from 'app/core/user/user.types';
-import {UserService} from 'app/core/user/user.service';
 import {AuthService} from '../../../../core/auth/auth.service';
+import {Users} from '../../../../shared/model/users.types';
+import {UsersService} from '../../../../shared/service/users.service';
 
 @Component({
     selector: 'classy-layout',
@@ -18,7 +18,7 @@ import {AuthService} from '../../../../core/auth/auth.service';
 export class ClassyLayoutComponent implements OnInit, OnDestroy {
     isScreenSmall: boolean;
     navigation: Navigation;
-    user: User;
+    user: Users;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -29,7 +29,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
         private _router: Router,
         private _authService: AuthService,
         private _navigationService: NavigationService,
-        private _userService: UserService,
+        private _userService: UsersService,
         private _fuseMediaWatcherService: FuseMediaWatcherService,
         private _fuseNavigationService: FuseNavigationService
     ) {
@@ -106,5 +106,12 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
             // Toggle the opened status
             navigation.toggle();
         }
+    }
+    /**
+     * Sign out
+     */
+    signOut(): void
+    {
+        this._router.navigate(['/sign-out']);
     }
 }

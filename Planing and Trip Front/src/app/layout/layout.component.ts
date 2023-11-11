@@ -9,8 +9,6 @@ import {FuseTailwindService} from '@fuse/services/tailwind/tailwind.service';
 import {FUSE_VERSION} from '@fuse/version';
 import {Layout} from 'app/layout/layout.types';
 import {AppConfig, Scheme, Theme} from 'app/core/config/app.config';
-import {User} from '../core/user/user.types';
-import {UserService} from '../core/user/user.service';
 import {AuthService} from '../core/auth/auth.service';
 
 @Component({

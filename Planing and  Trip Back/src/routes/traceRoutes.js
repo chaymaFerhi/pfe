@@ -10,7 +10,8 @@ router.use(authController.protect);
 router.post('/search-traces', authController.restrictTo('ROLE_CLIENT','ROLE_ADMIN'), tracesController.searchTrace);
 
 router.use(authController.restrictTo('ROLE_ADMIN'));
-router.post('/create', tracesController.addTrace);
+router.post('/add-trace', tracesController.addTrace);
+router.post('/add-multi-trace', tracesController.addMultiTrace);
 router
     .route('/:id')
     .get(tracesController.getTrace)

@@ -7,8 +7,7 @@ import {FuseNavigationService} from '@fuse/components/navigation/navigation.serv
 import {FuseNavigationItem} from '@fuse/components/navigation/navigation.types';
 import {FuseUtilsService} from '@fuse/services/utils/utils.service';
 import {AuthService} from '../../../../../../app/core/auth/auth.service';
-import {UserService} from '../../../../../../app/core/user/user.service';
-import {User} from '../../../../../../app/core/user/user.types';
+import {UsersService} from '../../../../../../app/shared/service/users.service';
 
 @Component({
     selector: 'fuse-horizontal-navigation-basic-item',
@@ -31,7 +30,7 @@ export class FuseHorizontalNavigationBasicItemComponent implements OnInit, OnDes
         private _changeDetectorRef: ChangeDetectorRef,
         private _fuseNavigationService: FuseNavigationService,
         private _authService: AuthService,
-        private _userService: UserService,
+        private _userService: UsersService,
         private _fuseUtilsService: FuseUtilsService
     ) {
 

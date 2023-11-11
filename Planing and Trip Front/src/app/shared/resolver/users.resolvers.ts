@@ -4,7 +4,6 @@ import { Observable} from 'rxjs';
 import {InventoryPagination} from '../../modules/admin/apps/ecommerce/inventory/inventory.types';
 import {UsersService} from '../service/users.service';
 import {Users} from '../model/users.types';
-import {UserService} from '../../core/user/user.service';
 @Injectable({
     providedIn: 'root'
 })
@@ -40,7 +39,7 @@ export class ActiveUserResolvers implements Resolve<any>
     /**
      * Constructor
      */
-    constructor(private _userService: UserService)
+    constructor(private _userService: UsersService)
     {
     }
 

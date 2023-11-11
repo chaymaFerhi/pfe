@@ -45,8 +45,9 @@ exports.searchTrace = catchAsync(async (req, res, next) => {
 })
 exports.updateTrace = factory.updateOne(Trace);
 exports.getAllTraces = factory.getAll(Trace);
+exports.addTrace = factory.createOne(Trace);
 // Do NOT update passwords with this!
-exports.addTrace = catchAsync(async (req, res, next) => {
+exports.addMultiTrace = catchAsync(async (req, res, next) => {
     console.log(req.body)
     for (let item of req.body.doc) {
         await Trace.create(item);

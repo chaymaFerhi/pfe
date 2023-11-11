@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, of, throwError} from 'rxjs';
 import {InventoryPagination} from '../../modules/admin/apps/ecommerce/inventory/inventory.types';
 import {Users} from '../model/users.types';
 import {ApiService} from './api.service';
 import {HttpClient} from '@angular/common/http';
-import {map, switchMap, take, tap} from 'rxjs/operators';
+import {catchError, map, switchMap, take, tap} from 'rxjs/operators';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class UsersService {
     private _pagination: BehaviorSubject<InventoryPagination | null> = new BehaviorSubject(null);
@@ -24,6 +25,7 @@ export class UsersService {
     get users$(): Observable<Users[]> {
         return this._users.asObservable();
     }
+
     /**
      * Getter for products
      */
@@ -46,7 +48,7 @@ export class UsersService {
     }
 
     editUser(body, id): Observable<Users> {
-        return this._apiService.patch(`${ApiService.apiUser}/${id}`, body).pipe(map(res => res));
+        return this._apiService.patch(`${ApiService.apiUser}/updateMe`, body).pipe(map(res => res));
     }
 
     /**
@@ -99,7 +101,7 @@ export class UsersService {
             //    order,
             //    search
             //}
-        //}
+            //}
         ).pipe(
             tap((response) => {
                 this._pagination.next(response.pageable);
@@ -130,5 +132,27 @@ export class UsersService {
                     })
                 ))
         );
+    }
+
+    /**
+     * Get the current logged in user data
+     */
+    get(): Observable<Users> | null {
+        const username = localStorage.getItem(environment.activeUser);
+        if (!username) {
+            console.log(!username);
+            return throwError(new Error('Username not found in local storage')); // You can customize the error message
+
+        }
+        return this._httpClient.get<Users>(`${ApiService.apiVersion}${ApiService.apiUser}/me`).pipe(
+            tap((response: any) => {
+                console.log(response.data);
+                localStorage.setItem(environment.activeUser, JSON.stringify(response.data));
+                // Store the access token in the local storage
+                this._user.next(response.data);
+            }),
+            catchError((error: any) =>
+                throwError(error) // You can handle the error as needed
+            ));
     }
 }

@@ -156,7 +156,7 @@ export class TracesService {
         return this.traces$.pipe(
             take(1),
             switchMap(traces =>
-                this._httpClient.delete(`${ApiService.apiVersion}${ApiService.apiTraces}/delete-trace/${trace.id}`).pipe(
+                this._httpClient.delete(`${ApiService.apiVersion}${ApiService.apiTraces}/${trace.id}`).pipe(
                     map(() => {
                         // Find the index of the deleted product
                         const index = traces.findIndex(item => item.id === trace.id);
