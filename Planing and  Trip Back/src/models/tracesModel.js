@@ -34,14 +34,14 @@ const traceSchema = new mongoose.Schema({
 traceSchema.pre(/^find/, function (next) {
     this.populate('station').populate({
         path: 'depart',
-        select: 'name'
+        select: 'name areaList'
     });
     next();
 });
 traceSchema.pre(/^find/, function (next) {
     this.populate('station').populate({
         path: 'destination',
-        select: 'name'
+        select: 'name areaList'
     });
     next();
 

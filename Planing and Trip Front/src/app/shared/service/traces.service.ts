@@ -11,7 +11,7 @@ import {map, switchMap, take, tap} from 'rxjs/operators';
 })
 export class TracesService {
     private _pagination: BehaviorSubject<InventoryPagination | null> = new BehaviorSubject(null);
-    private _traces: BehaviorSubject<Trace[] | null> = new BehaviorSubject(null);
+    _traces: BehaviorSubject<Trace[] | null> = new BehaviorSubject(null);
     private _trace: BehaviorSubject<Trace | null> = new BehaviorSubject(null);
 
     constructor(private _apiService: ApiService,
@@ -97,11 +97,9 @@ export class TracesService {
      * @param order
      * @param search
      */
-    getAllTraces(page: number = 0, size: number = 5, sort: string = 'title',
-                 order: 'asc' | 'desc' | '' = 'asc',
-                 search: string = ''):
-        Observable<{ pageable: InventoryPagination; content: Trace[] }> {
-        return this._httpClient.get<{ pageable: InventoryPagination; content: Trace[] }>
+    getAllTraces():
+        Observable<Trace[]> {
+        return this._httpClient.get<Trace[]>
         (`${ApiService.apiVersion}${ApiService.apiTraces}/get-all-traces`
             //,
             //{
@@ -114,8 +112,8 @@ export class TracesService {
             //}
             //}
         ).pipe(
-            tap((response) => {
-                this._pagination.next(response.pageable);
+            tap((response: any) => {
+                //this._pagination.next(response.pageable);
                 this._traces.next(response.content);
             })
         );
@@ -124,24 +122,15 @@ export class TracesService {
     /**
      * search traces
      *
-     *
      * @param trace
-     * @param page
-     * @param size
-     * @param sort
-     * @param order
-     * @param search
      */
-    searchTraces(trace, page: number = 0, size: number = 5, sort: string = 'title',
-                 order: 'asc' | 'desc' | '' = 'asc',
-                 search: string = ''
-                 ):
-        Observable<{ pageable: InventoryPagination; content: Trace[] }> {
-        return this._httpClient.post<{ pageable: InventoryPagination; content: Trace[] }>
+    searchTraces(trace):
+        Observable<Trace[]> {
+        console.log(trace);
+        return this._httpClient.post<Trace[]>
         (`${ApiService.apiVersion}${ApiService.apiTraces}/search-traces`, trace).pipe(
-            tap((response) => {
-                console.log(response.content)
-                this._pagination.next(response.pageable);
+            tap((response: any) => {
+                console.log(response);
                 this._traces.next(response.content);
             })
         );
@@ -171,12 +160,5 @@ export class TracesService {
         );
     }
 
-    getTraces(): Observable<Trace[]> {
-        return this._httpClient.get<Trace[]>(`${ApiService.apiVersion}${ApiService.apiTraces}`).pipe(
-            tap((response: any) => {
-                this._traces.next(response);
-            })
-        );
-    }
 
 }

@@ -29,6 +29,8 @@ export class AddStationComponent implements OnInit, OnDestroy {
         this.stationForm = this._formBuilder.group({
             name: ['', [Validators.required]],
             areaList: ['', Validators.required],
+            longitude: ['', Validators.required],
+            latitude: ['', Validators.required],
         });
         this.stations$ = this._stationService.stations$;
 
@@ -53,10 +55,41 @@ export class AddStationComponent implements OnInit, OnDestroy {
     }
 
 
-
     trackByFn(index: number, item: any): any {
         return item.id || index;
     }
 
+    getLatLong(): any {
+        const baseUrl = 'https://nominatim.openstreetmap.org/search';
+        const params = new URLSearchParams({
+            q: this.stationForm.value.name,
+            format: 'json'
+        });
+
+        const url = `${baseUrl}?${params.toString()}`;
+
+        return fetch(url)
+            .then(response => {
+                console.log(response)
+                return response.json()
+            })
+            .then((data) => {
+                if (data && data.length > 0) {
+                    const lat = parseFloat(data[0].lat);
+                    const lon = parseFloat(data[0].lon);
+                    this.stationForm.patchValue({
+                        longitude: lon,
+                        latitude: lat,
+                    })
+                    return {lat, lon};
+                } else {
+                    return null;
+                }
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+                return null;
+            });
+    }
 
 }

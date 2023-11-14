@@ -51,6 +51,7 @@ export class FuseVerticalNavigationComponent implements OnChanges, OnInit, After
 
     /* eslint-enable @typescript-eslint/naming-convention */
     // userRole = this._authService.getUser.role;
+    userRole: any;
 
     @Input() appearance: FuseVerticalNavigationAppearance = 'default';
     @Input() autoCollapse: boolean = true;
@@ -327,6 +328,8 @@ export class FuseVerticalNavigationComponent implements OnChanges, OnInit, After
                     this.closeAside();
                 }
             });
+        this.userRole = this._authService.getUser?.role;
+
     }
 
     /**

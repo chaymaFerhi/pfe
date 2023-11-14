@@ -37,8 +37,28 @@
                             <span class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4
                             gt-xs:mb-0">Nom</span>
                             <mat-form-field class="fuse-mat-dense flex-auto">
-                                <input matInput [formControlName]="'name'" placeholder="Add station name" maxlength="255">
+                                <input matInput [formControlName]="'name'" placeholder="Add station name" maxlength="255" (change)="getLatLong()">
                                 <mat-error *ngIf="stationForm.controls.name.hasError('required')">
+                                    Name required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col gt-xs:flex-row gt-xs:items-baseline">
+                            <span class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4
+                            gt-xs:mb-0">Longitude</span>
+                            <mat-form-field class="fuse-mat-dense flex-auto">
+                                <input matInput [formControlName]="'longitude'" placeholder="Add station long" maxlength="255">
+                                <mat-error *ngIf="stationForm.controls.longitude.hasError('required')">
+                                    Name required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col gt-xs:flex-row gt-xs:items-baseline">
+                            <span class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4
+                            gt-xs:mb-0">Latitude</span>
+                            <mat-form-field class="fuse-mat-dense flex-auto">
+                                <input matInput [formControlName]="'latitude'" placeholder="Add station lat" maxlength="255">
+                                <mat-error *ngIf="stationForm.controls.latitude.hasError('required')">
                                     Name required
                                 </mat-error>
                             </mat-form-field>

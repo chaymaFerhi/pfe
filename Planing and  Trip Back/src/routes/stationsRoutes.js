@@ -8,8 +8,8 @@ router.get('/get-all-stations', stationsController.getAllStations);
 router.use(authController.protect);
 router.use(authController.restrictTo('ROLE_ADMIN'));
 
-router.post('/create', stationsController.addStation);
-router.post('/create-multi', stationsController.addMultiStation);
+// router.post('/create', stationsController.addStation);
+router.post('/create', stationsController.addMultiStation);
 
 router
     .route('/:id')

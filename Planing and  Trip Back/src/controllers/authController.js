@@ -91,45 +91,6 @@ const SendSMS = catchAsync(async (user, req, res, next) => {
     //     });
 });
 
-//verifer le code envoyer SMS
-exports.renvoyerCodeSMS = catchAsync(async (req, res, next) => {
-    // console.log(req.body);
-    if (!req.body.phonenumber) {
-        return next(new AppError('كود تنحى!عاود...', 400));
-    }
-
-    SendSMS(req.body.phonenumber);
-    res.status(200).json({
-        status: 'success',
-    });
-});
-exports.VeriferCodeSMS = catchAsync(async (req, res, next) => {
-    if (!req.body.phonenumber && !req.body.code) {
-        return next(new AppError('كود تنحى!عاود...', 400));
-    }
-
-    // const verifercode = await client.verify
-    //     .services(process.env.TWILIO_SERVICE_ID)
-    //     .verificationChecks.create({
-    //         to: `+${req.body.phonenumber}`,
-    //         code: req.body.code,
-    //     });
-
-    const user = await User.findOneAndUpdate(
-        { phonenumber: req.body.phonenumber },
-        { active: true }
-    );
-    // console.log(user);
-    if (verifercode.status === 'approved') {
-        res.status(200).send({
-            message: 'مرحبا بيك كونت مقبول!',
-        });
-    } else {
-        res.status(400).send({
-            message: 'لازمك نكنفرمي الكونت!!',
-        });
-    }
-});
 exports.protect = catchAsync(async (req, res, next) => {
     // 1) Getting token and check of it's there
     let token;

@@ -11,14 +11,14 @@ const roleUser = 'ROLE_USER';
 export const appRoutes: Route[] = [
 
     // Redirect empty path to '/dashboards/project'
-    {path: '', pathMatch: 'full', redirectTo: '/apps/academy'},
+    {path: '', pathMatch: 'full', redirectTo: '/apps/trace'},
 
     // Redirect signed-in user to the '/apps/academy'
     //
     // After the user signs in, the sign-in page will redirect the user to the 'signed-in-redirect'
     // path. Below is another redirection for that path to redirect the user to the desired
     // location. This is a small convenience to keep all main routes together here on this file.
-    {path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'apps/academy'},
+    {path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'apps/trace'},
 
     // Auth routes for guests
     {
@@ -60,7 +60,7 @@ export const appRoutes: Route[] = [
                 },
                 children: [
                     {
-                        path: 'academy',
+                        path: 'trace',
                         data: {
                             // role: [roleAdmin, roleUser]
                         },
@@ -157,8 +157,11 @@ export const appRoutes: Route[] = [
             // Pages
             {
                 path: 'pages',
-                // canActivate: [AuthGuard],
-                // canActivateChild: [AuthGuard],
+                canActivate: [AuthGuard],
+                canActivateChild: [AuthGuard],
+                data: {
+                    role: roleAdmin
+                },
                 children: [
 
                     // Activities

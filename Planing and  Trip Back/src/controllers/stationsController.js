@@ -40,9 +40,9 @@ exports.addStation = factory.createOne(Station);
 // Do NOT update passwords with this!
 exports.addMultiStation = catchAsync(async (req, res, next) => {
     console.log(req.body)
-    for (let item of req.body.doc) {
-        await Station.create(item);
-    }
+    const areaList = getSplitAreaInToList(req.body.areaList);
+    req.body.areaList = areaList
+        await Station.create(req.body);
     res.status(201).json({
         status: 'success',
     });

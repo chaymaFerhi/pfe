@@ -26,7 +26,7 @@ export class TracesResolvers implements Resolve<any>
      * @param route
      * @param state
      */
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<{ pageable: InventoryPagination; content: Trace[] }>
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Trace[]>
     {
         return this._traceService.getAllTraces();
     }

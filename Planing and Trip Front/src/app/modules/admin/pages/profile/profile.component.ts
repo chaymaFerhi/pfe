@@ -3,6 +3,7 @@ import {environment} from '../../../../../environments/environment';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {UsersService} from '../../../../shared/service/users.service';
+import * as moment from 'moment';
 
 @Component({
     selector: 'profile',
@@ -78,4 +79,14 @@ export class ProfileComponent implements OnInit {
             this._router.navigateByUrl('/pages/profile');
         });
     }
+
+    getRelativeFormat(date: string): string {
+        const birthDate = moment(date, moment.ISO_8601);
+        const currentDate = moment();
+
+        const years = currentDate.diff(birthDate, 'years');
+        return `${years} years`;
+
+    }
+
 }

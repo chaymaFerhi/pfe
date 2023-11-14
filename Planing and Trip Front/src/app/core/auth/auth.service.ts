@@ -17,7 +17,7 @@ const authURL = environment.apiUrl + environment.auth;
 @Injectable()
 export class AuthService {
     decodedToken: any;
-        private _authenticated: boolean = false;
+    private _authenticated: boolean = false;
 
     /**
      * Constructor
@@ -94,8 +94,8 @@ export class AuthService {
                 localStorage.setItem(environment.accessToken, response.token);
                 localStorage.setItem(environment.activeUser, response.token);
                 const user = this._userService.get();
-                user.subscribe((res) => {
-                    this.setUser = JSON.stringify(res);
+                user.subscribe((res: any) => {
+                    this.setUser = JSON.stringify(res.data);
                 });
                 // Set the authenticated flag to true
                 this._authenticated = true;
@@ -154,7 +154,8 @@ export class AuthService {
      */
     signUp(user): Observable<any> {
         console.log(user);
-      return   this._httpClient.post(`${ApiService.apiVersion}${ApiService.apiUser}/signup`, user);    }
+        return this._httpClient.post(`${ApiService.apiVersion}${ApiService.apiUser}/signup`, user);
+    }
 
     /**
      * Unlock session

@@ -12,7 +12,7 @@ import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {AcademyService} from 'app/modules/admin/apps/academy/academy.service';
 import {StationsService} from '../../../../../shared/service/stations.service';
 import {Station} from '../../../../../shared/model/stations.types';
-import {takeUntil} from 'rxjs/operators';
+import {debounceTime, map, switchMap, takeUntil} from 'rxjs/operators';
 import {combineLatest} from 'rxjs';
 import {Category} from '../../../../../shared/model/category.types';
 import {FormBuilder, FormGroup} from '@angular/forms';
@@ -20,18 +20,18 @@ import {Overlay} from '@angular/cdk/overlay';
 import {TracesService} from '../../../../../shared/service/traces.service';
 import * as moment from 'moment/moment';
 import {Trace} from '../../../../../shared/model/traces.types';
+import {FuseConfirmationService} from '../../../../../../@fuse/services/confirmation';
+import {AuthService} from '../../../../../core/auth/auth.service';
 
 
 @Component({
     selector: 'academy-list',
     templateUrl: './list.component.html',
-    styleUrls: ['./list.component.scss'],
-
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AcademyListComponent implements OnInit, OnDestroy {
-    traces$: Observable<Trace[]>;
+    traces$: Observable<Trace[]> = new Observable<Trace[]>();
 
     searchForm: FormGroup;
     categories: Category[];
@@ -61,6 +61,8 @@ export class AcademyListComponent implements OnInit, OnDestroy {
         private _changeDetectorRef: ChangeDetectorRef,
         private _router: Router,
         private _academyService: AcademyService,
+        private _fuseConfirmationService: FuseConfirmationService,
+        private _authService: AuthService,
         private _stationsService: StationsService,
         private _elementRef: ElementRef,
         private fb: FormBuilder,
@@ -77,7 +79,7 @@ export class AcademyListComponent implements OnInit, OnDestroy {
      * On init
      */
     ngOnInit(): void {
-       this.traces$ = this._tracesService.traces$;
+        //this.traces$ = this._tracesService.traces$;
 
         // Get the categories
         this._academyService.categories$
@@ -102,6 +104,21 @@ export class AcademyListComponent implements OnInit, OnDestroy {
                 // Mark for check
                 this._changeDetectorRef.markForCheck();
             });
+        this.searchForm.valueChanges
+            .pipe(
+                takeUntil(this._unsubscribeAll),
+                debounceTime(300),
+                switchMap((query) => {
+                    console.log('loading');
+                    //this.closeDetails();
+                    //this.isLoading = true;
+                    return this._tracesService.getAllTraces();
+                }),
+                map(() => {
+                    //this.isLoading = false;
+                })
+            )
+            .subscribe();
 
         // Filter the stations
         combineLatest([this.filters.categorySlug$, this.filters.query$, this.filters.hideCompleted$])
@@ -166,13 +183,9 @@ export class AcademyListComponent implements OnInit, OnDestroy {
         return item.id || index;
     }
 
-    search(): void {
+    search(): any {
         console.log(this.searchForm.value);
-        this._tracesService.searchTraces(this.searchForm.value).subscribe((res) => {
-            this.traces$.subscribe((ress) => {
-                console.log(ress);
-            });
-        });
+        this._tracesService.searchTraces(this.searchForm.value).subscribe(() => this.traces$ = this._tracesService.traces$);
     }
 
     /**
@@ -206,4 +219,38 @@ export class AcademyListComponent implements OnInit, OnDestroy {
 
         return moment(date, moment.ISO_8601).fromNow();
     }
+
+    goToPayment(): any {
+        console.log(this._authService.accessToken);
+        if (this._authService.accessToken) {
+            this._router.navigateByUrl('/apps/trace/payment');
+        } else {
+            this.showAlert();
+        }
+
+
+    }
+
+
+
+// Example usage
+
+    private showAlert(): void {
+        const confirmation = this._fuseConfirmationService.open({
+            title: 'Not connected',
+            message: 'Do you have an account? Can you sign in please!',
+            actions: {
+                confirm: {
+                    label: 'Sign In'
+                }
+            }
+        });
+
+        confirmation.afterClosed().subscribe((result) => {
+            if (result === 'confirmed') {
+                this._router.navigateByUrl('sign-in');
+            }
+        });
+    }
+
 }

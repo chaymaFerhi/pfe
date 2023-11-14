@@ -161,8 +161,8 @@ export class ShowStationsComponent implements OnInit, AfterViewInit, OnDestroy {
      * After view init
      */
     ngAfterViewInit(): void {
-        console.log(this._sort)
-        console.log(this._paginator)
+        console.log(this._sort);
+        console.log(this._paginator);
         //if (this._sort && this._paginator) {
         //    // Set the initial sort
         //    this._sort.sort({

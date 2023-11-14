@@ -1,0 +1,219 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <!-- Breadcrumbs -->
+            <div class="mt-2">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+Payment form
+                </h2>
+                <div class="prose prose-sm max-w-3xl">
+                    <p>
+                        You can add her your payement data
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex justify-center flex-auto p-6 sm:p-10">
+
+        <div class="max-w-3xl">
+            <form
+                class="p-4 bg-card shadow rounded overflow-hidden"
+                [formGroup]="horizontalStepperForm">
+                <mat-horizontal-stepper
+                    [linear]="true"
+                    #horizontalStepper>
+                    <mat-step
+                        [formGroupName]="'step1'"
+                        [stepControl]="horizontalStepperForm.get('step1')"
+                        #horizontalStepperStep1>
+                        <ng-template matStepLabel>Basic information</ng-template>
+                        <p class="my-6 font-medium">
+                            Fill in your basic information to let us know your preferences
+                        </p>
+                        <div class="flex flex-auto p-2">
+                            <mat-form-field class="flex-auto">
+                                <input
+                                    matInput
+                                    [formControlName]="'name'"
+                                    [placeholder]="'Username'"
+                                    required>
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:user'"></mat-icon>
+                            </mat-form-field>
+                            <mat-form-field class="flex-auto">
+                                <input
+                                    matInput
+                                    [formControlName]="'email'"
+                                    [placeholder]="'Email Address'"
+                                    required>
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:mail'"></mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <mat-form-field class="flex-auto gt-xs:pr-3">
+                                <input
+                                    matInput
+                                    [formControlName]="'adresse'"
+                                    [placeholder]="'Address'"
+                                    required>
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                            </mat-form-field>
+                            <mat-form-field class="flex-auto gt-xs:pl-3">
+                                <input
+                                    matInput
+                                    [formControlName]="'phonenumber'"
+                                    [placeholder]="'Address'"
+                                    required>
+                                <mat-icon
+                                    class="icon-size-5"
+                                    matPrefix
+                                    [svgIcon]="'heroicons_solid:phone'"></mat-icon>
+                            </mat-form-field>
+
+                        </div>
+                        <div class="flex justify-end">
+                            <button
+                                class="px-8"
+                                mat-flat-button
+                                [color]="'primary'"
+                                [disabled]="horizontalStepperStep1.stepControl.invalid"
+                                type="button"
+                                matStepperNext>
+                                Next
+                            </button>
+                        </div>
+                    </mat-step>
+
+                    <mat-step
+                        [formGroupName]="'step2'"
+                        [stepControl]="horizontalStepperForm.get('step2')"
+                        #horizontalStepperStep2>
+                        <ng-template matStepLabel>Payment data</ng-template>
+                        <p class="my-6 font-medium">
+                            Pay online
+                        </p>
+                        <div
+                            class="relative flex flex-0 items-center justify-center w-80 h-12
+                             overflow-hidden mx-auto mb-2 ">
+                            <img
+                                class="w-auto"
+                                [alt]="'Product thumbnail image'"
+                                src="assets/images/paiement.png">
+
+                        </div>
+                        <div class="flex flex-col gt-xs:flex-row">
+                            <mat-form-field class="flex-auto gt-xs:pr-3">
+                                <input
+                                    matInput
+                                    [formControlName]="'carteName'"
+                                    [placeholder]="'Carte name'"
+                                    required>
+                            </mat-form-field>
+                            <mat-form-field class="flex-auto gt-xs:pl-3">
+                                <input
+                                    matInput
+                                    [formControlName]="'carteNumber'"
+                                    [placeholder]="'Carte Number'"
+                                    required>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex">
+                            <mat-form-field class="flex-auto">
+                                <input [formControlName]="'dateExpiration'"
+                                       matInput
+                                       [matDatepicker]="picker1">
+                                <mat-datepicker-toggle
+                                    matSuffix
+                                    [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex">
+                            <mat-form-field class="fuse-mat-textarea flex-auto">
+                                <input
+                                    matInput
+                                    [formControlName]="'crypto'"
+                                    [placeholder]="'crypto'"
+                                    >
+                            </mat-form-field>
+                        </div>
+                        <div class="flex justify-end">
+                            <button
+                                class="px-8 mr-2"
+                                mat-flat-button
+                                [color]="'accent'"
+                                type="button"
+                                matStepperPrevious>
+                                Back
+                            </button>
+                            <button
+                                class="px-8"
+                                mat-flat-button
+                                [color]="'primary'"
+                                [disabled]="horizontalStepperStep2.stepControl.pristine || horizontalStepperStep2.stepControl.invalid"
+                                type="button"
+                                matStepperNext>
+                                Next
+                            </button>
+
+                        </div>
+                    </mat-step>
+                    <mat-step>
+                        <ng-template matStepLabel>Done</ng-template>
+                        <p class="my-6 font-medium">
+                            Thank you for completing payment step! You can use this QR code.
+
+                        </p>
+                        <ngx-qrcode
+                            [elementType]="elementType"
+                            [errorCorrectionLevel]="correctionLevel"
+                            [value]="value"
+                            cssClass="bshadow"></ngx-qrcode>
+                        <div class="flex justify-end mt-8">
+                            <button
+                                class="px-8 mr-2"
+                                mat-flat-button
+                                [color]="'accent'"
+                                type="button"
+                                matStepperPrevious>
+                                Back
+                            </button>
+                            <button
+                                class="px-8"
+                                mat-flat-button
+                                [color]="'primary'"
+                                type="reset"
+                                (click)="horizontalStepper.reset();">
+                                Reset
+                            </button>
+                        </div>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </form>
+        </div>
+    </div>
+</div>
+<style>
+    .bshadow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        filter: drop-shadow(5px 5px 5px #222222);
+        width: 50%;
+        margin: 0 auto;
+    }
+
+</style>

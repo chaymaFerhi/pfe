@@ -1,5 +1,6 @@
 <!-- Navigation -->
 <fuse-vertical-navigation
+    *ngIf="user?.role==='ROLE_ADMIN'"
     class="dark bg-gray-900 print:hidden"
     [mode]="isScreenSmall ? 'over' : 'side'"
     [name]="'mainNavigation'"
@@ -17,7 +18,7 @@
             <!-- Components -->
             <div class="flex items-center ml-auto">
 
-                <user [showAvatar]="true"></user>
+                <user *ngIf="user" [showAvatar]="true"></user>
             </div>
         </div>
         <!-- User -->

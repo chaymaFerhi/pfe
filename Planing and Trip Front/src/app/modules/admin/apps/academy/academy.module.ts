@@ -17,12 +17,16 @@ import {AcademyListComponent} from 'app/modules/admin/apps/academy/list/list.com
 import {MatTabsModule} from '@angular/material/tabs';
 import {ReactiveFormsModule} from '@angular/forms';
 import {FuseDateRangeModule} from '../../../../../@fuse/components/date-range';
-import {ActivitiesModule} from '../../pages/activities/activities.module';
+import {PaymentComponent} from './payment/payment.component';
+import {MaterialModule} from '../../../../shared/material/material.module';
+import {MatListModule} from '@angular/material/list';
+import {NgxQRCodeModule} from '@techiediaries/ngx-qrcode';
 
 @NgModule({
     declarations: [
         AcademyComponent,
-        AcademyListComponent
+        AcademyListComponent,
+        PaymentComponent,
     ],
     imports: [
         RouterModule.forChild(academyRoutes),
@@ -44,6 +48,9 @@ import {ActivitiesModule} from '../../pages/activities/activities.module';
         MatFormFieldModule,
 
         FuseDateRangeModule,
+        MaterialModule,
+        MatListModule,
+        NgxQRCodeModule,
     ]
 })
 export class AcademyModule {

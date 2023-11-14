@@ -14,6 +14,7 @@ import {AppComponent} from 'app/app.component';
 import {appRoutes} from 'app/app.routing';
 import {MaterialModule} from './shared/material/material.module';
 import {ReactiveFormsModule} from '@angular/forms';
+import {NgxQRCodeModule} from '@techiediaries/ngx-qrcode';
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy: PreloadAllModules,
@@ -28,7 +29,7 @@ const routerConfig: ExtraOptions = {
         BrowserModule,
         BrowserAnimationsModule,
         RouterModule.forRoot(appRoutes, routerConfig),
-
+        NgxQRCodeModule,
         // Fuse, FuseConfig & FuseMockAPI
         FuseModule,
         FuseConfigModule.forRoot(appConfig),

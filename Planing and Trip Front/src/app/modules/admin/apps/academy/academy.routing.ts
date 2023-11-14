@@ -5,6 +5,8 @@ import {AcademyCategoriesResolver} from 'app/modules/admin/apps/academy/academy.
 import {StationsResolvers} from '../../../../shared/resolver/stations.resolvers';
 import {ActivitiesResolver} from '../../pages/activities/activities.resolvers';
 import {TracesResolvers} from '../../../../shared/resolver/traces-resolvers.service';
+import {PaymentComponent} from './payment/payment.component';
+import {ActiveUserResolvers, UsersResolvers} from '../../../../shared/resolver/users.resolvers';
 
 export const academyRoutes: Route[] = [
     {
@@ -27,6 +29,14 @@ export const academyRoutes: Route[] = [
                     traces: TracesResolvers,
 
                     stations: StationsResolvers
+                }
+            },
+            {
+                path: 'payment',
+                component: PaymentComponent,
+                resolve: {
+
+                    users: ActiveUserResolvers
                 }
             },
         ]

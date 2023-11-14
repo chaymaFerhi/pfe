@@ -168,7 +168,7 @@ export class ShowTracesComponent implements OnInit, AfterViewInit, OnDestroy {
                     console.log('loading');
                     this.closeDetails();
                     this.isLoading = true;
-                    return this._traceService.getAllTraces(0, 10, 'name', 'asc', query);
+                    return this._traceService.getAllTraces();
                 }),
                 map(() => {
                     this.isLoading = false;
@@ -208,7 +208,7 @@ export class ShowTracesComponent implements OnInit, AfterViewInit, OnDestroy {
                 switchMap(() => {
                     this.closeDetails();
                     this.isLoading = true;
-                    return this._traceService.getAllTraces(this._paginator.pageIndex, this._paginator.pageSize, this._sort.active, this._sort.direction);
+                    return this._traceService.getAllTraces();
                 }),
                 map(() => {
                     this.isLoading = false;
@@ -270,26 +270,6 @@ export class ShowTracesComponent implements OnInit, AfterViewInit, OnDestroy {
                 });
             }
         });
-    }
-
-    /**
-     * Show flash message
-     */
-    showFlashMessage(type: 'success' | 'error'): void {
-        // Show the message
-        this.flashMessage = type;
-
-        // Mark for check
-        this._changeDetectorRef.markForCheck();
-
-        // Hide it after 3 seconds
-        setTimeout(() => {
-
-            this.flashMessage = null;
-
-            // Mark for check
-            this._changeDetectorRef.markForCheck();
-        }, 3000);
     }
 
     /**
