@@ -178,6 +178,14 @@ export const appRoutes: Route[] = [
                         loadChildren: () => import('app/modules/admin/pages/station/add-station/add-station.module').then(m => m.AddStationModule)
                     },
                     {
+                        path: 'add-station/:idStation',
+                        canActivate: [AuthGuard],
+                        data: {
+                            role: roleAdmin
+                        },
+                        loadChildren: () => import('app/modules/admin/pages/station/add-station/add-station.module').then(m => m.AddStationModule)
+                    },
+                    {
                         path: 'show-stations',
                         data: {
                             role: roleAdmin

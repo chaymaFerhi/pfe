@@ -2,7 +2,7 @@ import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {StationsService} from '../../../../../shared/service/stations.service';
 import {Observable, Subject} from 'rxjs';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Station} from '../../../../../shared/model/stations.types';
 
 @Component({
@@ -11,9 +11,10 @@ import {Station} from '../../../../../shared/model/stations.types';
     styleUrls: ['./add-station.component.scss']
 })
 export class AddStationComponent implements OnInit, OnDestroy {
+    idStation:number;
     stationForm: FormGroup;
     station: Station;
-    stations$: Observable<Station[]>;
+    station$: Observable<Station>;
     notCorrectType = false;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -21,6 +22,7 @@ export class AddStationComponent implements OnInit, OnDestroy {
                 private _changeDetectorRef: ChangeDetectorRef,
                 private _stationService: StationsService,
                 private _router: Router,
+                private _activatedRoute:ActivatedRoute
     ) {
     }
 
@@ -32,8 +34,23 @@ export class AddStationComponent implements OnInit, OnDestroy {
             longitude: ['', Validators.required],
             latitude: ['', Validators.required],
         });
-        this.stations$ = this._stationService.stations$;
+        this.station$ = this._stationService.station$;
+        this._activatedRoute.params.subscribe((res) => {
+            console.log(res);
+            if (res?.idStation) {
 
+               this._stationService.station$.subscribe(station=>{
+                this.idStation = res?.idStation;
+                console.log(this.idStation);
+                this.stationForm.patchValue({
+                    name: station?.name,
+                    areaList:station?.areaList,
+                    longitude: station?.longitude,
+                    latitude: station?.latitude
+                });
+            })
+        }
+        });
     }
 
     ngOnDestroy(): void {
@@ -53,7 +70,14 @@ export class AddStationComponent implements OnInit, OnDestroy {
 
         });
     }
+    updateStation(): void {
+        this._stationService.editStation(this.stationForm.value,this.idStation).subscribe((newStation) => {
+            // Mark for check
+            this._changeDetectorRef.markForCheck();
+            this._router.navigate(['pages/show-stations']);
 
+        });
+    }
 
     trackByFn(index: number, item: any): any {
         return item.id || index;

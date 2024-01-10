@@ -60,20 +60,22 @@ export class StationsService {
     }
 
     editStation(body, id): Observable<Station> {
-        return this._apiService.patch(`${ApiService.apiVersion}${ApiService.apiStations}/${id}`, body).pipe(map(res => res));
+        return this._apiService.patch(`${ApiService.apiStations}/${id}`, body).pipe(map(res => res));
     }
 
     /**
      * Get station by id
      */
     getStationById(id: string): Observable<Station> {
-        return this._httpClient.get<Station>(`${ApiService.apiVersion}${ApiService.apiStations}/find-station/${id}`).pipe(
-            map((station) => {
+        return this._httpClient.get<Station>(`${ApiService.apiVersion}${ApiService.apiStations}/${id}`).pipe(
+            map((station:any) => {
+                console.log(station);
+                
                 // Update the station
-                this._station.next(station);
+                this._station.next(station.data);
 
                 // Return the station
-                return station;
+                return station.data;
             }),
             switchMap((station) => {
 

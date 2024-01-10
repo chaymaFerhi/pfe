@@ -2,13 +2,13 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AddStationComponent} from './add-station.component';
 
-import {StationsResolvers} from '../../../../../shared/resolver/stations.resolvers';
+import {StationByIdResolver, StationsResolvers} from '../../../../../shared/resolver/stations.resolvers';
 
 const routes: Routes = [{
     path: '',
     component: AddStationComponent,
     resolve: {
-        trainers: StationsResolvers,
+        station: StationByIdResolver,
     }
 }];
 

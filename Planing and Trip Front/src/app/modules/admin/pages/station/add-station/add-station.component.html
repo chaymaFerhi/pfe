@@ -11,7 +11,8 @@
                     <mat-icon
                         class="icon-size-5 text-secondary"
                         [svgIcon]="'heroicons_solid:chevron-right'"></mat-icon>
-                    <a class="ml-1 text-primary-500">Add</a>
+                    <a *ngIf="!idStation" class="ml-1 text-primary-500">Add</a>
+                    <a *ngIf="idStation" class="ml-1 text-warning-500">Update</a>
                 </div>
             </div>
             <!-- Title -->
@@ -83,13 +84,20 @@
                     <button mat-button>
                         Cancel
                     </button>
-                    <button (click)="createStation()"
+                    <button *ngIf="!idStation" (click)="createStation()"
                             class="px-6 ml-3"
                             mat-flat-button
                             [disabled]="!stationForm.valid"
                             [color]="'primary'">
                         Save
                     </button>
+                    <button *ngIf="idStation" (click)="updateStation()"
+                    class="px-6 ml-3"
+                    mat-flat-button
+                    [disabled]="!stationForm.valid"
+                    [color]="'warn'">
+                Update
+            </button>
                 </div>
             </form>
         </div>
