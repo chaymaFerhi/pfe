@@ -13,7 +13,7 @@ import {environment} from '../../../environments/environment';
 export class UsersService {
     private _pagination: BehaviorSubject<InventoryPagination | null> = new BehaviorSubject(null);
     private _users: BehaviorSubject<Users[] | null> = new BehaviorSubject(null);
-    private _user: BehaviorSubject<Users | null> = new BehaviorSubject(null);
+     _user: BehaviorSubject<Users | null> = new BehaviorSubject(null);
 
     constructor(private _apiService: ApiService,
                 private _httpClient: HttpClient) {
@@ -47,7 +47,7 @@ export class UsersService {
 
     }
 
-    editUser(body, id): Observable<Users> {
+    editUser(body): Observable<Users> {
         return this._apiService.patch(`${ApiService.apiUser}/updateMe`, body).pipe(map(res => res));
     }
 
@@ -141,8 +141,8 @@ export class UsersService {
         const username = localStorage.getItem(environment.activeUser);
         if (!username) {
             console.log(!username);
-            return throwError(new Error('Username not found in local storage')); // You can customize the error message
-
+            return throwError(new Error('Username not found in local storage'));
+            // You can customize the error message
         }
         return this._httpClient.get<Users>(`${ApiService.apiVersion}${ApiService.apiUser}/me`).pipe(
             tap((response: any) => {

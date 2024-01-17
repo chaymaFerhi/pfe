@@ -3,7 +3,7 @@ export interface Users {
     email?: string;
     password?: string;
     active?: boolean;
-    picture?: string;
+    photo?: string;
     role?: string;
 
     name: string;
@@ -12,7 +12,7 @@ export interface Users {
 
     age: number;
     phonenumber: number;
-    adresse: string;
+    address: string;
     datedenaissance: Date;
     createdAt: Date;
 }

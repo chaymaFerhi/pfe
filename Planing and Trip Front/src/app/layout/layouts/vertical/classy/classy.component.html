@@ -67,9 +67,10 @@
         </button>
         <!-- Components -->
         <div class="flex items-center pl-2 ml-auto space-x-1 sm:space-x-2">
-            <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
-<!--            <search [appearance]="'bar'"></search>-->
-            <mat-divider class="my-2"></mat-divider>
+            <button mat-menu-item
+                    routerLink="/apps/trace">
+                <mat-icon [svgIcon]="'heroicons_outline:home'"></mat-icon>
+            </button>
             <button *ngIf="user"
                     mat-menu-item
                     (click)="signOut()">

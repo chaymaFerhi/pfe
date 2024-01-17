@@ -76,12 +76,12 @@
                                             class="relative flex flex-0 items-center justify-center w-12 h-12 mr-6 rounded overflow-hidden border">
                                             <img
                                                 class="w-8"
-                                                *ngIf="user.picture"
+                                                *ngIf="user.photo"
                                                 [alt]="'Product thumbnail image'"
-                                                [src]="apiImg+''+user.picture">
+                                                [src]="apiImg+''+user.photo">
                                             <div
                                                 class="flex items-center justify-center w-full h-full text-xs font-semibold leading-none text-center uppercase"
-                                                *ngIf="!user.picture">
+                                                *ngIf="!user.photo">
                                                 NO THUMB
                                             </div>
                                         </div>

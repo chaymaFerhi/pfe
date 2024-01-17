@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema({
             type: String,
             default: 'default.jpg',
         },
-        adresse: {
+        address: {
             type: String,
         },
         datedenaissance: {

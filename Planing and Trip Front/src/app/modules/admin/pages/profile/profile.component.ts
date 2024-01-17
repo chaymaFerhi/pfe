@@ -4,6 +4,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {UsersService} from '../../../../shared/service/users.service';
 import * as moment from 'moment';
+import {Observable} from 'rxjs';
+import {Users} from '../../../../shared/model/users.types';
+import {ApiService} from '../../../../shared/service/api.service';
 
 @Component({
     selector: 'profile',
@@ -12,9 +15,26 @@ import * as moment from 'moment';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileComponent implements OnInit {
-    user: any;
+    user: Users = {
+        active: false,
+        address: '',
+        age: 0,
+        avatar: '',
+        createdAt: undefined,
+        datedenaissance: undefined,
+        email: '',
+        id: '',
+        name: '',
+        password: '',
+        phonenumber: 0,
+        photo: '',
+        role: '',
+        status: ''
+    };
     idUser: string;
     userForm: FormGroup;
+    imgUrl: string | ArrayBuffer | null = null;
+    fileList: any;
 
     /**
      * Constructor
@@ -28,14 +48,16 @@ export class ProfileComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
+
         this.userForm = this.fb.group({
             id: [],
             name: [],
+            photo: [],
             email: [],
-
             age: [],
             phonenumber: [],
-            adresse: [],
+            address: [],
             datedenaissance: [],
             role: [],
         });
@@ -45,22 +67,39 @@ export class ProfileComponent implements OnInit {
             console.log(res);
             if (res?.id) {
                 this.idUser = res?.id;
-                console.log(this.user);
-                this.userForm.patchValue({
-                    name: this.user?.name,
-                    role: this.user?.role,
-                    email: this.user?.email,
-                    phonenumber: this.user?.phonenumber,
-                    adresse: this.user?.adresse,
-                    datedenaissance: this.user?.datedenaissance,
-                });
+                this.getUser();
+
+                //this.imgUrl = `${ApiService.apiPicture}img/User/${this.user?.photo}`;
+                //this.userForm.patchValue({
+                //    name: this.user?.name,
+                //    role: this.user?.role,
+                //    email: this.user?.email,
+                //    phonenumber: this.user?.phonenumber,
+                //    address: this.user?.address,
+                //    datedenaissance: this.user?.datedenaissance,
+                //});
+            } else {
+                this.getUser();
+
             }
         });
     }
 
     getUser(): any {
-        this.user = JSON.parse(localStorage.getItem(environment.activeUser));
-        console.log(this.user);
+        this._userService.get().subscribe((user: any) => {
+            console.log(user);
+            this.user = user.data;
+            this.imgUrl = `${ApiService.apiPicture}img/User/${this.user?.photo}`;
+            this.userForm.patchValue({
+                name: this.user?.name,
+                role: this.user?.role,
+                email: this.user?.email,
+                phonenumber: this.user?.phonenumber,
+                address: this.user?.address,
+                datedenaissance: this.user?.datedenaissance,
+            });
+        });
+
     }
 
     /**
@@ -74,8 +113,18 @@ export class ProfileComponent implements OnInit {
     }
 
     update(): void {
-        this._userService.editUser(this.userForm.value, this.idUser).subscribe((res) => {
+        console.log(this.userForm.value.address);
+        const fd = new FormData();
+        fd.append('name', this.userForm.value.name);
+        fd.append('email', this.userForm.value.email);
+        fd.append('phonenumber', this.userForm.value.phonenumber);
+        fd.append('address', this.userForm.value.address);
+        fd.append('datedenaissance', this.userForm.value.datedenaissance);
+        fd.append('role', this.userForm.value.role);
+        fd.append('photo', this.userForm.value.photo);
+        this._userService.editUser(fd).subscribe((res) => {
             console.log(res);
+            this.getUser();
             this._router.navigateByUrl('/pages/profile');
         });
     }
@@ -87,6 +136,33 @@ export class ProfileComponent implements OnInit {
         const years = currentDate.diff(birthDate, 'years');
         return `${years} years`;
 
+    }
+
+    uploadImage(event): void {
+        this.fileList = event.target.files;
+        console.log(this.fileList);
+        // Return if canceled
+        if (this.fileList.length === 0) {
+            return;
+        }
+        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+        const file = this.fileList[0];
+        console.log(file.type);
+        // Return if the file is not allowed
+        if (!allowedTypes.includes(file.type)) {
+            return;
+        }
+        console.log(file.filename !== 0);
+        if (file.filename !== 0) {
+            this.userForm.patchValue({
+                photo: file
+            });
+            console.log(this.userForm.value);
+        } else {
+            this.userForm.patchValue({
+                photo: ''
+            });
+        }
     }
 
 }

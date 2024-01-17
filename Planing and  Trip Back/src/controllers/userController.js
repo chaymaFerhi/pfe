@@ -4,9 +4,6 @@ const AppError = require('./../utils/appError');
 const factory = require('./handlerFactory');
 
 
-
-
-
 const filterObj = (obj, ...allowedFields) => {
     const newObj = {};
     Object.keys(obj).forEach(el => {
@@ -22,6 +19,7 @@ exports.getMe = (req, res, next) => {
 };
 
 exports.updateMe = catchAsync(async (req, res, next) => {
+    console.log(req.body)
     // 1) Create error if user POSTs password data
     if (req.body.password || req.body.passwordConfirm) {
         return next(
@@ -33,11 +31,11 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     }
 
     // 2) Filtered out unwanted fields names that are not allowed to be updated
-    // const filteredBody = filterObj(req.body, 'name', 'email');
-    // if (req.file) filteredBody.photo = req.file.filename;
+    const filteredBody = filterObj(req.body, 'name', 'email', 'address', 'datedenaissance', 'phonenumber');
+    if (req.file) filteredBody.photo = req.file.filename;
 
     // 3) Update user document
-    const updatedUser = await User.findByIdAndUpdate(req.user.id, req.body, {
+    const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
         new: true,
         runValidators: true
     });
@@ -51,7 +49,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteMe = catchAsync(async (req, res, next) => {
-    await User.findByIdAndUpdate(req.user.id, { active: false });
+    await User.findByIdAndUpdate(req.user.id, {active: false});
 
     res.status(204).json({
         status: 'success',
@@ -59,7 +57,7 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
     });
 });
 exports.confirmInscription = catchAsync(async (req, res, next) => {
-    await User.findByIdAndUpdate(req.user.id, { active: true });
+    await User.findByIdAndUpdate(req.user.id, {active: true});
 
     res.status(204).json({
         status: 'success',

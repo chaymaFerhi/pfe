@@ -12,6 +12,7 @@ import { SharedModule } from 'app/shared/shared.module';
 import { ProfileComponent } from 'app/modules/admin/pages/profile/profile.component';
 import { profileRoutes } from 'app/modules/admin/pages/profile/profile.routing';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MaterialModule} from '../../../../shared/material/material.module';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
         MatTooltipModule,
         FuseCardModule,
         SharedModule,
-        MatDatepickerModule
+        MatDatepickerModule,
+        MaterialModule
     ]
 })
 export class ProfileModule

@@ -39,7 +39,7 @@ export class PaymentComponent implements OnInit {
                 phonenumber: ['', Validators.required],
                 role: ['',],
                 name: ['', Validators.required],
-                adresse: ['', Validators.required],
+                address: ['', Validators.required],
             }),
             step2: this._formBuilder.group({
                 carteName: ['', Validators.required],
@@ -66,7 +66,7 @@ export class PaymentComponent implements OnInit {
                     phonenumber: user.phonenumber,
                     role: user?.role,
                     name: user?.name,
-                    adresse: user?.adresse,
+                    address: user?.address,
                 }
             });
             this.horizontalStepperForm.get('step1.email').disable();

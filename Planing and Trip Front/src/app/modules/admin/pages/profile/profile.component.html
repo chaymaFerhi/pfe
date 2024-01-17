@@ -1,4 +1,4 @@
-<div class="flex flex-col flex-auto min-w-0">
+<div class="flex flex-col flex-auto min-w-0" *ngIf="user?.id!==null" >
     <div class="flex flex-col shadow bg-card">
 <!--<div>-->
 <!--    <img-->
@@ -22,10 +22,39 @@
 <!--    <div class="hidden lg:flex h-8 mx-8 border-l-2"></div>-->
 <!--</div>-->
     </div>
+
     <!-- Main -->
-    <div class="flex flex-auto justify-center w-full max-w-5xl mx-auto p-6 sm:p-8" *ngIf="idUser ; else noId">
+    <div class="flex flex-auto justify-center w-full max-w-5xl mx-auto p-6 sm:p-8"
+         *ngIf="idUser  ; else noId">
         <div class="hidden lg:flex flex-row items-start " [formGroup]="userForm">
             <fuse-card class="flex flex-col max-w-120 w-100 py-8 px-4 mr-2 h-80">
+                <div class="p-8 pb-4">
+                    <div class="flex flex-col gt-xs:flex-row gt-xs:items-baseline">
+                        <!--<span class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4 gt-xs:mb-0">User picture</span>-->
+                        <div>
+                            <input
+                                id="image-file-input"
+                                class="absolute h-0 w-0 opacity-0 invisible pointer-events-none"
+                                type="file"
+                                [accept]="'image/jpeg, image/png'"
+                                (change)="uploadImage($event)"
+                                #imageFileInput>
+                            <label
+                                class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-gray-400 hover:bg-opacity-20 dark:hover:bg-black dark:hover:bg-opacity-5"
+                                for="image-file-input"
+                                matRipple>
+                                <mat-icon [svgIcon]="'heroicons_outline:photograph'"></mat-icon>
+                            </label>
+                            <!--                                {{userForm.get('picture').errors | json}}-->
+                            <!--                                <mat-error *ngIf="userForm.get('picture').hasError('required')">-->
+                            <!--                                    Picture is required-->
+                            <!--                                </mat-error>-->
+                        </div>
+                    </div>
+                </div>
+            </fuse-card>
+            <fuse-card class="flex flex-col max-w-120 w-100 py-8 px-4 mr-2 h-80">
+
                 <div class="flex flex-col items-center lg:items-start ">
                     <mat-form-field class="fuse-mat-dense flex-auto w-full">
                         <mat-label>Nom</mat-label>
@@ -62,9 +91,9 @@
                     <mat-form-field class="fuse-mat-dense flex-auto w-full">
                         <mat-label>Address</mat-label>
 
-                        <input matInput [formControlName]="'adresse'"
+                        <input matInput [formControlName]="'address'"
                                placeholder="Ajouter le nom de formateur">
-                        <mat-error *ngIf="userForm.get('adresse').hasError('required')">
+                        <mat-error *ngIf="userForm.get('address').hasError('required')">
                             Username is required
                         </mat-error>
                     </mat-form-field>
@@ -104,7 +133,7 @@
                     <div class="mt-2 rounded-full">
                         <img
                             class="w-32 h-32 rounded-full ring-4 ring-bg-card"
-                            src="assets/images/avatars/female-01.jpg"
+                            [src]="imgUrl"
                             alt="User avatar">
                     </div>
                     <div class="flex flex-col items-center lg:items-start mt-4 lg:-ml-4 lg:ml-8">
@@ -121,9 +150,9 @@
                             <mat-icon
                                 class="icon-size-5 mr-3"
                                 [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
-                            <span class="leading-none">{{user?.adresse}}</span>
+                            <span class="leading-none">{{user?.address}}</span>
                         </div>
-                                             <div class="flex items-center mt-4">
+                        <div class="flex items-center mt-4">
                             <mat-icon
                                 class="icon-size-5 mr-3"
                                 [svgIcon]="'heroicons_solid:cake'"></mat-icon>
