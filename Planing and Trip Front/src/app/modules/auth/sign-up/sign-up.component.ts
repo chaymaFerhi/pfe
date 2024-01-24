@@ -83,6 +83,7 @@ export class AuthSignUpComponent implements OnInit {
                     console.log(response?.error?.message);
                     // Re-enable the form
                     this.signUpForm.enable();
+                    error = response?.error?.message;
 
                     // Reset the form
                     //this.signUpNgForm.resetForm();

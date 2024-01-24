@@ -4,7 +4,7 @@ import {LayoutComponent} from 'app/layout/layout.component';
 import {InitialDataResolver} from 'app/app.resolvers';
 
 const roleAdmin = 'ROLE_ADMIN';
-const roleUser = 'ROLE_USER';
+const roleClient = 'ROLE_CLIENT';
 // @formatter:off
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
@@ -53,7 +53,7 @@ export const appRoutes: Route[] = [
             {
                 path: 'apps',
                 data: {
-                    role: [roleAdmin, roleUser]
+                    role: [roleAdmin, roleClient]
                 },
                 resolve: {
                     initialData: InitialDataResolver,
@@ -160,7 +160,7 @@ export const appRoutes: Route[] = [
                 canActivate: [AuthGuard],
                 canActivateChild: [AuthGuard],
                 data: {
-                    role: roleAdmin
+                    role: [roleAdmin,roleClient]
                 },
                 children: [
 
@@ -251,7 +251,7 @@ export const appRoutes: Route[] = [
                     {
                         path: 'pricing',
                         data: {
-                            role: roleUser,
+                            role: roleClient,
                             layout: 'modern'
 
                         },
@@ -260,7 +260,7 @@ export const appRoutes: Route[] = [
                             {
                                 path: 'simple',
                                 data: {
-                                    role: roleUser
+                                    role: roleClient
                                 },
                                 loadChildren: () => import('app/modules/admin/pages/pricing/simple/simple.module').then(m => m.PricingSimpleModule)
                             },
