@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {environment} from '../../../../../environments/environment';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
@@ -12,9 +12,8 @@ import {ApiService} from '../../../../shared/service/api.service';
     selector: 'profile',
     templateUrl: './profile.component.html',
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit,AfterViewInit {
     user: Users = {
         active: false,
         address: '',
@@ -84,7 +83,41 @@ export class ProfileComponent implements OnInit {
             }
         });
     }
+ngAfterViewInit(){
+    this.userForm = this.fb.group({
+        id: [],
+        name: [],
+        photo: [],
+        email: [],
+        age: [],
+        phonenumber: [],
+        address: [],
+        datedenaissance: [],
+        role: [],
+    });
+    this.getUser();
 
+    this._activatedRoute.params.subscribe((res) => {
+        console.log(res);
+        if (res?.id) {
+            this.idUser = res?.id;
+            this.getUser();
+
+            //this.imgUrl = `${ApiService.apiPicture}img/User/${this.user?.photo}`;
+            //this.userForm.patchValue({
+            //    name: this.user?.name,
+            //    role: this.user?.role,
+            //    email: this.user?.email,
+            //    phonenumber: this.user?.phonenumber,
+            //    address: this.user?.address,
+            //    datedenaissance: this.user?.datedenaissance,
+            //});
+        } else {
+            this.getUser();
+
+        }
+    });
+}
     getUser(): any {
         this._userService.get().subscribe((user: any) => {
             console.log(user);
