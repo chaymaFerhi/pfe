@@ -49,7 +49,6 @@ import {TracesService} from '../../../../../shared/service/traces.service';
         `
     ],
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     animations: fuseAnimations
 })
 export class ShowTracesComponent implements OnInit, AfterViewInit, OnDestroy {

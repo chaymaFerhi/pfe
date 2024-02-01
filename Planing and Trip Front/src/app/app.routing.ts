@@ -70,14 +70,7 @@ export const appRoutes: Route[] = [
                         path: 'ecommerce',
                         loadChildren: () => import('app/modules/admin/apps/ecommerce/ecommerce.module').then(m => m.ECommerceModule)
                     },
-                    {
-                        path: 'show-exams',
-                        loadChildren: () => import('app/modules/admin/pages/exam/show-exams/show-exams.module').then(m => m.ShowExamsModule)
-                    },
-                    {
-                        path: 'pass-exam/:idQuiz',
-                        loadChildren: () => import('app/modules/admin/pages/exam/pass-exam/pass-exam.module').then(m => m.PassExamModule)
-                    },
+
                 ]
             }
         ]
@@ -129,31 +122,6 @@ export const appRoutes: Route[] = [
             initialData: InitialDataResolver,
         },
         children: [
-
-            // Dashboards
-            {
-                path: 'dashboards', children: [
-                    {
-                        path: 'project',
-                        data: {
-                            role: roleAdmin
-                        },
-                        loadChildren: () => import('app/modules/admin/dashboards/project/project.module').then(m => m.ProjectModule)
-                    },
-                    {
-                        path: 'analytics',
-                        loadChildren: () => import('app/modules/admin/dashboards/analytics/analytics.module').then(m => m.AnalyticsModule)
-                    },
-                    {
-                        path: 'finance',
-                        loadChildren: () => import('app/modules/admin/dashboards/finance/finance.module').then(m => m.FinanceModule)
-                    },
-                    {
-                        path: 'crypto',
-                        loadChildren: () => import('app/modules/admin/dashboards/crypto/crypto.module').then(m => m.CryptoModule)
-                    },
-                ]
-            },
             // Pages
             {
                 path: 'pages',

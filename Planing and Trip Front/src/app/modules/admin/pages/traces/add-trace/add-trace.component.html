@@ -38,7 +38,7 @@
                                 class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4 gt-xs:mb-0">Name</span>
                             <mat-form-field class="fuse-mat-dense flex-auto">
                                 <input matInput [formControlName]="'name'"
-                                       placeholder="Ajouter le nom de formateur">
+                                       placeholder="Add trace name">
                                 <mat-error *ngIf="traceForm.get('name').hasError('required')">
                                     Username is required
                                 </mat-error>
@@ -113,16 +113,31 @@
                             <span
                                 class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4 gt-xs:mb-0">Date sortie</span>
                             <mat-form-field class="fuse-mat-dense flex-auto">
-                                <input [formControlName]="'dateSortie'"
-                                       matInput
-                                       [matDatepicker]="picker1">
-                                <mat-datepicker-toggle
-                                    matSuffix
-                                    [for]="picker1"></mat-datepicker-toggle>
-                                <mat-datepicker #picker1></mat-datepicker>
+                                <input [formControlName]="'departureDate'"
+                                       matInput type="time"
+                                       >
 
-                                <mat-error *ngIf="traceForm.get('dateSortie').hasError('required')">
-                                    Poste is required
+                                <mat-error *ngIf="traceForm.get('departureDate').hasError('required')">
+                                    departure Date is required
+                                </mat-error>
+
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col gt-xs:flex-row gt-xs:items-baseline">
+                            <span
+                                class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4 gt-xs:mb-0">
+                                Date d'arrivée</span>
+                            <mat-form-field class="fuse-mat-dense flex-auto">
+                                <input [formControlName]="'arrivalDate'"
+                                       matInput type="time"
+                                       >
+                                <!--<mat-datepicker-toggle-->
+                                <!--    matSuffix-->
+                                <!--    [for]="picker1"></mat-datepicker-toggle>-->
+                                <!--<mat-datepicker #picker1></mat-datepicker>-->
+
+                                <mat-error *ngIf="traceForm.get('arrivalDate').hasError('required')">
+                                    arrival Date is required
                                 </mat-error>
 
                             </mat-form-field>

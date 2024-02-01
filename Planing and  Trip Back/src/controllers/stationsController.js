@@ -7,10 +7,6 @@ const APIFeatures = require("../utils/apiFeatures");
 const Station = require('../models/stationModel');
 
 
-function getSplitAreaInToList(area) {
-    return area.split(/\s*\,\s*/);
-}
-
 // exports.getAllStations = catchAsync(async (req, res, next) => {
 //     console.log(getAllStations())
 //     getAllStations()
@@ -40,9 +36,7 @@ exports.addStation = factory.createOne(Station);
 // Do NOT update passwords with this!
 exports.addMultiStation = catchAsync(async (req, res, next) => {
     console.log(req.body)
-    const areaList = getSplitAreaInToList(req.body.areaList);
-    req.body.areaList = areaList
-        await Station.create(req.body);
+    await Station.create(req.body);
     res.status(201).json({
         status: 'success',
     });

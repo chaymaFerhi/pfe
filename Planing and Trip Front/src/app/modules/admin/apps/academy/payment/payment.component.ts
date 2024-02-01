@@ -3,7 +3,10 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {Users} from '../../../../../shared/model/users.types';
 import {UsersService} from '../../../../../shared/service/users.service';
-import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
+import {NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels} from '@techiediaries/ngx-qrcode';
+import {ReservationsService} from '../../../../../shared/service/reservations.service';
+import {Router} from '@angular/router';
+
 @Component({
     selector: 'payment',
     templateUrl: './payment.component.html',
@@ -21,6 +24,8 @@ export class PaymentComponent implements OnInit {
      * Constructor
      */
     constructor(private _formBuilder: FormBuilder,
+                private _router: Router,
+                private _reservationsService: ReservationsService,
                 private _userService: UsersService) {
     }
 
@@ -76,5 +81,14 @@ export class PaymentComponent implements OnInit {
         });
     }
 
+    addReservation(): void {
 
+        this._reservationsService.addReservation(this.verticalStepperForm.value)
+            .subscribe((res) => {
+                console.log(res);
+                this._router.navigate(['pages/show-traces']);
+                return res;
+            });
+
+    }
 }

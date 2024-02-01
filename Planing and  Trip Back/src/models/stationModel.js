@@ -5,11 +5,7 @@ const stationSchema = new mongoose.Schema({
             type: String,
             required: [true, 'Please tell us your name!'],
         },
-        areaList: [
-            {
-                type: String
-            }
-        ],
+        line: String,
         localisation: {
             type: String
         },
@@ -25,8 +21,8 @@ const stationSchema = new mongoose.Schema({
         },
     },
     {
-        toJSON: { virtuals: true },
-        toObject: { virtuals: true }
+        toJSON: {virtuals: true},
+        toObject: {virtuals: true}
     }
 )
 const StationModel = mongoose.model('Station', stationSchema);

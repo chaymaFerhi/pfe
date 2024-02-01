@@ -3,9 +3,7 @@ import {FormBuilder} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {GeometryService} from '../../../../../shared/service/geometry.service';
-import {LessonsService} from '../../../../../shared/service/lessons.service';
 import {Lessons} from '../../../../../shared/model/lessons.types';
-import {AddGeometryRoutingModule} from './add-geometry-routing.module';
 
 @Component({
     selector: 'app-add-geometry',

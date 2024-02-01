@@ -5,7 +5,7 @@ import {
     InventoryBrandsResolver,
     InventoryCategoriesResolver, InventoryVendorsResolver
 } from '../../../apps/ecommerce/inventory/inventory.resolvers';
-import {TracesResolvers} from '../../../../../shared/resolver/traces-resolvers.service';
+import {TracesResolvers} from '../../../../../shared/resolver/traces.resolvers';
 
 
 const routes: Routes = [{

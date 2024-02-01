@@ -11,7 +11,7 @@ import {Station} from '../../../../../shared/model/stations.types';
     styleUrls: ['./add-station.component.scss']
 })
 export class AddStationComponent implements OnInit, OnDestroy {
-    idStation:number;
+    idStation: number;
     stationForm: FormGroup;
     station: Station;
     station$: Observable<Station>;
@@ -22,7 +22,7 @@ export class AddStationComponent implements OnInit, OnDestroy {
                 private _changeDetectorRef: ChangeDetectorRef,
                 private _stationService: StationsService,
                 private _router: Router,
-                private _activatedRoute:ActivatedRoute
+                private _activatedRoute: ActivatedRoute
     ) {
     }
 
@@ -30,7 +30,7 @@ export class AddStationComponent implements OnInit, OnDestroy {
         // Horizontal stepper form
         this.stationForm = this._formBuilder.group({
             name: ['', [Validators.required]],
-            areaList: ['', Validators.required],
+            line: ['', Validators.required],
             longitude: ['', Validators.required],
             latitude: ['', Validators.required],
         });
@@ -39,17 +39,17 @@ export class AddStationComponent implements OnInit, OnDestroy {
             console.log(res);
             if (res?.idStation) {
 
-               this._stationService.station$.subscribe(station=>{
-                this.idStation = res?.idStation;
-                console.log(this.idStation);
-                this.stationForm.patchValue({
-                    name: station?.name,
-                    areaList:station?.areaList,
-                    longitude: station?.longitude,
-                    latitude: station?.latitude
+                this._stationService.station$.subscribe((station) => {
+                    this.idStation = res?.idStation;
+                    console.log(this.idStation);
+                    this.stationForm.patchValue({
+                        name: station?.name,
+                        line: station?.line,
+                        longitude: station?.longitude,
+                        latitude: station?.latitude
+                    });
                 });
-            })
-        }
+            }
         });
     }
 
@@ -70,8 +70,9 @@ export class AddStationComponent implements OnInit, OnDestroy {
 
         });
     }
+
     updateStation(): void {
-        this._stationService.editStation(this.stationForm.value,this.idStation).subscribe((newStation) => {
+        this._stationService.editStation(this.stationForm.value, this.idStation).subscribe((newStation) => {
             // Mark for check
             this._changeDetectorRef.markForCheck();
             this._router.navigate(['pages/show-stations']);
@@ -93,9 +94,9 @@ export class AddStationComponent implements OnInit, OnDestroy {
         const url = `${baseUrl}?${params.toString()}`;
 
         return fetch(url)
-            .then(response => {
-                console.log(response)
-                return response.json()
+            .then((response) => {
+                console.log(response);
+                return response.json();
             })
             .then((data) => {
                 if (data && data.length > 0) {
@@ -104,7 +105,7 @@ export class AddStationComponent implements OnInit, OnDestroy {
                     this.stationForm.patchValue({
                         longitude: lon,
                         latitude: lat,
-                    })
+                    });
                     return {lat, lon};
                 } else {
                     return null;

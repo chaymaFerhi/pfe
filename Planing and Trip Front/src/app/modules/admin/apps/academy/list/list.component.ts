@@ -28,7 +28,7 @@ import {AuthService} from '../../../../../core/auth/auth.service';
     selector: 'academy-list',
     templateUrl: './list.component.html',
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AcademyListComponent implements OnInit, OnDestroy {
     traces$: Observable<Trace[]> = new Observable<Trace[]>();
@@ -195,7 +195,7 @@ export class AcademyListComponent implements OnInit, OnDestroy {
      * @param compare
      */
     isSameDay(current: string, compare: string): boolean {
-        return moment(current, moment.ISO_8601).isSame(moment(compare, moment.ISO_8601), 'day');
+        return moment(current, moment.ISO_8601).isSame(moment(compare, moment.ISO_8601), 'hour');
     }
 
     /**
@@ -220,17 +220,16 @@ export class AcademyListComponent implements OnInit, OnDestroy {
         return moment(date, moment.ISO_8601).fromNow();
     }
 
-    goToPayment(): any {
+    goToPayment(trace): any {
         console.log(this._authService.accessToken);
         if (this._authService.accessToken) {
-            this._router.navigateByUrl('/apps/trace/payment');
+            this._router.navigateByUrl('/apps/trace/payment/' + trace?._id);
         } else {
             this.showAlert();
         }
 
 
     }
-
 
 
 // Example usage

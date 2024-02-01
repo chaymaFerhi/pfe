@@ -31,14 +31,9 @@ Welcome to "Plan And Trip", Our trip planner is designed to make your journey ef
                         <mat-label class="text-center">Départ</mat-label>
                         <mat-select [formControlName]="'depart'">
                             <mat-option>-- None --</mat-option>
-                            <ng-container *ngFor="let group of stations">
-                                <mat-optgroup [label]="group?.name"
-                                              *ngIf="group?.areaList.length>0">
-                                    <mat-option *ngFor="let station of group?.areaList" [value]="group?._id">
-                                        {{station}}
+                                    <mat-option *ngFor="let station of stations" [value]="station?._id">
+                                        {{station?.name}}
                                     </mat-option>
-                                </mat-optgroup>
-                            </ng-container>
                         </mat-select>
                         <!--<mat-select-->
                         <!--    [value]="'Saissisez l\'origine'"-->
@@ -54,14 +49,9 @@ Welcome to "Plan And Trip", Our trip planner is designed to make your journey ef
 
                         <mat-select [formControlName]="'destination'">
                             <mat-option>-- None --</mat-option>
-                            <ng-container *ngFor="let group of stations">
-                                <mat-optgroup [label]="group?.name"
-                                              *ngIf="group?.areaList.length>0">
-                                    <mat-option *ngFor="let station of group?.areaList" [value]="group?._id">
-                                        {{station}}
+                                    <mat-option *ngFor="let station of stations" [value]="station?._id">
+                                        {{station?.name}}
                                     </mat-option>
-                                </mat-optgroup>
-                            </ng-container>
                         </mat-select>
                     </mat-form-field>
                     <!--          </div>-->
@@ -69,7 +59,7 @@ Welcome to "Plan And Trip", Our trip planner is designed to make your journey ef
                         class="flex my-2 flex-col items-center justify-between  max-w-xs sm:max-w-none">
 
                         <mat-label>Saisir la Date </mat-label>
-                       
+
                         <fuse-date-range [formControlName]="'range'" class="flex my-2 flex-row"
                                          [dateFormat]="dateFormat"
                                          [timeFormat]="timeFormat"></fuse-date-range>
@@ -102,11 +92,11 @@ Welcome to "Plan And Trip", Our trip planner is designed to make your journey ef
                                 trackBy: trackByFn">
 
                                 <!-- Date separator -->
-                                <ng-container *ngIf="first || !isSameDay(trace?.dateSortie, traces[i - 1].dateSortie)">
+                                <ng-container *ngIf="first || !isSameDay(trace?.departureDate, traces[i - 1].departureDate)">
                                     <li class="relative flex pb-7">
                                         <div
                                             class="relative py-2 px-8 text-md font-medium leading-5 rounded-full bg-primary text-on-primary">
-                                            {{trace?.dateSortie | date:'MMM dd, h:mm a'}}
+                                            {{trace?.departureDate }}
                                         </div>
                                     </li>
                                 </ng-container>
@@ -115,7 +105,7 @@ Welcome to "Plan And Trip", Our trip planner is designed to make your journey ef
                                 <li class="relative flex py-7">
                                     <!-- Line -->
                                     <ng-container
-                                        *ngIf="!last && isSameDay(trace?.dateSortie, traces[i + 1].dateSortie)">
+                                        *ngIf="!last && isSameDay(trace?.departureDate, traces[i + 1].departureDate)">
                                         <div
                                             class="absolute top-7 left-5 w-0.5 h-full -ml-px bg-gray-300 dark:bg-gray-600"></div>
                                     </ng-container>
@@ -147,7 +137,7 @@ Welcome to "Plan And Trip", Our trip planner is designed to make your journey ef
                                                             Départ:      {{trace?.depart?.name}}
                                                         </h1>
                                                         <mat-list-item
-                                                            *ngFor="let item of trace?.depart?.areaList">
+                                                            *ngFor="let item of trace?.depart?.line">
                                                             <mat-icon
                                                                 [svgIcon]="'heroicons_solid:transport'"></mat-icon>
                                                             <p>
@@ -189,7 +179,7 @@ Welcome to "Plan And Trip", Our trip planner is designed to make your journey ef
                                             </ng-container>
                                             <button class="fuse-mat-no-subscript w-full sm:w-40 mt-5  sm:ml-4 border-4"
                                                     mat-flat-button [color]="'warn'"
-                                                    (click)="goToPayment()">
+                                                    (click)="goToPayment(trace)">
                                                 Prendre un ticket
                                             </button>
                                         </div>

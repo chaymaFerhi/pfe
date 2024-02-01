@@ -16,7 +16,7 @@ export const environment = {
     geometrys: 'geometrys',
     stations: 'stations',
     quizs: 'quizs',
-    steps: 'steps',
+    reservations: 'reservations',
     activeUser: 'activeUser'
 
 

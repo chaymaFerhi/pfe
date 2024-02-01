@@ -11,6 +11,7 @@ export interface Trace {
     geometry: Geometry;
     record_timestamp: string;
     transport: string;
-    dateSortie: string;
+    departureDate: string;
+    arrivalDate: string;
 }
 

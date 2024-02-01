@@ -68,12 +68,15 @@
                             <span class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4
                             gt-xs:mb-0">Area list</span>
                             <mat-form-field class="fuse-mat-dense flex-auto">
-                                <textarea matInput [formControlName]="'areaList'" rows="2"
-                                          placeholder="Add area list"></textarea>
-                                <mat-error *ngIf="stationForm.controls.areaList.hasError('required')">
-                                    Area list est obligatoire
-                                </mat-error>
+                                <mat-select [value]="'Choose the transport line'" [formControlName]="'line'">
+                                    <mat-option [value]="'Choose the transport type'">Choose the transport ligne</mat-option>
+                                    <mat-option [value]="'paris'">Paris</mat-option>
+                                    <mat-option [value]="'berlin'">Berlin</mat-option>
+                                </mat-select>
 
+                                <mat-error *ngIf="stationForm.get('line').hasError('required')">
+                                    Ligne is required
+                                </mat-error>
                             </mat-form-field>
                         </div>
 

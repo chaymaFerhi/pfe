@@ -33,7 +33,8 @@ export class AddTraceComponent implements OnInit {
             destination: ['', Validators.required],
             depart: ['', [Validators.required]],
             transport: ['', Validators.required],
-            dateSortie: ['', Validators.required]
+            departureDate: ['', Validators.required],
+            arrivalDate: ['', Validators.required]
         });
         this.stations$ = this._stationsService.stations$;
 

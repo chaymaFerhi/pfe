@@ -4,7 +4,7 @@ import {AcademyListComponent} from 'app/modules/admin/apps/academy/list/list.com
 import {AcademyCategoriesResolver} from 'app/modules/admin/apps/academy/academy.resolvers';
 import {StationsResolvers} from '../../../../shared/resolver/stations.resolvers';
 import {ActivitiesResolver} from '../../pages/activities/activities.resolvers';
-import {TracesResolvers} from '../../../../shared/resolver/traces-resolvers.service';
+import {TracesResolvers} from '../../../../shared/resolver/traces.resolvers';
 import {PaymentComponent} from './payment/payment.component';
 import {ActiveUserResolvers, UsersResolvers} from '../../../../shared/resolver/users.resolvers';
 
@@ -32,7 +32,7 @@ export const academyRoutes: Route[] = [
                 }
             },
             {
-                path: 'payment',
+                path: 'payment/:id',
                 component: PaymentComponent,
                 resolve: {
 

@@ -5,7 +5,8 @@ const traceSchema = new mongoose.Schema({
 
         numeroLigne: String,
         transport: String,
-        dateSortie: String,
+        departureDate: String,
+        arrivalDate: String,
         voyage: {
             type: mongoose.Schema.ObjectId,
             ref: 'Voyage',

@@ -1,19 +1,21 @@
-const mongoose= require('mongoose');
+const mongoose = require('mongoose');
 
-const ReservationModel = mongoose.model('Reservation',{
+const reservationSchema = new mongoose.Schema({
 
-    date_reservation: {
-       
-    },
-    trace: {
+        date_reservation: String,
+        trace: {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Trace',
+        },
+        user: {
+            type: mongoose.Schema.ObjectId,
+            ref: 'User',
+        },
 
-    },
-    user:{
 
-    },
-
-    
-}
+    }
 )
 
-module.exports=ReservationModel;
+const reservationModel = mongoose.model('Reservation', reservationSchema);
+
+module.exports = reservationModel;

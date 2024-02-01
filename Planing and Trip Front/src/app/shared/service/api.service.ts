@@ -14,11 +14,8 @@ export class ApiService {
     public static apiUser = environment.users;
     public static apiGeometrys = environment.geometrys;
     public static apiStations = environment.stations;
-    public static apiLessons = environment.lessons;
     public static apiTraces = environment.traces;
-    public static apiTrainer = environment.trainers;
-    public static apiQuiz = environment.quizs;
-    public static apiStep = environment.steps;
+    public static apiReservation = environment.reservations;
 
     token: any;
 

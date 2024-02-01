@@ -49,9 +49,9 @@
                             matSort
                             matSortDisableClear>
 
-                            <div [mat-sort-header]="'name'">Nom</div>
-                            <div [mat-sort-header]="'areaList'">
-liste des stations
+                            <div [mat-sort-header]="'line'">Line</div>
+                            <div [mat-sort-header]="'name'">
+Station
                             </div>
                             <div class=" sm:block">Actions</div>
                         </div>
@@ -63,13 +63,11 @@ liste des stations
                                     <!--<div></div>-->
                                     <!-- SKU -->
                                     <div class="hidden md:block truncate">
-                                        {{station.name}}
+                                        {{station.line}}
                                     </div>
                                     <div class="hidden md:block truncate">
-                                        <ng-container *ngFor="let item of station.areaList">
-
-                                            <p>{{item}}</p>
-                                        </ng-container>
+                                            <p>                                        {{station.name}}
+                                            </p>
                                     </div>
                                     <!-- Details button -->
                                     <div>
