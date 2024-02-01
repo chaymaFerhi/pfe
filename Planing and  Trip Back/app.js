@@ -17,7 +17,7 @@ const geometryRouter = require('./src/routes/geometryRoutes');
 const userRouter = require('./src/routes/userRoutes');
 const stationsRouter = require('./src/routes/stationsRoutes');
 const traceRouter = require('./src/routes/traceRoutes');
-// const bookingController = require('./src/controllers/bookingController');
+const reservationRouter = require('./src/routes/reservationRoutes');
 const voyageRouter = require('./src/routes/voyageRoutes');
 // const postRouter = require('./src/routes/postRoutes');
 // Start express app
@@ -85,7 +85,7 @@ app.use('/api/v1/geometrys', geometryRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/stations', stationsRouter);
 app.use('/api/v1/traces', traceRouter);
-// app.use('/api/v1/posts', postRouter);
+app.use('/api/v1/reservations', reservationRouter);
 
 app.all('*', (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 402));

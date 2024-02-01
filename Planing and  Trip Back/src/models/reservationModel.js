@@ -13,8 +13,29 @@ const reservationSchema = new mongoose.Schema({
         },
 
 
+    },
+    {
+        toJSON: { virtuals: true },
+        toObject: { virtuals: true }
     }
 )
+
+reservationSchema.pre(/^find/, function(next) {
+    this.populate({
+        path: 'user',
+        select: ''
+    });
+
+    next();
+});
+reservationSchema.pre(/^find/, function(next) {
+    this.populate({
+        path: 'trace',
+        select: ''
+    });
+
+    next();
+});
 
 const reservationModel = mongoose.model('Reservation', reservationSchema);
 

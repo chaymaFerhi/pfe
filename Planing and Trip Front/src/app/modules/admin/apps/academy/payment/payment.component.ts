@@ -5,7 +5,7 @@ import {Users} from '../../../../../shared/model/users.types';
 import {UsersService} from '../../../../../shared/service/users.service';
 import {NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels} from '@techiediaries/ngx-qrcode';
 import {ReservationsService} from '../../../../../shared/service/reservations.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
     selector: 'payment',
@@ -19,6 +19,7 @@ export class PaymentComponent implements OnInit {
     value = 'https://i.pinimg.com/564x/2b/23/b4/2b23b4430e651e20ada0e1bb2ab9c174.jpg';
     horizontalStepperForm: FormGroup;
     verticalStepperForm: FormGroup;
+    traceId: number;
 
     /**
      * Constructor
@@ -26,6 +27,7 @@ export class PaymentComponent implements OnInit {
     constructor(private _formBuilder: FormBuilder,
                 private _router: Router,
                 private _reservationsService: ReservationsService,
+                private activatedRoute: ActivatedRoute,
                 private _userService: UsersService) {
     }
 
@@ -40,6 +42,7 @@ export class PaymentComponent implements OnInit {
         // Horizontal stepper form
         this.horizontalStepperForm = this._formBuilder.group({
             step1: this._formBuilder.group({
+                id: [''],
                 email: ['', [Validators.required, Validators.email]],
                 phonenumber: ['', Validators.required],
                 role: ['',],
@@ -64,9 +67,11 @@ export class PaymentComponent implements OnInit {
         this.users$ = this._userService.user$;
 
         this.users$.subscribe((user) => {
+            console.log(user)
             const exampleDate = new Date(user?.datedenaissance);
             this.horizontalStepperForm.patchValue({
                 step1: {
+                    id: user.id,
                     email: user.email,
                     phonenumber: user.phonenumber,
                     role: user?.role,
@@ -77,16 +82,23 @@ export class PaymentComponent implements OnInit {
             this.horizontalStepperForm.get('step1.email').disable();
             this.horizontalStepperForm.get('step1.phonenumber').disable();
             this.horizontalStepperForm.get('step1.name').disable();
-            this.horizontalStepperForm.get('step1.adresse').disable();
+            this.horizontalStepperForm.get('step1.address').disable();
+        });
+        this.activatedRoute.params.subscribe((res) => {
+            this.traceId = res?.id;
         });
     }
 
     addReservation(): void {
-
-        this._reservationsService.addReservation(this.verticalStepperForm.value)
+        console.log(this.horizontalStepperForm.value)
+        const body = {
+            user: this.horizontalStepperForm.value.step1.id,
+            trace:this.traceId
+        };
+        this._reservationsService.addReservation(body)
             .subscribe((res) => {
                 console.log(res);
-                this._router.navigate(['pages/show-traces']);
+                this._router.navigate(['/apps/trace']);
                 return res;
             });
 

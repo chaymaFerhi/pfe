@@ -41,7 +41,7 @@ export class ReservationsService {
 
     addReservation(body): Observable<any> {
         console.log(body);
-        return this._apiService.post(`${ApiService.apiReservation}/create-reservation`, body)
+        return this._apiService.post(`${ApiService.apiReservation}/add-reservation`, body)
             .pipe(map(res => res));
 
     }
@@ -53,27 +53,12 @@ export class ReservationsService {
     /**
      * Get reservation by id
      */
-    getReservationById(id: string): Observable<Reservation> {
-        return this._reservations.pipe(
-            take(1),
-            map((reservations) => {
-
-                // Find the product
-                const reservation = reservations.find(item => item.id === id) || null;
-
-                // Update the product
-                this._reservation.next(reservation);
-
-                // Return the product
-                return reservation;
-            }),
-            switchMap((reservation) => {
-
-                if (!reservation) {
-                    return throwError('Could not found product with id of ' + id + '!');
-                }
-
-                return of(reservation);
+    getReservationByUserId(): Observable<Reservation[]> {
+        return this._httpClient.get(`${ApiService.apiVersion}${ApiService.apiReservation}/get-my-reservations`).pipe(
+            map((response: any) => {
+                console.log(response.content);
+                this._reservations.next(response.content);
+                return response.content;
             })
         );
     }

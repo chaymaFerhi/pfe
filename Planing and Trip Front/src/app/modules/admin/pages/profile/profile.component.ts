@@ -7,13 +7,15 @@ import * as moment from 'moment';
 import {Observable} from 'rxjs';
 import {Users} from '../../../../shared/model/users.types';
 import {ApiService} from '../../../../shared/service/api.service';
+import {ReservationsService} from '../../../../shared/service/reservations.service';
+import {Reservation} from '../../../../shared/model/reservations.types';
 
 @Component({
     selector: 'profile',
     templateUrl: './profile.component.html',
     encapsulation: ViewEncapsulation.None,
 })
-export class ProfileComponent implements OnInit,AfterViewInit {
+export class ProfileComponent implements OnInit {
     user: Users = {
         active: false,
         address: '',
@@ -34,6 +36,7 @@ export class ProfileComponent implements OnInit,AfterViewInit {
     userForm: FormGroup;
     imgUrl: string | ArrayBuffer | null = null;
     fileList: any;
+    reservations: Reservation[];
 
     /**
      * Constructor
@@ -42,7 +45,8 @@ export class ProfileComponent implements OnInit,AfterViewInit {
         private fb: FormBuilder,
         private _activatedRoute: ActivatedRoute,
         private _router: Router,
-        private _userService: UsersService
+        private _userService: UsersService,
+        private _reservationsService: ReservationsService
     ) {
     }
 
@@ -61,6 +65,7 @@ export class ProfileComponent implements OnInit,AfterViewInit {
             role: [],
         });
         this.getUser();
+        this.getReservations();
 
         this._activatedRoute.params.subscribe((res) => {
             console.log(res);
@@ -83,41 +88,8 @@ export class ProfileComponent implements OnInit,AfterViewInit {
             }
         });
     }
-ngAfterViewInit(){
-    this.userForm = this.fb.group({
-        id: [],
-        name: [],
-        photo: [],
-        email: [],
-        age: [],
-        phonenumber: [],
-        address: [],
-        datedenaissance: [],
-        role: [],
-    });
-    this.getUser();
 
-    this._activatedRoute.params.subscribe((res) => {
-        console.log(res);
-        if (res?.id) {
-            this.idUser = res?.id;
-            this.getUser();
 
-            //this.imgUrl = `${ApiService.apiPicture}img/User/${this.user?.photo}`;
-            //this.userForm.patchValue({
-            //    name: this.user?.name,
-            //    role: this.user?.role,
-            //    email: this.user?.email,
-            //    phonenumber: this.user?.phonenumber,
-            //    address: this.user?.address,
-            //    datedenaissance: this.user?.datedenaissance,
-            //});
-        } else {
-            this.getUser();
-
-        }
-    });
-}
     getUser(): any {
         this._userService.get().subscribe((user: any) => {
             console.log(user);
@@ -198,4 +170,11 @@ ngAfterViewInit(){
         }
     }
 
+    private getReservations(): any {
+        return this._reservationsService.getReservationByUserId().subscribe((reservations) => {
+            console.log(reservations)
+            this.reservations = reservations;
+            console.log(this.reservations)
+        });
+    }
 }
