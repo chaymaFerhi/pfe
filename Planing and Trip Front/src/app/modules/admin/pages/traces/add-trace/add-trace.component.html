@@ -96,6 +96,31 @@
                             </mat-form-field>
                         </div>
                         <div class="flex flex-col gt-xs:flex-row gt-xs:items-baseline">
+                            <span class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4 gt-xs:mb-0">Station between</span>
+                            <mat-form-field class="fuse-mat-dense flex-auto">
+                                <mat-select [value]="'Choose the station inline'" [formControlName]="'between'" multiple>
+                                    <mat-option [value]="'Choose the depart station'">Choose the station between</mat-option>
+                                    <ng-container *ngIf="(stations$ | async) as stations">
+                                        <ng-container *ngIf="stations.length > 0; else noTraces">
+                                            <ng-container *ngFor="let station of stations; trackBy: trackByFn">
+                                                <mat-option [value]="station">{{station?.name}}</mat-option>
+                                            </ng-container>
+                                        </ng-container>
+                                    </ng-container>
+                                </mat-select>
+                                <ng-template #noTraces>
+                                    <div
+                                        class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">
+                                        There are no stations! <span>Add a<a [routerLink]="['/pages/add-station']">station</a></span>
+                                    </div>
+                                </ng-template>
+
+                                <mat-error *ngIf="traceForm.get('destination').hasError('required')">
+                                    Email is required
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col gt-xs:flex-row gt-xs:items-baseline">
                             <span class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4 gt-xs:mb-0">Trasnport</span>
                             <mat-form-field class="fuse-mat-dense flex-auto">
                                 <mat-select [value]="'Choose the transport type'" [formControlName]="'transport'">

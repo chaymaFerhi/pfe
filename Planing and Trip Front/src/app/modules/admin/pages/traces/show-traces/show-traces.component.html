@@ -69,6 +69,10 @@ Départ
                                 [mat-sort-header]="'destination'">
 Destination
                             </div>
+                            <div
+                                [mat-sort-header]="'between'">
+Station inline
+                            </div>
 
                             <div class="hidden sm:block">Details</div>
                         </div>
@@ -94,6 +98,12 @@ Destination
                                     </div>
                                     <div class="hidden sm:block">
                                         {{trace?.destination.name}}
+                                    </div>
+                                    <div class="hidden sm:block">
+                                        <ng-container *ngFor="let station of trace?.between">
+
+                                        {{station?.name}}
+                                        </ng-container>
                                     </div>
 
                                     <!-- Active -->

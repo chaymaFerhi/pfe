@@ -17,6 +17,10 @@ const traceSchema = new mongoose.Schema({
             type: mongoose.Schema.ObjectId,
             ref: 'Station',
         },
+        between: [{
+            type: mongoose.Schema.ObjectId,
+            ref: 'Station',
+        }],
         destination: {
             type: mongoose.Schema.ObjectId,
             ref: 'Station',
@@ -42,6 +46,14 @@ traceSchema.pre(/^find/, function (next) {
 traceSchema.pre(/^find/, function (next) {
     this.populate('station').populate({
         path: 'destination',
+        select: 'name areaList'
+    });
+    next();
+
+})
+traceSchema.pre(/^find/, function (next) {
+    this.populate('station').populate({
+        path: 'between',
         select: 'name areaList'
     });
     next();

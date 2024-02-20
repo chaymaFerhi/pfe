@@ -8,6 +8,7 @@ export interface Trace {
     voyage: Voyage;
     depart: Station;
     destination: Station;
+    between: Station[];
     geometry: Geometry;
     record_timestamp: string;
     transport: string;

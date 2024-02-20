@@ -32,6 +32,7 @@ export class AddTraceComponent implements OnInit {
             name: ['', Validators.required],
             destination: ['', Validators.required],
             depart: ['', [Validators.required]],
+            between: ['', [Validators.required]],
             transport: ['', Validators.required],
             departureDate: ['', Validators.required],
             arrivalDate: ['', Validators.required]
