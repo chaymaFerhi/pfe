@@ -45,8 +45,6 @@ export class AuthService {
 
     set setUser(user) {
         localStorage.setItem(environment.activeUser, user);
-
-        // this._userService.get();
     }
 
     get getUser(): Users {

@@ -62,7 +62,7 @@ export class SearchMockApi
 
                 // Filter the navigation
                 const pagesResults = cloneDeep(flatNavigation)
-                    .filter(page => (page.title?.toLowerCase().includes(query) || (page.subtitle && page.subtitle.includes(query))));
+                    .filter(page => (page.title?.toLowerCase().includes(query) || page?.subtitle?.includes(query)));
 
                 // Filter the tasks
                 const tasksResults = cloneDeep(this._tasks)

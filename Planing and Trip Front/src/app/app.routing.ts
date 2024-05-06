@@ -189,6 +189,13 @@ export const appRoutes: Route[] = [
                         loadChildren: () => import('app/modules/admin/pages/traces/add-trace/add-trace.module').then(m => m.AddTraceModule)
                     },
                     {
+                        path: 'add-trace/:idTrace',
+                        data: {
+                            role: roleAdmin
+                        },
+                        loadChildren: () => import('app/modules/admin/pages/traces/add-trace/add-trace.module').then(m => m.AddTraceModule)
+                    },
+                    {
                         path: 'add-user',
                         data: {
                             role: roleAdmin

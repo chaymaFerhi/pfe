@@ -60,20 +60,17 @@ export class TracesService {
     }
 
     editTrace(body, id): Observable<Trace> {
-        return this._apiService.patch(`${ApiService.apiVersion}${ApiService.apiTraces}/${id}`, body).pipe(map(res => res));
+        return this._apiService.patch(`${ApiService.apiTraces}/${id}`, body).pipe(map(res => res));
     }
 
     /**
      * Get trace by id
      */
     getTraceById(id: string): Observable<Trace> {
-        return this._httpClient.get<Trace>(`${ApiService.apiVersion}${ApiService.apiTraces}/find-trace/${id}`).pipe(
-            map((trace) => {
-                // Update the trace
-                this._trace.next(trace);
-
-                // Return the trace
-                return trace;
+        return this._httpClient.get<Trace>(`${ApiService.apiVersion}${ApiService.apiTraces}/${id}`).pipe(
+            map((trace: any) => {
+                this._trace.next(trace?.data);
+                return trace.data;
             }),
             switchMap((trace) => {
 

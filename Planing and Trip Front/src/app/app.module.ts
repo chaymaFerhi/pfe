@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ActivatedRouteSnapshot, ExtraOptions, PreloadAllModules, RouterModule} from '@angular/router';
+import {ExtraOptions, PreloadAllModules, RouterModule} from '@angular/router';
 import {MarkdownModule} from 'ngx-markdown';
 import {FuseModule} from '@fuse';
 import {FuseConfigModule} from '@fuse/services/config';

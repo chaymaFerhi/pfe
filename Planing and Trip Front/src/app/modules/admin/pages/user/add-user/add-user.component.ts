@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {environment} from '../../../../../../environments/environment';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {MatChipInputEvent} from '@angular/material/chips';
 import {UsersService} from '../../../../../shared/service/users.service';
 
 @Component({

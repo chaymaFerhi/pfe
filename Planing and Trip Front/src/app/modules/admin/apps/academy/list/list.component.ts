@@ -1,5 +1,4 @@
 import {
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component, ElementRef,
     OnDestroy,
@@ -12,8 +11,8 @@ import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {AcademyService} from 'app/modules/admin/apps/academy/academy.service';
 import {StationsService} from '../../../../../shared/service/stations.service';
 import {Station} from '../../../../../shared/model/stations.types';
-import {debounceTime, map, switchMap, takeUntil} from 'rxjs/operators';
 import {combineLatest} from 'rxjs';
+import {debounceTime, switchMap, takeUntil} from 'rxjs/operators';
 import {Category} from '../../../../../shared/model/category.types';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Overlay} from '@angular/cdk/overlay';
@@ -79,9 +78,6 @@ export class AcademyListComponent implements OnInit, OnDestroy {
      * On init
      */
     ngOnInit(): void {
-        //this.traces$ = this._tracesService.traces$;
-
-        // Get the categories
         this._academyService.categories$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((categories: Category[]) => {
@@ -110,38 +106,21 @@ export class AcademyListComponent implements OnInit, OnDestroy {
                 debounceTime(300),
                 switchMap((query) => {
                     console.log('loading');
-                    //this.closeDetails();
-                    //this.isLoading = true;
                     return this._tracesService.getAllTraces();
                 }),
-                map(() => {
-                    //this.isLoading = false;
-                })
             )
             .subscribe();
 
         // Filter the stations
         combineLatest([this.filters.categorySlug$, this.filters.query$, this.filters.hideCompleted$])
             .subscribe(([categorySlug, query, hideCompleted]) => {
-
-                // Reset the filtered courses
-                // this.filteredCourses = this.courses;
-
-                // Filter by category
                 if (categorySlug !== 'all') {
                     this.filteredStations = this.filteredStations.filter(trace => trace.name === categorySlug);
                 }
-
-                // Filter by search query
                 if (query !== '') {
                     this.filteredStations = this.filteredStations.filter(trace =>
                         trace.name.toLowerCase().includes(query.toLowerCase()));
                 }
-
-                // Filter by completed
-                //if (hideCompleted) {
-                //    this.filteredStations = this.filteredStations.filter(course => course.progress.completed === 0);
-                //}
             });
     }
 
@@ -196,28 +175,6 @@ export class AcademyListComponent implements OnInit, OnDestroy {
      */
     isSameDay(current: string, compare: string): boolean {
         return moment(current, moment.ISO_8601).isSame(moment(compare, moment.ISO_8601), 'hour');
-    }
-
-    /**
-     * Get the relative format of the given date
-     *
-     * @param date
-     */
-    getRelativeFormat(date: string): string {
-        const today = moment().startOf('day');
-        const yesterday = moment().subtract(1, 'day').startOf('day');
-
-        // Is today?
-        if (moment(date, moment.ISO_8601).isSame(today, 'day')) {
-            return 'Today';
-        }
-
-        // Is yesterday?
-        if (moment(date, moment.ISO_8601).isSame(yesterday, 'day')) {
-            return 'Yesterday';
-        }
-
-        return moment(date, moment.ISO_8601).fromNow();
     }
 
     goToPayment(trace): any {

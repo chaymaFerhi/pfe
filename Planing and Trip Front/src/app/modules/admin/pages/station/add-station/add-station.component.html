@@ -15,18 +15,10 @@
                     <a *ngIf="idStation" class="ml-1 text-warning-500">Update</a>
                 </div>
             </div>
-            <!-- Title -->
-            <!--            <div class="mt-2">-->
-            <!--                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">-->
-            <!--                    Layouts-->
-            <!--                </h2>-->
-            <!--            </div>-->
         </div>
     </div>
-    <!-- Main -->
     <div class="flex-auto p-6 sm:p-10">
         <div class="max-w-3xl">
-            <!-- Sectioned form with separate cards #3 -->
             <form [formGroup]="stationForm">
                 <div class="flex flex-col  bg-card shadow rounded overflow-hidden">
                     <div class="p-8 bg-gray-50 dark:bg-gray-700">
@@ -38,7 +30,8 @@
                             <span class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4
                             gt-xs:mb-0">Nom</span>
                             <mat-form-field class="fuse-mat-dense flex-auto">
-                                <input matInput [formControlName]="'name'" placeholder="Add station name" maxlength="255" (change)="getLatLong()">
+                                <input matInput [formControlName]="'name'" placeholder="Add station name"
+                                       maxlength="255" (change)="getLatLong()">
                                 <mat-error *ngIf="stationForm.controls.name.hasError('required')">
                                     Name required
                                 </mat-error>
@@ -48,7 +41,8 @@
                             <span class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4
                             gt-xs:mb-0">Longitude</span>
                             <mat-form-field class="fuse-mat-dense flex-auto">
-                                <input matInput [formControlName]="'longitude'" placeholder="Add station long" maxlength="255">
+                                <input matInput [formControlName]="'longitude'" placeholder="Add station long"
+                                       maxlength="255">
                                 <mat-error *ngIf="stationForm.controls.longitude.hasError('required')">
                                     Name required
                                 </mat-error>
@@ -58,7 +52,8 @@
                             <span class="font-semibold mb-1 gt-xs:text-right gt-xs:min-w-32 gt-xs:mr-4
                             gt-xs:mb-0">Latitude</span>
                             <mat-form-field class="fuse-mat-dense flex-auto">
-                                <input matInput [formControlName]="'latitude'" placeholder="Add station lat" maxlength="255">
+                                <input matInput [formControlName]="'latitude'" placeholder="Add station lat"
+                                       maxlength="255">
                                 <mat-error *ngIf="stationForm.controls.latitude.hasError('required')">
                                     Name required
                                 </mat-error>
@@ -69,7 +64,8 @@
                             gt-xs:mb-0">Area list</span>
                             <mat-form-field class="fuse-mat-dense flex-auto">
                                 <mat-select [value]="'Choose the transport line'" [formControlName]="'line'">
-                                    <mat-option [value]="'Choose the transport type'">Choose the transport ligne</mat-option>
+                                    <mat-option [value]="'Choose the transport type'">Choose the transport ligne
+                                    </mat-option>
                                     <mat-option [value]="'paris'">Paris</mat-option>
                                     <mat-option [value]="'berlin'">Berlin</mat-option>
                                 </mat-select>
@@ -95,12 +91,12 @@
                         Save
                     </button>
                     <button *ngIf="idStation" (click)="updateStation()"
-                    class="px-6 ml-3"
-                    mat-flat-button
-                    [disabled]="!stationForm.valid"
-                    [color]="'warn'">
-                Update
-            </button>
+                            class="px-6 ml-3"
+                            mat-flat-button
+                            [disabled]="!stationForm.valid"
+                            [color]="'warn'">
+                        Update
+                    </button>
                 </div>
             </form>
         </div>

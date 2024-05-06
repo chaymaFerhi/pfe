@@ -6,7 +6,7 @@ import {StationsResolvers} from '../../../../shared/resolver/stations.resolvers'
 import {ActivitiesResolver} from '../../pages/activities/activities.resolvers';
 import {TracesResolvers} from '../../../../shared/resolver/traces.resolvers';
 import {PaymentComponent} from './payment/payment.component';
-import {ActiveUserResolvers, UsersResolvers} from '../../../../shared/resolver/users.resolvers';
+import {ActiveUserResolvers} from '../../../../shared/resolver/users.resolvers';
 
 export const academyRoutes: Route[] = [
     {

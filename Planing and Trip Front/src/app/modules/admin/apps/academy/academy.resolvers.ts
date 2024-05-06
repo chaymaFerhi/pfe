@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot} from '@angular/router';
-import {Observable, throwError} from 'rxjs';
-import {catchError} from 'rxjs/operators';
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
+import {Observable} from 'rxjs';
 import {AcademyService} from 'app/modules/admin/apps/academy/academy.service';
 import {StationsService} from '../../../../shared/service/stations.service';
 import {Station} from '../../../../shared/model/stations.types';

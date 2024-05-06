@@ -69,9 +69,6 @@ export class StationsService {
     getStationById(id: string): Observable<Station> {
         return this._httpClient.get<Station>(`${ApiService.apiVersion}${ApiService.apiStations}/${id}`).pipe(
             map((station:any) => {
-                console.log(station);
-                
-                // Update the station
                 this._station.next(station.data);
 
                 // Return the station

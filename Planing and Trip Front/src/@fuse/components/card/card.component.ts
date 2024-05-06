@@ -22,13 +22,6 @@ export class FuseCardComponent implements OnChanges
     @Input() face: FuseCardFace = 'front';
     @Input() flippable: boolean = false;
 
-    /**
-     * Constructor
-     */
-    constructor()
-    {
-    }
-
     // -----------------------------------------------------------------------------------------------------
     // @ Accessors
     // -----------------------------------------------------------------------------------------------------

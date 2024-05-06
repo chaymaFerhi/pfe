@@ -67,8 +67,6 @@ export class PaymentComponent implements OnInit {
         this.users$ = this._userService.user$;
 
         this.users$.subscribe((user) => {
-            console.log(user)
-            const exampleDate = new Date(user?.datedenaissance);
             this.horizontalStepperForm.patchValue({
                 step1: {
                     id: user.id,

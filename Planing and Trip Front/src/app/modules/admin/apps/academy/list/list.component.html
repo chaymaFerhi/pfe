@@ -35,14 +35,6 @@ Welcome to "Plan And Trip", Our trip planner is designed to make your journey ef
                                 {{station?.name}}
                             </mat-option>
                         </mat-select>
-                        <!--<mat-select-->
-                        <!--    [value]="'Saissisez l\'origine'"-->
-                        <!--    (selectionChange)="filterByCategory($event)">-->
-                        <!--    <mat-option [value]="'all'">Départ</mat-option>-->
-                        <!--    <ng-container *ngFor="let station of stations; trackBy: trackByFn">-->
-                        <!--        <mat-option [value]="station">{{station.name}}</mat-option>-->
-                        <!--    </ng-container>-->
-                        <!--</mat-select>-->
                     </mat-form-field>
                     <mat-form-field class="fuse-mat-no-subscript  m-4 w-full sm:w-44 ">
                         <mat-label class="text-center">Destination</mat-label>
@@ -54,7 +46,6 @@ Welcome to "Plan And Trip", Our trip planner is designed to make your journey ef
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <!--          </div>-->
                     <div
                         class="flex my-2 flex-col items-center justify-between  max-w-xs sm:max-w-none">
 
@@ -64,9 +55,6 @@ Welcome to "Plan And Trip", Our trip planner is designed to make your journey ef
                                          [dateFormat]="dateFormat"
                                          [timeFormat]="timeFormat"></fuse-date-range>
                     </div>
-                    <!--      </div>
-                          <div class="flex mb-2 sm:flex-row items-center justify-between w-50 max-w-xs sm:max-w-none">
-          -->
                     <button class="fuse-mat-no-subscript w-full sm:w-40 mt-5  sm:ml-4 border-4"
                             mat-flat-button [color]="'primary'"
                             (click)="search()">
@@ -77,11 +65,6 @@ Welcome to "Plan And Trip", Our trip planner is designed to make your journey ef
         </div>
         <div class="flex flex-auto w-full max-w-3xl">
 
-            <!-- Title -->
-            <!--<div class="text-4xl font-extrabold tracking-tight leading-none">All Activities</div>-->
-            <!--<div class="mt-1.5 text-lg text-secondary">Application wide traces are listed here as individual items, starting with the most recent.</div>-->
-
-            <!--<trace></trace>-->
             <ng-container *ngIf="(traces$ | async) as traces; else noActivity">
                 <ng-container *ngIf="traces.length; else noActivity">
                     <div>
@@ -157,20 +140,8 @@ Welcome to "Plan And Trip", Our trip planner is designed to make your journey ef
 
 
                                                 <ng-container *ngIf="trace?.between.length>0">
-                                                    <!--<ng-container>-->
-                                                    <!--    <div-->
-                                                    <!--        class="flex flex-shrink-0 items-center justify-center w-10 h-10 mr-4 rounded-full bg-gray-400">-->
-                                                    <!--        &lt;!&ndash;<mat-icon&ndash;&gt;-->
-                                                    <!--        &lt;!&ndash;    class="icon-size-5 text-white"&ndash;&gt;-->
-                                                    <!--        &lt;!&ndash;    [svgIcon]="'heroicons_solid:location-marker'">&ndash;&gt;-->
-                                                    <!--        &lt;!&ndash;</mat-icon>&ndash;&gt;-->
-                                                    <!--    </div>-->
-                                                    <!--</ng-container>-->
-                                                    <!-- Internal link -->
+
                                                     <mat-list>
-                                                        <!--<h1>-->
-                                                        <!--    Départ:      {{trace?.between}}-->
-                                                        <!--</h1>-->
                                                         <mat-list-item
                                                             *ngFor="let item of trace?.between">
                                                             <mat-icon
@@ -199,7 +170,6 @@ Welcome to "Plan And Trip", Our trip planner is designed to make your journey ef
                                                     </mat-icon>
                                                 </div>
                                                 <ng-container *ngIf="trace?.destination?.name">
-                                                    <!-- Internal link -->
                                                     <h1>
 
                                                         Destination:      {{trace?.destination?.name}}
@@ -225,11 +195,6 @@ Welcome to "Plan And Trip", Our trip planner is designed to make your journey ef
                     </div>
                 </ng-container>
             </ng-container>
-            <!--<ng-template #loading>-->
-            <!--    Loading...-->
-            <!--</ng-template>-->
-
-            <!-- No Activity template -->
             <ng-template #noActivity>
                 There are is trace at the moment...
             </ng-template>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, Observable} from 'rxjs';
 import { tap } from 'rxjs/operators';
 import {Station} from '../../../../shared/model/stations.types';
 import {Category} from '../../../../shared/model/category.types';
@@ -12,7 +12,6 @@ export class AcademyService
 {
     // Private
     private _categories: BehaviorSubject<Category[] | null> = new BehaviorSubject(null);
-    private _course: BehaviorSubject<Station | null> = new BehaviorSubject(null);
     private _courses: BehaviorSubject<Station[] | null> = new BehaviorSubject(null);
 
     /**
